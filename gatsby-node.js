@@ -26,6 +26,8 @@ exports.createPages = ({ graphql, actions }) => {
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve("./src/templates/blog.js")
+    const otherPages = path.resolve("./src/templates/otherPages.js")
+
     resolve(
       graphql(
         `
@@ -45,8 +47,10 @@ exports.createPages = ({ graphql, actions }) => {
           console.log(result.errors)
           reject(result.errors)
         }
+        console.info(result)
 
         const posts = result.data.allContentfulBlog.edges
+        // const pages = result.data.allContentNavMenu.nodes.otherTitles
         posts.forEach(post => {
           createPage({
             path: `/blog/${post.node.slug}/`,
@@ -56,6 +60,16 @@ exports.createPages = ({ graphql, actions }) => {
             },
           })
         })
+
+        // pages.forEach(page => {
+        //   createPage({
+        //     path: `/${page.toLowerCase()}`,
+        //     component: otherPages,
+        //     context: {
+        //       slug: page.toLowerCase(),
+        //     },
+        //   })
+        // })
       })
     )
   })

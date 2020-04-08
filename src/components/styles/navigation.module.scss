@@ -1,0 +1,15 @@
+.navitself {
+  display: flex;
+}
+.innerNav {
+  display: flex;
+  margin: 0 auto;
+  max-width: max-content;
+  flex-wrap: wrap;
+}
+.navItem a {
+  font-size: 1.5em;
+  text-decoration: none !important;
+  padding: 2em;
+  margin-top: 1em;
+}

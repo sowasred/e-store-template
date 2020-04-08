@@ -1,7 +1,8 @@
-let contentfulConfig
-
 require("dotenv").config()
 
+// Contentful Section
+
+let contentfulConfig
 // Overwrite the Contentful config with environment variables if they exist
 contentfulConfig = {
   spaceId: process.env.CONTENTFUL_SPACE_ID,
@@ -21,27 +22,22 @@ module.exports = {
     author: `@sowasred1`,
   },
   plugins: [
-    // {
-    //   resolve: "gatsby-plugin-apollo",
-    //   options: {
-    //     uri: "http://localhost:8000/__graphql",
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `limelight`,
+          `source sans pro\:300,400,400i,700`,
+          `'Rubik', sans-serif\:300,400`,
+          `'Cormorant Garamond', serif\:300`,
+        ],
+        display: "swap",
+      },
+    },
     `gatsby-plugin-stripe`,
     `gatsby-plugin-sass`,
     `gatsby-env-variables`,
-    {
-      resolve: "gatsby-source-contentful",
-      options: contentfulConfig,
-    },
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `blogposts`,
-        path: `${__dirname}/src/blogposts`,
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -60,19 +56,46 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blogposts`,
+        path: `${__dirname}/src/blogposts`,
+      },
+    },
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Leather Jacket Store`,
         short_name: `Leather Jacket`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `black`,
+        theme_color: `black`,
         display: `minimal-ui`,
         icon: `src/images/jacket.png`, // This path is relative to the root of the site.
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-react-redux`,
+      options: {
+        // [required] - path to your createStore module
+        pathToCreateStoreModule: "./src/state/createStore",
+        // [optional] - options passed to `serialize-javascript`
+        // info: https://github.com/yahoo/serialize-javascript#options
+        // will be merged with these defaults:
+        serialize: {
+          space: 0,
+          isJSON: true,
+          unsafe: false,
+        },
+        // [optional] - if true will clean up after itself on the client, default:
+        cleanupOnClient: true,
+        // [optional] - name of key on `window` where serialized state will be stored, default:
+        windowKey: "__PRELOADED_STATE__",
+      },
+    },
+    {
+      resolve: "gatsby-source-contentful",
+      options: contentfulConfig,
+    },
   ],
 }

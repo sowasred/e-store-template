@@ -1,0 +1,15 @@
+header {
+  display: flex;
+  flex-direction: column;
+}
+.titlesWrapper {
+  display: flex;
+  justify-content: center;
+  background-size: cover;
+}
+.siteTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  font-size: 2em;
+  padding: 1vh;
+}

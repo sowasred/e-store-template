@@ -1,5 +1,3 @@
-import React from "react"
-
 import fetch from "isomorphic-fetch"
 
 import ApolloClient from "apollo-boost"

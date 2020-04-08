@@ -8,9 +8,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Header from "./header"
-import Navigation from "./navigation"
 import "../styles/index.scss"
-import layoutStyle from "./layout.module.scss"
+import layoutStyle from "./styles/layout.module.scss"
 
 const Layout = ({ children }) => {
   return (
@@ -18,7 +17,6 @@ const Layout = ({ children }) => {
       <div className={layoutStyle.container}>
         <div className={layoutStyle.content}>
           <Header siteTitle={"Leather Jacket Store"} />
-          <Navigation />
           <main>{children}</main>
         </div>
         <footer>

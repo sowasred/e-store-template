@@ -8,18 +8,13 @@
 
 // export { wrapRootElement } from "./src/apollo/wrap-root-element"
 
-import React from "react"
-import { ApolloProvider } from "react-apollo"
-import GlobalContextProvider from "./src/context/GlobalContextProvider"
-import { client } from "./src/context/ApolloClient"
+// import React from "react"
+// import { ApolloProvider } from "react-apollo"
+// import { client } from "./src/context/ApolloClient"
 
-// gatsby-ssr is required for build regardless if you plan to support SSR
-export const replaceRenderer = ({ bodyComponent, replaceBodyHTMLString }) => {
-  const ConnectedBody = () => (
-    <ApolloProvider client={client}>
-      <GlobalContextProvider>{bodyComponent}</GlobalContextProvider>
-    </ApolloProvider>
-  )
-
-  replaceBodyHTMLString(renderToString(<ConnectedBody />))
-}
+// // gatsby-ssr is required for build regardless if you plan to support SSR
+// export const wrapRootElement = ({ element }) => {
+//   return () => <ApolloProvider client={client}>{element}</ApolloProvider>
+// }
+import wrapWithProvider from "./wrap-with-provider.js"
+export const wrapRootElement = wrapWithProvider

@@ -8,24 +8,18 @@
 
 // export { wrapRootElement } from "./src/apollo/wrap-root-element"
 
-import React from "react"
-import { ApolloProvider } from "react-apollo"
-import GlobalContextProvider from "./src/context/GlobalContextProvider"
-import { client } from "./src/context/ApolloClient"
+// import React from "react"
+// import { ApolloProvider } from "react-apollo"
+// import { client } from "./src/context/ApolloClient"
 
 // export const wrapRootElement = ({ element }) => {
-//   return () => (
+//   return () => <ApolloProvider client={client}>{element}</ApolloProvider>
+// }
+// export const replaceRouterComponent = () => {
+//   const ConnectedRouterWrapper = ({ children }) => (
 //     <ApolloProvider client={client}>
-//       <GlobalContextProvider>{element}</GlobalContextProvider>
+//       <GlobalContextProvider>{children}</GlobalContextProvider>
 //     </ApolloProvider>
 //   )
-// }
-export const replaceRouterComponent = () => {
-  const ConnectedRouterWrapper = ({ children }) => (
-    <ApolloProvider client={client}>
-      <GlobalContextProvider>{children}</GlobalContextProvider>
-    </ApolloProvider>
-  )
-
-  return ConnectedRouterWrapper
-}
+import wrapWithProvider from "./wrap-with-provider.js"
+export const wrapRootElement = wrapWithProvider

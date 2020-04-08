@@ -1,76 +1,93 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { graphql, Link } from "gatsby"
 
-import { useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 import { client } from "../context/ApolloClient"
-
-// export const query = graphql`
-//   query {
-//     allContentfulNavMenu {
-//       nodes {
-//         otherTitles
-//       }
-//     }
-//   }
-// `
-// import { ApolloProvider } from "react-apollo"
-
+import navigationStyle from "./styles/navigation.module.scss"
 const TEST_QUERY = gql`
   {
     allContentfulNavMenu {
-      nodes {
-        otherTitles
+      edges {
+        node {
+          categories {
+            ... on ContentfulCategory {
+              title {
+                title
+              }
+              slug
+              icon {
+                fluid {
+                  src
+                  tracedSVG
+                }
+              }
+              categoryDescription {
+                categoryDescription
+              }
+            }
+          }
+          otherPages {
+            title
+            slug
+          }
+        }
       }
     }
   }
 `
 
-// export const GATSBY_QUERY = graphql`
-//     allContentfulNavMenu {
-//       nodes {
-//         categories {
-//           ... on ContentfulCategory {
-//             id
-//             categoryDescription {
-//               childMarkdownRemark {
-//                 html
-//               }
-//             }
-//             childContentfulCategoryTitleTextNode {
-//               title
-//             }
-//             icon {
-//               fluid {
-//                 src
-//                 tracedSVG
-//               }
-//             }
-//           }
-//         }
-//         otherTitles
-//       }
-//     }
-// `
-
 const Navigation = props => {
-  // const { loading, error, data } = useQuery(TEST_QUERY)
-  client
-    .query({
-      query: TEST_QUERY,
-    })
-    .then(res => console.info(res))
-  // console.info("nnn", data)
+  const [menuTitles, setMenuTitles] = useState([{ title: "", slug: "" }])
+
+  const fillMenu = () => {
+    client
+      .query({
+        query: TEST_QUERY,
+      })
+      .then(res => {
+        let categories = res.data.allContentfulNavMenu.edges[0].node.categories
+        let otherPages = res.data.allContentfulNavMenu.edges[0].node.otherPages
+
+        let tempArray = []
+
+        console.info("ses", categories)
+        // console.info("ses2", otherPages[0].title)
+        categories.map(item => {
+          tempArray.push({
+            title: item.title.title,
+            slug: item.slug,
+          })
+        })
+        otherPages.map(item => {
+          tempArray.push({
+            title: item.title,
+            slug: item.slug,
+          })
+        })
+        setMenuTitles([...tempArray])
+      })
+  }
+
+  useEffect(() => {
+    fillMenu()
+  }, [])
+
   return (
-    <nav role="navigation">
-      <ul>
-        <li>
+    <nav id={navigationStyle.navitself} role="navigation">
+      <div className={navigationStyle.innerNav}>
+        <span className={navigationStyle.navItem}>
           <Link to="/">Home</Link>
-        </li>
-        {/* {props.data.allContentfulNavMenu.nodes.map(item => (
-          <li>{item.otherTitles}</li>
-        ))} */}
-      </ul>
+        </span>
+        {menuTitles && menuTitles.length > 0 ? (
+          <React.Fragment>
+            {menuTitles.map(item => (
+              <span className={navigationStyle.navItem}>
+                <Link to={`/${item.slug}`}>{item.title}</Link>
+              </span>
+            ))}
+          </React.Fragment>
+        ) : null}
+      </div>
     </nav>
   )
 }
