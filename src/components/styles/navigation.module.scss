@@ -4,12 +4,54 @@
 .innerNav {
   display: flex;
   margin: 0 auto;
-  max-width: max-content;
-  flex-wrap: wrap;
+}
+.navItem {
+  text-align: center;
+  min-width: fit-content;
 }
 .navItem a {
-  font-size: 1.5em;
   text-decoration: none !important;
-  padding: 2em;
-  margin-top: 1em;
+  font-size: 1em;
+  display: flex;
+  flex-wrap: nowrap !important;
+  margin-left: 3em;
+}
+.dashboardWrapper {
+  display: flex;
+  margin: 0 auto;
+}
+.navItem2 {
+  display: flex;
+  text-decoration: none !important;
+  font-size: 1em;
+  margin-left: 3em;
+  align-items: center;
+  min-width: max-content !important;
+  cursor: pointer;
+  img {
+    height: 16px;
+    width: 16px;
+    margin-left: 0.5em;
+  }
+}
+
+.flag {
+  width: 32px !important;
+}
+
+@media all and (min-width: 1024px) {
+  .innerNav {
+    justify-content: space-between;
+  }
+  .navItem a {
+    margin-left: 1em;
+  }
+  .navItem2 {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 1em;
+    h3 {
+      font-size: 16px;
+    }
+  }
 }

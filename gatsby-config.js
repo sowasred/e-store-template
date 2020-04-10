@@ -27,9 +27,9 @@ module.exports = {
       options: {
         fonts: [
           `limelight`,
-          `source sans pro\:300,400,400i,700`,
-          `'Rubik', sans-serif\:300,400`,
-          `'Cormorant Garamond', serif\:300`,
+          `'Dawning of a New Day', cursive`,
+          `'Poppins', sans-serif`,
+          `'Raleway', sans-serif`,
         ],
         display: "swap",
       },

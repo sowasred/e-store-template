@@ -5,6 +5,9 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import MainpageIntro from "../components/mainpageintro"
+import BelowSection from "../components/belowsection"
+import MailSignup from "../components/mailsignup"
+import FeaturedProduct from "../components/featuredproduct"
 
 const IndexPage = ({ data }) => {
   // let imageUrl = `https:${data.allContentfulMainPage.nodes[0].mainImage.fluid.src}`
@@ -14,6 +17,15 @@ const IndexPage = ({ data }) => {
 
   let firstImage = `https:${data.allContentfulMainPage.nodes[0].secondRow[0].fluid.src}`
   let secondImage = `https:${data.allContentfulMainPage.nodes[0].secondRow[1].fluid.src}`
+  let description =
+    data.allContentfulMainPage.nodes[0].description.content[0].content[0].value
+
+  let longDescription =
+    data.allContentfulMainPage.nodes[0].longDescription.longDescription
+
+  let featuredProducts = data.allContentfulMainPage.nodes[0].product
+
+  console.info("ses55", featuredProducts[0])
 
   return (
     <Layout>
@@ -24,6 +36,19 @@ const IndexPage = ({ data }) => {
         menImage={menImage}
         menImageTitle={data.allContentfulMainPage.nodes[0].firstRow[1].title}
       />
+      <FeaturedProduct featuredProducts={featuredProducts} />
+      <BelowSection
+        firstImage={firstImage}
+        firstImageTitle={data.allContentfulMainPage.nodes[0].secondRow[0].title}
+        secondImage={secondImage}
+        secondImageTitle={
+          data.allContentfulMainPage.nodes[0].secondRow[1].title
+        }
+        longDescription={longDescription}
+      />
+
+      <MailSignup description={description} />
+
       {/* <h1>{data.allContentfulMainPage.nodes[0].mainTitle}</h1> */}
       {/* <img src={imageUrl} alt="Girl in a Leather Jacket" /> */}
     </Layout>
@@ -48,7 +73,11 @@ export const query = graphql`
         }
         mainTitle
         description {
-          description
+          content {
+            content {
+              value
+            }
+          }
         }
         longDescription {
           longDescription
@@ -60,6 +89,12 @@ export const query = graphql`
           style
           quantity
           seasonType
+          image {
+            fluid {
+              src
+              tracedSVG
+            }
+          }
           brand {
             companyName {
               companyName
@@ -67,6 +102,13 @@ export const query = graphql`
           }
           fit
           discountedPrice
+          gender
+          productName {
+            productName
+          }
+          productDescription {
+            productDescription
+          }
         }
         firstRow {
           fluid {

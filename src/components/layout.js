@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
     <React.Fragment>
       <div className={layoutStyle.container}>
         <div className={layoutStyle.content}>
-          <Header siteTitle={"Leather Jacket Store"} />
+          <Header siteTitle={"Leather Store"} />
           <main>{children}</main>
         </div>
         <footer>

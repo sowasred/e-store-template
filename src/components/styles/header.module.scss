@@ -1,15 +1,22 @@
 header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  width: 100vw;
 }
-.titlesWrapper {
-  display: flex;
-  justify-content: center;
-  background-size: cover;
-}
+
 .siteTitle {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
-  font-size: 2em;
-  padding: 1vh;
+  font-size: 1.2em;
+  margin-left: 7em;
+}
+
+@media all and (min-width: 1024px) {
+  .siteTitle {
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: max-content !important;
+    margin-left: 2em;
+    font-weight: 900 !important;
+  }
 }

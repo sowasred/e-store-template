@@ -4,24 +4,24 @@ import React from "react"
 
 import headerStyle from "./styles/header.module.scss"
 import Navigation from "./navigation"
+import Dashboard from "./dashboard"
 
 const Header = ({ siteTitle }) => {
   return (
     <header>
-      <div className={headerStyle.titlesWrapper}>
-        <h1 className={headerStyle.siteTitle}>
-          <Link
-            to="/"
-            style={{
-              color: `black`,
-              textDecoration: `none`,
-            }}
-          >
-            {siteTitle}
-          </Link>
-        </h1>
-      </div>
       <Navigation />
+      <h1 className={headerStyle.siteTitle}>
+        <Link
+          to="/"
+          style={{
+            color: `black`,
+            textDecoration: `none`,
+          }}
+        >
+          {siteTitle}
+        </Link>
+      </h1>
+      <Dashboard />
     </header>
   )
 }
