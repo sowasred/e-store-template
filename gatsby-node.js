@@ -26,7 +26,8 @@ exports.createPages = ({ graphql, actions }) => {
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve("./src/templates/blog.js")
-    const otherPages = path.resolve("./src/templates/otherPages.js")
+    const otherPage = path.resolve("./src/templates/otherPages.js")
+    const footerPage = path.resolve("./src/templates/footerPages.js")
 
     resolve(
       graphql(
@@ -40,6 +41,26 @@ exports.createPages = ({ graphql, actions }) => {
                 }
               }
             }
+            allContentfulCompanyPage {
+              nodes {
+                slug
+                title
+              }
+            }
+            allContentfulHelpPage {
+              nodes {
+                title
+                slug
+              }
+            }
+            allContentfulOtherPages {
+              edges {
+                node {
+                  slug
+                  title
+                }
+              }
+            }
           }
         `
       ).then(result => {
@@ -47,9 +68,14 @@ exports.createPages = ({ graphql, actions }) => {
           console.log(result.errors)
           reject(result.errors)
         }
-        console.info(result)
-
         const posts = result.data.allContentfulBlog.edges
+        const companyPages = result.data.allContentfulCompanyPage.nodes
+        const helpPages = result.data.allContentfulHelpPage.nodes
+        const otherPages = result.data.allContentfulOtherPages.edges
+
+        console.info("posts", posts)
+        console.info("heyyoo", result.data.allContentfulHelpPage.nodes)
+
         // const pages = result.data.allContentNavMenu.nodes.otherTitles
         posts.forEach(post => {
           createPage({
@@ -61,15 +87,35 @@ exports.createPages = ({ graphql, actions }) => {
           })
         })
 
-        // pages.forEach(page => {
-        //   createPage({
-        //     path: `/${page.toLowerCase()}`,
-        //     component: otherPages,
-        //     context: {
-        //       slug: page.toLowerCase(),
-        //     },
-        //   })
-        // })
+        companyPages.forEach(page => {
+          createPage({
+            path: `/${page.slug}/`,
+            component: footerPage,
+            context: {
+              slug: page.slug,
+            },
+          })
+        })
+
+        helpPages.forEach(page => {
+          createPage({
+            path: `/${page.slug}/`,
+            component: footerPage,
+            context: {
+              slug: page.slug,
+            },
+          })
+        })
+
+        otherPages.forEach(page => {
+          createPage({
+            path: `/${page.slug}/`,
+            component: otherPage,
+            context: {
+              slug: page.slug,
+            },
+          })
+        })
       })
     )
   })

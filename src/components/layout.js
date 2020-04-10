@@ -8,6 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Header from "./header"
+import Footer from "./footer"
 import "../styles/index.scss"
 import layoutStyle from "./styles/layout.module.scss"
 
@@ -19,11 +20,7 @@ const Layout = ({ children }) => {
           <Header siteTitle={"Leather Store"} />
           <main>{children}</main>
         </div>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   )
