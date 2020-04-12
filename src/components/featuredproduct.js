@@ -13,9 +13,7 @@ const FeaturedProduct = ({ featuredProducts }) => {
           : null} */}
         {featuredProducts && featuredProducts.length > 0
           ? featuredProducts.map(item => {
-              console.info("item", item.productName.productName)
               let imageUrl = `https:${item.image[0].fluid.src}`
-              console.info("imageurl", imageUrl)
               return (
                 <div className={mainpageStyle.productWrapper}>
                   <img src={imageUrl} alt="product image" />

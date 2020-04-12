@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { Link } from "gatsby"
+import { graphql, Link } from "gatsby"
 
-import { IS_MOBILE_CHECK, FETCHING_MENU_SUCCESS } from "../state/type"
+import { FETCHING_MENU_SUCCESS } from "../state/type"
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
 
@@ -50,24 +50,17 @@ const Navigation = props => {
     state => state.menuReducer.navCats,
     shallowEqual
   )
-  const isMobileState = useSelector(
-    state => state.menuReducer.isMobile,
-    shallowEqual
-  )
-  // const [menuTitles, setMenuTitles] = useState([{ title: "", slug: "" }])
 
-  const handleMobileOrDesktop = payload => ({
-    type: IS_MOBILE_CHECK,
-    payload: payload,
-  })
+  const [menuTitles, setMenuTitles] = useState([{ title: "", slug: "" }])
 
   const fillAllMenuTitles = payload => ({
     type: FETCHING_MENU_SUCCESS,
     payload: payload,
   })
 
-  let tempArray = []
   const fillMenu = () => {
+    // console.info("you feel the store", store)
+
     client
       .query({
         query: TEST_QUERY,
@@ -75,7 +68,10 @@ const Navigation = props => {
       .then(res => {
         let categories = res.data.allContentfulNavMenu.edges[0].node.categories
         let otherPages = res.data.allContentfulNavMenu.edges[0].node.otherPages
+        let tempArray = []
 
+        console.info("ses", categories)
+        // console.info("ses2", otherPages[0].title)
         categories.map(item => {
           tempArray.push({
             title: item.title.title,
@@ -88,14 +84,9 @@ const Navigation = props => {
             slug: item.slug,
           })
         })
-        dispatch(fillAllMenuTitles([...tempArray]))
+        setMenuTitles([...tempArray])
       })
   }
-
-  useEffect(() => {
-    fillMenu()
-  }, [])
-
   let isMobile
   const mobileSize = 768
 
@@ -108,26 +99,27 @@ const Navigation = props => {
     dispatch(handleMobileOrDesktop({ isMobile, currentScreenWidth }))
   }, [currentScreenWidth])
 
+  useEffect(() => {
+    fillMenu()
+    dispatch(fillAllMenuTitles([...menuTitles]))
+  }, [])
+
   return (
     <nav id={navigationStyle.navitself} role="navigation">
-      {!isMobileState ? (
-        <div className={navigationStyle.innerNav}>
-          <span className={navigationStyle.navItem}>
-            <Link to="/">Home</Link>
-          </span>
-          {navCategories && navCategories.length > 0 ? (
-            <React.Fragment>
-              {navCategories.map(item => {
-                return (
-                  <span className={navigationStyle.navItem}>
-                    <Link to={`/${item.slug}`}>{item.title}</Link>
-                  </span>
-                )
-              })}
-            </React.Fragment>
-          ) : null}
-        </div>
-      ) : null}
+      <div className={navigationStyle.innerNav}>
+        <span className={navigationStyle.navItem}>
+          <Link to="/">Home</Link>
+        </span>
+        {navCategories && navCategories.length > 0 ? (
+          <React.Fragment>
+            {navCategories.map(item => (
+              <span className={navigationStyle.navItem}>
+                <Link to={`/${item.slug}`}>{item.title}</Link>
+              </span>
+            ))}
+          </React.Fragment>
+        ) : null}
+      </div>
     </nav>
   )
 }

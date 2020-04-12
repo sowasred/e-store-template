@@ -1,14 +1,7 @@
-import { createStore as reduxCreateStore } from "redux"
+import { createStore } from "redux"
+import reducer from "./reducers/index"
 
-const reducer = (state, action) => {
-  if (action.type === `INCREMENT`) {
-    return Object.assign({}, state, {
-      count: state.count + 1,
-    })
-  }
-  return state
+// preloadedState will be passed in by the plugin
+export default preloadedState => {
+  return createStore(reducer, preloadedState)
 }
-const initialState = { count: 0 }
-
-const createStore = () => reduxCreateStore(reducer, initialState)
-export default createStore

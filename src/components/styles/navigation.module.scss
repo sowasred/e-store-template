@@ -1,11 +1,9 @@
 .navitself {
   display: flex;
-  
 }
 .innerNav {
   display: flex;
   margin: 0 auto;
-  
 }
 .navItem {
   text-align: center;
@@ -20,7 +18,7 @@
 }
 .dashboardWrapper {
   display: flex;
-  margin: 0 auto;
+  min-width: 48vw;
 }
 .navItem2 {
   display: flex;
@@ -41,12 +39,9 @@
   width: 32px !important;
 }
 
-@media all and (min-width: 1024px) {
-  .innerNav {
-    justify-content: space-between;
-  }
+@media all and (min-width: 769) {
   .navItem a {
-    margin-left: 1em;
+    margin-left: 1em !important;
   }
   .navItem2 {
     display: flex;
@@ -61,8 +56,7 @@
   .innerNav {
     display: none;
   }
-  .dashboardWrapper{
+  .dashboardWrapper {
     display: none;
   }
-
 }
