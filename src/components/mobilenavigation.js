@@ -4,19 +4,25 @@ import { graphql, Link } from "gatsby"
 import { FETCHING_MENU_SUCCESS } from "../state/type"
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
-
+import hamburger from "../images/hamburger.svg"
 import Modal from "react-modal"
+import user from "../images/user.svg"
+import heart from "../images/heart.svg"
+import search from "../images/search.svg"
+import canada from "../images/canada.svg"
+import bag from "../images/bag.svg"
 
 import navigationStyle from "./styles/navigation.module.scss"
 
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
+    top: "0",
+    left: "0",
+    position: "relative",
+    margin: "0 auto",
+    width: "100vw",
+    height: "100vh",
+    // transform: "translate(-50%, -50%)",
   },
 }
 
@@ -30,11 +36,6 @@ const MobileNavigation = props => {
     setIsOpen(true)
   }
 
-  // function afterOpenModal() {
-  //   // references are now sync'd and can be accessed.
-  //   subtitle.style.color = "#f00"
-  // }
-
   const closeModal = () => {
     setIsOpen(false)
   }
@@ -46,7 +47,9 @@ const MobileNavigation = props => {
 
   return (
     <div className={navigationStyle.navigationMobile}>
-      <div onClick={openModal}>Yarrak</div>
+      <div onClick={openModal} className={navigationStyle.hamburgerButton}>
+        <img src={hamburger}></img>
+      </div>
       <Modal
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
@@ -54,8 +57,13 @@ const MobileNavigation = props => {
         style={customStyles}
         contentLabel="Example Modal"
       >
+        <span className={navigationStyle.closeButton} onClick={closeModal}>
+          X
+        </span>
         <span className={navigationStyle.mobItem}>
-          <Link to="/">Home</Link>
+          <Link to="/" className={navigationStyle.link}>
+            Home
+          </Link>
         </span>
         {navCategories && navCategories.length > 0 ? (
           <React.Fragment>
@@ -64,6 +72,20 @@ const MobileNavigation = props => {
                 <Link to={`/${item.slug}`}>{item.title}</Link>
               </span>
             ))}
+            <div>
+              <div className={navigationStyle.navItem2}>
+                <h3>Sign in</h3>
+                <img src={user}></img>
+              </div>
+              <div className={navigationStyle.navItem2}>
+                <h3>Favorites</h3>
+                <img src={heart}></img>
+              </div>
+              <div className={navigationStyle.navItem2}>
+                <h3>Canada</h3>
+                <img className={navigationStyle.flag} src={canada}></img>
+              </div>
+            </div>
           </React.Fragment>
         ) : null}
       </Modal>
