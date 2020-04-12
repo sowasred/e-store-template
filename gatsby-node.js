@@ -28,6 +28,7 @@ exports.createPages = ({ graphql, actions }) => {
     const blogPost = path.resolve("./src/templates/blog.js")
     const otherPage = path.resolve("./src/templates/otherPages.js")
     const footerPage = path.resolve("./src/templates/footerPages.js")
+    const categoryPage = path.resolve("./src/templates/categoryPages.js")
 
     resolve(
       graphql(
@@ -61,6 +62,16 @@ exports.createPages = ({ graphql, actions }) => {
                 }
               }
             }
+            allContentfulCategory {
+              edges {
+                node {
+                  slug
+                  title {
+                    title
+                  }
+                }
+              }
+            }
           }
         `
       ).then(result => {
@@ -72,8 +83,9 @@ exports.createPages = ({ graphql, actions }) => {
         const companyPages = result.data.allContentfulCompanyPage.nodes
         const helpPages = result.data.allContentfulHelpPage.nodes
         const otherPages = result.data.allContentfulOtherPages.edges
+        const categoryPages = result.data.allContentfulCategory.edges
 
-        console.info("posts", posts)
+        console.info("posts", categoryPages.node)
         console.info("heyyoo", result.data.allContentfulHelpPage.nodes)
 
         // const pages = result.data.allContentNavMenu.nodes.otherTitles
@@ -83,6 +95,17 @@ exports.createPages = ({ graphql, actions }) => {
             component: blogPost,
             context: {
               slug: post.node.slug,
+            },
+          })
+        })
+
+        categoryPages.forEach(page => {
+          console.info("yarrak", page, "yarrak2", page.node.slug)
+          createPage({
+            path: `/${page.node.slug}/`,
+            component: categoryPage,
+            context: {
+              slug: page.node.slug,
             },
           })
         })
@@ -109,10 +132,10 @@ exports.createPages = ({ graphql, actions }) => {
 
         otherPages.forEach(page => {
           createPage({
-            path: `/${page.slug}/`,
+            path: `/${page.node.slug}/`,
             component: otherPage,
             context: {
-              slug: page.slug,
+              slug: page.node.slug,
             },
           })
         })

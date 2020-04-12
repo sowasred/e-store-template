@@ -4,7 +4,7 @@ import { graphql, Link } from "gatsby"
 import { FETCHING_MENU_SUCCESS } from "../state/type"
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
-import hamburger from "../images/hamburger.svg"
+import menu from "../images/menu.svg"
 import Modal from "react-modal"
 import user from "../images/user.svg"
 import heart from "../images/heart.svg"
@@ -48,7 +48,7 @@ const MobileNavigation = props => {
   return (
     <div className={navigationStyle.navigationMobile}>
       <div onClick={openModal} className={navigationStyle.hamburgerButton}>
-        <img src={hamburger}></img>
+        <img src={menu}></img>
       </div>
       <Modal
         isOpen={modalIsOpen}
