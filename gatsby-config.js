@@ -30,6 +30,8 @@ module.exports = {
           `'Dawning of a New Day', cursive`,
           `'Poppins', sans-serif`,
           `'Raleway', sans-serif`,
+          `'Zeyada', cursive`,
+          `'Arapey', serif`,
         ],
         display: "swap",
       },

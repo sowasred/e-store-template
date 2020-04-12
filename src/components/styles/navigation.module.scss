@@ -1,9 +1,11 @@
 .navitself {
   display: flex;
+  
 }
 .innerNav {
   display: flex;
   margin: 0 auto;
+  
 }
 .navItem {
   text-align: center;
@@ -11,7 +13,7 @@
 }
 .navItem a {
   text-decoration: none !important;
-  font-size: 1em;
+  font-size: 1rem;
   display: flex;
   flex-wrap: nowrap !important;
   margin-left: 3em;
@@ -23,7 +25,7 @@
 .navItem2 {
   display: flex;
   text-decoration: none !important;
-  font-size: 1em;
+  font-size: 1rem;
   margin-left: 3em;
   align-items: center;
   min-width: max-content !important;
@@ -51,7 +53,16 @@
     flex-wrap: nowrap;
     margin-left: 1em;
     h3 {
-      font-size: 16px;
+      font-size: 1.6rem;
     }
   }
+}
+@media all and (max-width: 320px) {
+  .innerNav {
+    display: none;
+  }
+  .dashboardWrapper{
+    display: none;
+  }
+
 }

@@ -1,22 +1,32 @@
 header {
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   width: 100vw;
+  font-size: 1.6rem;
+  overflow: hidden;
 }
 
 .siteTitle {
   font-family: "Poppins", sans-serif;
   font-weight: 300;
-  font-size: 1.2em;
-  margin-left: 7em;
+  font-size: 3rem;
 }
 
 @media all and (min-width: 1024px) {
   .siteTitle {
     display: flex;
-    flex-wrap: nowrap;
+    
     min-width: max-content !important;
     margin-left: 2em;
     font-weight: 900 !important;
   }
+
+}
+
+@media all and (max-width: 320px) {
+  .siteTtitle {
+    // margin-left: 10vw;
+  }
+  
 }

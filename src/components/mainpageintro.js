@@ -14,11 +14,11 @@ const MainpageIntro = ({
     <section className={mainpageStyle.mainsection}>
       <div className={mainpageStyle.mainsectimg}>
         <img src={womenImage} alt={womeImageTitle} />
-        <button className={mainpageStyle.mainButton}>{womeImageTitle}</button>
+        {/* <button className={mainpageStyle.mainButton}>{womeImageTitle}</button> */}
       </div>
       <div className={mainpageStyle.mainsectimg}>
         <img src={menImage} alt={menImageTitle} />
-        <button className={mainpageStyle.mainButton}>{menImageTitle}</button>
+        {/* <button className={mainpageStyle.mainButton}>{menImageTitle}</button> */}
       </div>
     </section>
   )

@@ -9,7 +9,7 @@ import Dashboard from "./dashboard"
 const Header = ({ siteTitle }) => {
   return (
     <header>
-      <Navigation />
+      <Navigation className={headerStyle.navigation} />
       <h1 className={headerStyle.siteTitle}>
         <Link
           to="/"
