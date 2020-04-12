@@ -1,30 +1,34 @@
 .mainsection {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   width: 100vw;
-  margin-top: 3vh;
+  margin-top: 5rem;
+
+  .mainsectimg {
+    display: flex;
+    position: relative;
+    img {
+      max-width: 100vw;
+      margin: 0 auto;
+      // justify-content: center;
+      // filter: grayscale(100);
+      // filter: contrast(100);
+      transition: all 1s linear;
+    }
+    img:hover {
+      filter: grayscale(100);
+      transition: all 1s linear;
+    }
+  }
 }
 
 .menImageTitle {
   display: flex;
   flex-wrap: wrap;
+  
 }
-.mainsectimg {
-  display: flex;
-  position: relative;
-  img {
-    max-width: 100vw;
-    margin: 0 auto;
-    justify-content: center;
-    // filter: grayscale(100);
-    // filter: contrast(100);
-    transition: all 1s linear;
-  }
-  img:hover {
-    filter: grayscale(100);
-    transition: all 1s linear;
-  }
-}
+
 .mainButton {
   position: absolute;
   width: 10vw;

@@ -1,17 +1,22 @@
 $color: black;
+html {
+  font-size: 62.5%; //10px
 
+}
+body {
+  font-size: 1.6rem;
+}
 * {
   margin: 0;
   padding: 0;
   color: $color;
   font-family: "Poppins", sans-serif;
   font-weight: 300;
-  font-size: 62.5%; //10px
 }
 
 
 @media all and (min-width: 320px) {
-  * {
+  html {
     font-size: 76%;
   }
 }

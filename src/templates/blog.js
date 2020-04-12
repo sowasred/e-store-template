@@ -12,7 +12,6 @@ export const query = graphql`
       images {
         fluid {
           src
-          tracedSVG
         }
       }
       description

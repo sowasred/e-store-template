@@ -27,19 +27,16 @@ const Header = ({ siteTitle }) => {
           {siteTitle}
         </Link>
       </h1>
-      {isMobileState ? null : <Dashboard />}
       {isMobileState ? (
         <React.Fragment>
           <div className={headerStyle.wrapper}>
-            <div className={headerStyle.navItem2}>
-              <img src={search}></img>
-            </div>
-            <div className={headerStyle.navItem2}>
-              <img src={bag}></img>
-            </div>
+            <img src={search}></img>
+            <img src={bag}></img>
           </div>
         </React.Fragment>
-      ) : null}
+      ) : (
+        <Dashboard />
+      )}
     </header>
   )
 }
