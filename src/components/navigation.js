@@ -7,6 +7,7 @@ import { useSelector, shallowEqual, useDispatch } from "react-redux"
 
 import gql from "graphql-tag"
 import { client } from "../context/ApolloClient"
+import MobileNavigation from "./mobilenavigation"
 import navigationStyle from "./styles/navigation.module.scss"
 const TEST_QUERY = gql`
   {
@@ -127,7 +128,9 @@ const Navigation = props => {
             </React.Fragment>
           ) : null}
         </div>
-      ) : null}
+      ) : (
+        <MobileNavigation />
+      )}
     </nav>
   )
 }

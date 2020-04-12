@@ -5,109 +5,56 @@ import { FETCHING_MENU_SUCCESS } from "../state/type"
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
 
-import gql from "graphql-tag"
-import { client } from "../context/ApolloClient"
-import navigationStyle from "./styles/navigation.module.scss"
-const TEST_QUERY = gql`
-  {
-    allContentfulNavMenu {
-      edges {
-        node {
-          categories {
-            ... on ContentfulCategory {
-              title {
-                title
-              }
-              slug
-              icon {
-                fluid {
-                  src
-                  tracedSVG
-                }
-              }
-              categoryDescription {
-                categoryDescription
-              }
-            }
-          }
-          otherPages {
-            title
-            slug
-          }
-        }
-      }
-    }
-  }
-`
+import Modal from "react-modal"
 
-const Navigation = props => {
-  const [currentScreenWidth, setCurrentScreenWidth] = React.useState(
-    window.innerWidth
-  )
+import navigationStyle from "./styles/navigation.module.scss"
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+}
+
+const MobileNavigation = props => {
   const dispatch = useDispatch()
+
+  var subtitle
+  const [modalIsOpen, setIsOpen] = React.useState(false)
+
+  const openModal = () => {
+    setIsOpen(true)
+  }
+
+  // function afterOpenModal() {
+  //   // references are now sync'd and can be accessed.
+  //   subtitle.style.color = "#f00"
+  // }
+
+  const closeModal = () => {
+    setIsOpen(false)
+  }
 
   const navCategories = useSelector(
     state => state.menuReducer.navCats,
     shallowEqual
   )
 
-  const [menuTitles, setMenuTitles] = useState([{ title: "", slug: "" }])
-
-  const fillAllMenuTitles = payload => ({
-    type: FETCHING_MENU_SUCCESS,
-    payload: payload,
-  })
-
-  const fillMenu = () => {
-    // console.info("you feel the store", store)
-
-    client
-      .query({
-        query: TEST_QUERY,
-      })
-      .then(res => {
-        let categories = res.data.allContentfulNavMenu.edges[0].node.categories
-        let otherPages = res.data.allContentfulNavMenu.edges[0].node.otherPages
-        let tempArray = []
-
-        console.info("ses", categories)
-        // console.info("ses2", otherPages[0].title)
-        categories.map(item => {
-          tempArray.push({
-            title: item.title.title,
-            slug: item.slug,
-          })
-        })
-        otherPages.map(item => {
-          tempArray.push({
-            title: item.title,
-            slug: item.slug,
-          })
-        })
-        setMenuTitles([...tempArray])
-      })
-  }
-  let isMobile
-  const mobileSize = 768
-
-  useEffect(() => {
-    if (currentScreenWidth > mobileSize) {
-      isMobile = false
-    } else {
-      isMobile = true
-    }
-    dispatch(handleMobileOrDesktop({ isMobile, currentScreenWidth }))
-  }, [currentScreenWidth])
-
-  useEffect(() => {
-    fillMenu()
-    dispatch(fillAllMenuTitles([...menuTitles]))
-  }, [])
-
   return (
-    <nav id={navigationStyle.navitself} role="navigation">
-      <div className={navigationStyle.innerNav}>
-        <span className={navigationStyle.navItem}>
+    <div className={navigationStyle.navigationMobile}>
+      <div onClick={openModal}>Yarrak</div>
+      <Modal
+        isOpen={modalIsOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <span className={navigationStyle.mobItem}>
           <Link to="/">Home</Link>
         </span>
         {navCategories && navCategories.length > 0 ? (
@@ -119,9 +66,9 @@ const Navigation = props => {
             ))}
           </React.Fragment>
         ) : null}
-      </div>
-    </nav>
+      </Modal>
+    </div>
   )
 }
 
-export default Navigation
+export default MobileNavigation
