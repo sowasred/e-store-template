@@ -2,19 +2,33 @@
   display: flex;
 }
 .innerNav {
+  justify-content: space-between;
   display: flex;
   margin: 0 auto;
 }
 .navItem {
   text-align: center;
   min-width: fit-content;
-}
-.navItem a {
-  text-decoration: none !important;
-  font-size: 1rem;
+  font-size: 1.4rem;
+  a {
+    text-decoration: none ;
+    display: flex;
+    flex-wrap: nowrap ;
+    margin-left: 2rem;
+    margin-top: 1rem;
+  }
   display: flex;
-  flex-wrap: nowrap !important;
-  margin-left: 3em;
+  text-decoration: none;
+  // font-size: 1.3rem;
+  margin-top: 1.3rem;
+  align-items: center;
+  min-width: max-content !important;
+  cursor: pointer;
+  img {
+    height: 16px;
+    width: 16px;
+    margin-left: 0.5em;
+  }
 }
 .dashboardWrapper {
   display: flex;
@@ -22,9 +36,10 @@
 }
 .navItem2 {
   display: flex;
-  text-decoration: none !important;
+  text-decoration: none;
   font-size: 1rem;
-  margin-left: 3em;
+  margin-left: 3rem;
+  margin-top: 1rem;
   align-items: center;
   min-width: max-content !important;
   cursor: pointer;
@@ -41,7 +56,7 @@
 
 @media all and (min-width: 769) {
   .navItem a {
-    margin-left: 1em !important;
+    margin-left: 1rem !important;
   }
   .navItem2 {
     display: flex;
@@ -52,38 +67,38 @@
     }
   }
 }
-@media all and (max-width: 320px) {
+@media all and (max-width: 425px) {
   .innerNav {
     display: none;
   }
   .dashboardWrapper {
     display: none;
   }
-
+  .navItem {
+    font-size: 1.5rem;
+  }
 }
 
 // @media all and (min-width: 321px) and 
 
 .closeButton {
   position: absolute;
-  left: 1.5em;
-  font-size: 1rem;
-  top: 1em;
+  left: 1em;
+  font-size: 1.5rem;
+  top: 1rem;
   z-index: 99999999;
 }
 .navigationMobile{
-  position: relative;
-  // .hamburgerButton {
-  //   position: absolute;
-  //   left: -3em;
-  //   top: -1.5em;
-  // }
+  
+  .hamburgerButton{
+    padding: 1rem;
+  }
   }
 .mobItem {
   margin-left: 3rem;
   .link {
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.5rem;
 
   }
 }

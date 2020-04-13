@@ -14,8 +14,10 @@ const MailSignup = ({ description }) => {
           type="text"
           name="name"
         />
-        <div className={mainpageStyle.option1}>Men</div>
-        <div className={mainpageStyle.option2}>Women</div>
+        <div className={mainpageStyle.options}>
+          <div className={mainpageStyle.option}>Men</div>
+          <div className={mainpageStyle.option}>Women</div>
+        </div>
       </div>
     </section>
   )

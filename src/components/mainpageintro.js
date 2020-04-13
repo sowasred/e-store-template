@@ -12,14 +12,12 @@ const MainpageIntro = ({
 }) => {
   return (
     <section className={mainpageStyle.mainsection}>
-      <div className={mainpageStyle.mainsectimg}>
+      <a className={mainpageStyle.mainsectimg}>
         <img src={womenImage} alt={womeImageTitle} />
-        {/* <button className={mainpageStyle.mainButton}>{womeImageTitle}</button> */}
-      </div>
-      <div className={mainpageStyle.mainsectimg}>
+      </a>
+      <a className={mainpageStyle.mainsectimg}>
         <img src={menImage} alt={menImageTitle} />
-        {/* <button className={mainpageStyle.mainButton}>{menImageTitle}</button> */}
-      </div>
+      </a>
     </section>
   )
 }

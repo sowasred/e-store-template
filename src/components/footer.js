@@ -67,7 +67,7 @@ const Footer = () => {
 
   return (
     <footer>
-      <div>
+      <div className={footerStyle.footItem}>
         <h3>Company</h3>
         {companyTitles && companyTitles.length > 0
           ? companyTitles.map(item => {
@@ -79,19 +79,27 @@ const Footer = () => {
             })
           : null}
       </div>
-      <div className={footerStyle.middleDiv}>
+      <div className={(footerStyle.middleDiv, footerStyle.footItem)}>
         <h3 className={footerStyle.classy}>
           Be part of our Thoughtful Fashion
         </h3>
         <div className={footerStyle.socialLinks}>
-          <img src={facebook}></img>
-          <img src={instagram}></img>
-          <img src={linkedin}></img>
-          <img src={twitter}></img>
+          <a>
+            <img src={facebook}></img>
+          </a>
+          <a>
+            <img src={instagram}></img>
+          </a>
+          <a>
+            <img src={linkedin}></img>
+          </a>
+          <a>
+            <img src={twitter}></img>
+          </a>
         </div>
         <h5>@DERRY</h5>
       </div>
-      <div>
+      <div className={footerStyle.footItem}>
         <h3>Help</h3>
         {helpTitles && helpTitles.length > 0
           ? helpTitles.map(item => {

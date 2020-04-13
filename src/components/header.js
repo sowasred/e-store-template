@@ -30,8 +30,12 @@ const Header = ({ siteTitle }) => {
       {isMobileState ? (
         <React.Fragment>
           <div className={headerStyle.wrapper}>
-            <img src={search}></img>
-            <img src={bag}></img>
+            <a>
+              <img src={search}></img>
+            </a>
+            <a>
+              <img src={bag}></img>
+            </a>
           </div>
         </React.Fragment>
       ) : (

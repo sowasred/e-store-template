@@ -6,23 +6,16 @@
   margin-top: 5rem;
 
   .mainsectimg {
-    display: flex;
-    position: relative;
+    margin-bottom: 5rem;
     img {
       max-width: 100vw;
-      margin: 0 auto;
-      // justify-content: center;
-      // filter: grayscale(100);
-      // filter: contrast(100);
+      height: 100vh;
+      object-fit: cover;
       transition: all 1s linear;
     }
-    img:hover {
-      filter: grayscale(100);
-      transition: all 1s linear;
-    }
+
   }
 }
-
 .menImageTitle {
   display: flex;
   flex-wrap: wrap;
@@ -51,69 +44,70 @@
 }
 .mainsignin {
   display: flex;
-  padding: 10vh;
-  margin: 10vh;
+  flex-direction: column-reverse;
+  margin: 2rem 1rem;
   justify-content: center;
   align-self: center;
+  .maindesc {
+    max-width: 100%;
+    margin: 1rem;
+  }
+
+  .mainForm {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 1rem;
+    position: relative;
+    input {
+      min-width: 60vw;
+      margin: 0 auto;
+      height: 1.6rem;
+      border: 2px gray;
+    }
+    input::placeholder {
+      padding: 0.5em;
+      font-size: 1rem;
+    }
+    input:focus {
+      outline: none;
+      border: 1px solid;
+    }
+    input[type="text"] {
+      font-size: 1rem;
+      padding: 1em;
+      font-family: "Raleway", sans-serif;
+    }
+    .options {
+      display: flex;
+      justify-content: space-around;
+      .option {
+        padding: 1rem;
+        cursor: pointer;
+        opacity: 0.7;
+      }
+      .option:hover{
+        opacity: 1;
+      }
+
+    }
+  }
 }
 
-.maindesc {
-  width: 35%;
-}
-.mainForm {
-  display: flex;
-  margin-top: 2vh;
-  margin-left: 5vw;
-  position: relative;
-  input {
-    width: 25vw;
-    height: 4vh;
-    border: 2px gray;
-  }
-  input::placeholder {
-    padding: 0.5em;
-    font-size: 1rem;
-  }
-  input:focus {
-    outline: none;
-    border: 1px solid;
-  }
-  input[type="text"] {
-    font-size: 1rem;
-    padding: 1em;
-    font-family: "Raleway", sans-serif;
-  }
-  .option1 {
-    position: absolute;
-    top: 3vh;
-    right: 70px;
-    cursor: pointer;
-    opacity: 0.7;
-  }
-  .option2 {
-    position: absolute;
-    top: 3vh;
-    right: 10px;
-    cursor: pointer;
-    opacity: 0.7;
-  }
-  .option1:hover,
-  .option2:hover {
-    opacity: 1;
-  }
-}
+
+
 .belowsection {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   background-color: #fff;
+  .belowimg {
+    max-width: 100vw;
+    object-fit: cover;
+    margin: 5rem 0;
+  }
 }
 
-.belowimg {
-  max-width: 48vw !important;
-  padding: 10vh 10vh;
-  margin: 0 auto;
-}
+
 .belowimg:hover {
 }
 .longDescription {
@@ -121,31 +115,45 @@
   text-align: center;
   justify-content: center;
 }
-
-.productsWrapper {
-  display: flex;
-  width: 100vw;
-  height: 60vh;
-  justify-content: center;
-}
-
-.productWrapper {
-  display: flex;
-  flex-direction: column;
-  width: 20vw;
-  height: 38vh;
-  margin: 5vh;
-  overflow: hidden;
-
-  img {
-    width: 20vw;
+.products {
+  display: block;
+  overflow: auto;
+  .productsWrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 200%;
+    // height: 75vh;
+    justify-content: space-between;
+    .productWrapper {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem;
+      width: 70vw;
+      img {
+        object-fit: cover;
+        // width: 25vw;
+        height: 85vh;
+      }
+    }
   }
 }
 
+
+
 @media all and (max-width: 768px) and (min-width: 515px) {
-  .mainsectimg {
+  .mainsection {
+    .mainsectimg{
+      img {
+        height: initial;
+      }
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  .mainsectimg{
     img {
-      max-width: 45vw;
+      width: 50vw;
     }
   }
 }

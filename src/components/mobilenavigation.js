@@ -18,9 +18,9 @@ const customStyles = {
   content: {
     top: "0",
     left: "0",
-    position: "relative",
-    margin: "0 auto",
-    width: "100vw",
+    position: "absolute",
+    margin: "0",
+    width: "60vw",
     height: "100vh",
     // transform: "translate(-50%, -50%)",
   },
@@ -39,7 +39,9 @@ const MobileNavigation = props => {
   const closeModal = () => {
     setIsOpen(false)
   }
-
+  const toggleModal = () => {
+    modalIsOpen ? setIsOpen(false) : setIsOpen(true)
+  }
   const navCategories = useSelector(
     state => state.menuReducer.navCats,
     shallowEqual
@@ -47,7 +49,7 @@ const MobileNavigation = props => {
 
   return (
     <div className={navigationStyle.navigationMobile}>
-      <div onClick={openModal} className={navigationStyle.hamburgerButton}>
+      <div onClick={toggleModal} className={navigationStyle.hamburgerButton}>
         <img src={menu}></img>
       </div>
       <Modal
@@ -57,9 +59,9 @@ const MobileNavigation = props => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <span className={navigationStyle.closeButton} onClick={closeModal}>
+        {/* <span className={navigationStyle.closeButton} onClick={closeModal}>
           X
-        </span>
+        </span> */}
         <span className={navigationStyle.mobItem}>
           <Link to="/" className={navigationStyle.link}>
             Home
@@ -72,20 +74,15 @@ const MobileNavigation = props => {
                 <Link to={`/${item.slug}`}>{item.title}</Link>
               </span>
             ))}
-            <div>
-              <div className={navigationStyle.navItem2}>
-                <h3>Sign in</h3>
-                <img src={user}></img>
-              </div>
-              <div className={navigationStyle.navItem2}>
-                <h3>Favorites</h3>
-                <img src={heart}></img>
-              </div>
-              <div className={navigationStyle.navItem2}>
-                <h3>Canada</h3>
-                <img className={navigationStyle.flag} src={canada}></img>
-              </div>
-            </div>
+            <span className={navigationStyle.navItem}>
+              <a>Sign in</a>
+            </span>
+            <span className={navigationStyle.navItem}>
+              <a>Favorites</a>
+            </span>
+            <span className={navigationStyle.navItem}>
+              <a>Canada</a>
+            </span>
           </React.Fragment>
         ) : null}
       </Modal>

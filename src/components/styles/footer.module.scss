@@ -3,12 +3,12 @@ footer {
     flex-wrap: nowrap;
     justify-content: space-around;
     width: 100vw;
+    height: 35vh;
     border-top: 1px black solid;
-
     background-color: rgba($color: #0077ff, $alpha: .1);
-    div {
+    .footItem {
         text-align: center;
-        width: 25vw;
+        width: 30vw;
         h3 {
             font-family: 'Raleway', sans-serif;
             font-size: 1.1rem;
@@ -20,6 +20,14 @@ footer {
         h5 {
             display: none;
         }
+
+        .socialLinks {
+            display: flex;
+            justify-content: space-around;
+            img {
+                width: 1rem;
+            }
+        }
     }
     .middleDiv {
         display: flex;
@@ -27,20 +35,13 @@ footer {
         .classy {
             font-family: 'Arapey', serif;
         }
-        .socialLinks {
-            display: flex;
-            justify-content: space-around;
-            img {
-                width: 1rem;
 
-            }
-        }
     }
 
     
 }
 
-@media all and (max-width: 320px) {
+@media all and (max-width: 425px) {
     footer {
         flex-wrap: wrap;
         flex-direction: column;
@@ -48,8 +49,8 @@ footer {
         h3 {
             margin-top: 2rem;
         }
-        .middleDiv {
-            h3 {
+        .footItem {
+            .classy {
                 display: none;
             }
             .socialLinks {
