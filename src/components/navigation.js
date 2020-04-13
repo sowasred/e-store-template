@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 
-import { IS_MOBILE_CHECK, FETCHING_MENU_SUCCESS } from "../state/type"
-
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
+
+import {
+  handleMobileOrDesktop,
+  fillAllMenuTitles,
+} from "../state/actions/menuActions"
 
 import gql from "graphql-tag"
 import { client } from "../context/ApolloClient"
@@ -56,16 +59,6 @@ const Navigation = props => {
     shallowEqual
   )
   // const [menuTitles, setMenuTitles] = useState([{ title: "", slug: "" }])
-
-  const handleMobileOrDesktop = payload => ({
-    type: IS_MOBILE_CHECK,
-    payload: payload,
-  })
-
-  const fillAllMenuTitles = payload => ({
-    type: FETCHING_MENU_SUCCESS,
-    payload: payload,
-  })
 
   let tempArray = []
   const fillMenu = () => {

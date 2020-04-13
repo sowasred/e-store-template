@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-
+import CatBreadCrumb from "../components/catbreadcrumbs"
 import Layout from "../components/layout"
 
 export const query = graphql`
@@ -55,6 +55,10 @@ const categoryPages = props => {
 
   return (
     <Layout>
+      <CatBreadCrumb
+        title={props.data.contentfulCategory.title.title}
+        slug={props.data.contentfulCategory.slug}
+      />
       <h1>{props.data.contentfulCategory.title.title}</h1>
       <p dangerouslySetInnerHTML={createMarkup()} />
     </Layout>
