@@ -1,0 +1,38 @@
+.catWraper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  font-size: 1rem;
+  margin-bottom: 8vh;
+  a {
+    text-decoration: none !important;
+  }
+
+  article:nth-child(2) {
+    img {
+      align-self: end;
+      margin: 0 0 0 4em !important;
+    }
+  }
+  article {
+    height: 45vh;
+    overflow: hidden;
+  }
+  h4,
+  aside {
+    margin-left: 2em;
+    margin-top: 0.5em;
+    font-weight: 600;
+  }
+
+  img {
+    height: 38vh;
+    display: flex;
+  }
+  aside {
+    span {
+      line-height: 1.6rem;
+      font-weight: 600;
+    }
+  }
+}

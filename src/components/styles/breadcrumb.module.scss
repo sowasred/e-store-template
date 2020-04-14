@@ -1,0 +1,31 @@
+@media all and (max-width: 768px) {
+  .breadcrumbsWrap {
+    display: flex;
+    margin: 0 0.9375rem;
+    height: 25px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 1vh 0;
+    span {
+      font-size: 0.8rem !important;
+      margin-left: 1vh;
+    }
+  }
+}
+
+.breadcrumbsWrap {
+  display: flex;
+  margin: 0.5rem 1rem;
+  height: 1.5rem;
+  justify-content: flex-start;
+  padding: 1vh 0;
+  span {
+    font-size: 1.3rem;
+    line-height: 1.6rem;
+    margin-left: 1rem;
+    a {
+      text-decoration: none;
+    }
+  }
+}

@@ -29,6 +29,7 @@ exports.createPages = ({ graphql, actions }) => {
     const otherPage = path.resolve("./src/templates/otherPages.js")
     const footerPage = path.resolve("./src/templates/footerPages.js")
     const categoryPage = path.resolve("./src/templates/categoryPages.js")
+    const productPage = path.resolve("./src/templates/productPages.js")
 
     resolve(
       graphql(
@@ -69,6 +70,9 @@ exports.createPages = ({ graphql, actions }) => {
                   title {
                     title
                   }
+                  products {
+                    slug
+                  }
                 }
               }
             }
@@ -85,7 +89,7 @@ exports.createPages = ({ graphql, actions }) => {
         const otherPages = result.data.allContentfulOtherPages.edges
         const categoryPages = result.data.allContentfulCategory.edges
 
-        console.info("posts", categoryPages.node)
+        console.info("posts", categoryPages)
         console.info("heyyoo", result.data.allContentfulHelpPage.nodes)
 
         // const pages = result.data.allContentNavMenu.nodes.otherTitles
@@ -100,13 +104,24 @@ exports.createPages = ({ graphql, actions }) => {
         })
 
         categoryPages.forEach(page => {
-          console.info("yarrak", page, "yarrak2", page.node.slug)
           createPage({
             path: `/${page.node.slug}/`,
             component: categoryPage,
             context: {
               slug: page.node.slug,
             },
+          })
+
+          let products = page.node.products
+
+          products.forEach(productP => {
+            createPage({
+              path: `/${page.node.slug}/${productP.slug}`,
+              component: productPage,
+              context: {
+                slug: productP.slug,
+              },
+            })
           })
         })
 

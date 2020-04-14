@@ -1,16 +1,22 @@
 import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
+import { useSelector, shallowEqual, useDispatch } from "react-redux"
 
-import mainpageStyle from "./styles/mainpage.module.scss"
+import breadCrumbStyle from "./styles/breadcrumb.module.scss"
 
 const CatBreadCrumb = ({ title, slug }) => {
   const [breadcrumbs, setBreadcrumbs] = useState(["Home", title])
 
+  const isMobileState = useSelector(
+    state => state.menuReducer.isMobile,
+    shallowEqual
+  )
+
   console.info("titkle", title)
 
   return (
-    <section className={mainpageStyle.breadcrumbsWrap}>
-      {breadcrumbs && breadcrumbs.length > 0
+    <nav className={breadCrumbStyle.breadcrumbsWrap}>
+      {isMobileState && breadcrumbs && breadcrumbs.length > 0
         ? breadcrumbs.map((item, i) => {
             if (breadcrumbs.length > i + 1) {
               return (
@@ -30,7 +36,7 @@ const CatBreadCrumb = ({ title, slug }) => {
             }
           })
         : null}
-    </section>
+    </nav>
   )
 }
 
