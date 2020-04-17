@@ -103,7 +103,6 @@ const Footer = () => {
         <h3>Help</h3>
         {helpTitles && helpTitles.length > 0
           ? helpTitles.map(item => {
-              console.info("rrak", item)
               return (
                 <h4>
                   <Link to={item.slug}>{item.title}</Link>

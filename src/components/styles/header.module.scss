@@ -3,32 +3,35 @@ header {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 43px;
+  height: 50px;
   position: fixed;
   position: -webkit-sticky;
   position: sticky;
-  top: 0;
+  top: 0vh;
   z-index: 9;
-  padding: 0;
   font-size: 1.4rem;
-  background-color: #FFF;
+  background-color: #fff;
+
+  -webkit-box-shadow: 0 6px 6px -6px black;
+  -moz-box-shadow: 0 6px 6px -6px black;
+  box-shadow: 0 6px 6px -6px black;
 }
 h1 {
   margin-block-start: 0;
-  margin-block-end: 0
+  margin-block-end: 0;
 }
 
 .siteTitle {
   width: 100%;
-  width: -moz-available;          /* WebKit-based browsers will ignore this. */
-  width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
   width: fill-available;
   text-align: center;
   font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-size: 2.5rem;
   margin-right: -1rem;
-
+  transition: all 0.2s;
 }
 .wrapper {
   display: flex;
@@ -36,7 +39,6 @@ h1 {
     padding: 1rem;
   }
   img {
-    
     height: 1.6rem;
     width: 1.6rem;
   }
@@ -47,7 +49,6 @@ h1 {
 
 @media all and (min-width: 768) {
   .siteTitle {
-    // @media all 
     a {
       width: fit-content;
       position: absolute;
@@ -56,5 +57,10 @@ h1 {
       padding: 1rem;
     }
   }
-  
+}
+
+@media all and (max-width: 768) {
+  .siteTitle {
+    font-size: 25px !important;
+  }
 }

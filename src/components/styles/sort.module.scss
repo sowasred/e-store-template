@@ -6,4 +6,11 @@
   text-align: center;
   background-color: #f8f8f8;
   margin: 0.1em;
+  border: none;
+}
+.sortWrap:active {
+  border: none;
+}
+.sortWrap:focus {
+  outline: none;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
+import { useQuery } from "@apollo/react-hooks"
 
 import {
   handleMobileOrDesktop,

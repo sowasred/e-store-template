@@ -13,10 +13,33 @@ const Header = ({ siteTitle }) => {
     state => state.menuReducer.isMobile,
     shallowEqual
   )
+
+  const animateHeader = () => {
+    let siteTitle = document.querySelector("#sitetitle")
+
+    if (
+      document.body.scrollTop > 50 ||
+      (document.documentElement.scrollTop > 50 && siteTitle)
+    ) {
+      siteTitle.style.fontSize = "20px"
+      siteTitle.style.lineHeight = "20px"
+      siteTitle.style.fontWeight = "300"
+    } else {
+      if (siteTitle) {
+        siteTitle.style.fontSize = "30px"
+        siteTitle.style.lineHeight = "30px"
+      }
+    }
+  }
+
+  window.onscroll = () => {
+    animateHeader()
+  }
+
   return (
-    <header>
+    <header onScroll={animateHeader()}>
       <Navigation className={headerStyle.navigation} />
-      <h1 className={headerStyle.siteTitle}>
+      <h1 id="sitetitle" className={headerStyle.siteTitle}>
         <Link
           to="/"
           style={{

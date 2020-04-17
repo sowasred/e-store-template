@@ -57,7 +57,8 @@ const MobileNavigation = props => {
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel="Mobile Navigation Modal"
+        closeTimeoutMS={200}
       >
         {/* <span className={navigationStyle.closeButton} onClick={closeModal}>
           X

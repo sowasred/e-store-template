@@ -70,7 +70,15 @@ exports.createPages = ({ graphql, actions }) => {
                   title {
                     title
                   }
-                  products {
+                }
+              }
+            }
+            allContentfulProduct {
+              edges {
+                node {
+                  price
+                  slug
+                  categories {
                     slug
                   }
                 }
@@ -88,9 +96,7 @@ exports.createPages = ({ graphql, actions }) => {
         const helpPages = result.data.allContentfulHelpPage.nodes
         const otherPages = result.data.allContentfulOtherPages.edges
         const categoryPages = result.data.allContentfulCategory.edges
-
-        console.info("posts", categoryPages)
-        console.info("heyyoo", result.data.allContentfulHelpPage.nodes)
+        const productPages = result.data.allContentfulProduct.edges
 
         // const pages = result.data.allContentNavMenu.nodes.otherTitles
         posts.forEach(post => {
@@ -112,14 +118,12 @@ exports.createPages = ({ graphql, actions }) => {
             },
           })
 
-          let products = page.node.products
-
-          products.forEach(productP => {
+          productPages.forEach(productP => {
             createPage({
-              path: `/${page.node.slug}/${productP.slug}`,
+              path: `/${productP.node.categories[0].slug}/${productP.node.slug}`,
               component: productPage,
               context: {
-                slug: productP.slug,
+                slug: productP.node.slug,
               },
             })
           })

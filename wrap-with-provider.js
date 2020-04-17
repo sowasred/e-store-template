@@ -1,6 +1,9 @@
 import React from "react"
 import { Provider } from "react-redux"
 
+import { ApolloProvider } from "@apollo/react-hooks"
+import { client } from "./src/context/ApolloClient"
+
 import createStore from "./src/state/createStore"
 
 // eslint-disable-next-line react/display-name,react/prop-types
@@ -9,5 +12,9 @@ export default ({ element }) => {
   //  - there is fresh store for each SSR page
   //  - it will be called only once in browser, when React mounts
   const store = createStore()
-  return <Provider store={store}>{element}</Provider>
+  return (
+    <ApolloProvider client={client}>
+      <Provider store={store}>{element}</Provider>
+    </ApolloProvider>
+  )
 }

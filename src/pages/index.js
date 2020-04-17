@@ -86,13 +86,10 @@ export const query = graphql`
           price
           sku
           slug
-          style
           quantity
-          seasonType
           image {
             fluid {
               src
-              tracedSVG
             }
           }
           brand {
@@ -100,9 +97,7 @@ export const query = graphql`
               companyName
             }
           }
-          fit
           discountedPrice
-          gender
           productName {
             productName
           }
@@ -113,14 +108,12 @@ export const query = graphql`
         firstRow {
           fluid {
             src
-            tracedSVG
           }
           title
         }
         secondRow {
           fluid {
             src
-            tracedSVG
           }
           title
         }

@@ -12,15 +12,15 @@ const CategoryProducts = ({ catSlug, products }) => {
         ? products.map(item => {
             return (
               <article>
-                <Link to={`${catSlug}/${item.slug}`}>
+                <Link to={`${catSlug}/${item.node.slug}`}>
                   <img
-                    src={item.image[0].fluid.src}
-                    alt={item.productName.productName}
+                    src={item.node.image[0].fluid.src}
+                    alt={item.node.productName.productName}
                   />
-                  <h4>{item.productName.productName}</h4>
+                  <h4>{item.node.productName.productName}</h4>
                 </Link>
                 <aside>
-                  <span>CA${item.price}</span>
+                  <span>CA${item.node.price.toFixed(2)}</span>
                   {/* <span>CA${item.discountedPrice}</span> */}
                 </aside>
               </article>
