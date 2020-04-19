@@ -68,6 +68,11 @@ const CategoryPages = props => {
     shallowEqual
   )
 
+  const checkedPriceFilters = useSelector(
+    state => state.filterReducer.checkedPriceFilters,
+    shallowEqual
+  )
+
   const currentPageState = useSelector(
     state => state.categoryReducer.currentPage,
     shallowEqual
@@ -93,8 +98,10 @@ const CategoryPages = props => {
   }
 
   useEffect(() => {
-    fetchCategoriesLocal()
-  }, [])
+    if (checkedPriceFilters === null || checkedPriceFilters.length === 0) {
+      fetchCategoriesLocal()
+    }
+  }, [checkedPriceFilters])
 
   // Get current posts
   const indexOfLastPost = currentPageState * productPerPageState

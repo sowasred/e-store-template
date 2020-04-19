@@ -6,6 +6,8 @@ import {
   FIRST_PAGE,
   LAST_PAGE,
   SORT_PRODUCTS,
+  FILTER_PRODUCTS_BYPRICE,
+  PRICE_FILTER_ADD_PRODUCT,
 } from "../type"
 
 export const fetchCategories = payload => ({
@@ -13,6 +15,15 @@ export const fetchCategories = payload => ({
   payload: payload,
 })
 
+export const filterByPriceAdd = payload => ({
+  type: PRICE_FILTER_ADD_PRODUCT,
+  payload: payload,
+})
+
+export const filterByPrice = payload => ({
+  type: FILTER_PRODUCTS_BYPRICE,
+  payload: payload,
+})
 export const sortCategorieProducts = payload => ({
   type: SORT_PRODUCTS,
   payload: payload,

@@ -7,13 +7,22 @@ import { useSelector, shallowEqual, useDispatch } from "react-redux"
 
 import { client } from "../context/ApolloClient"
 
-import { handlePriceFilter } from "../state/actions/filterActions"
+import {
+  handlePriceFilter,
+  checkedPriceFilters,
+  uncheckedPriceFilters,
+} from "../state/actions/filterActions"
+
+import {
+  filterByPrice,
+  filterByPriceAdd,
+} from "../state/actions/categoryActions"
 
 import filterStyle from "./styles/filter.module.scss"
 
 const customStyles = {
   content: {
-    top: "0",
+    top: "5vh",
     right: "0",
     position: "absolute",
     margin: "0",
@@ -27,8 +36,8 @@ const FILTER_BY_PRICE = gql`
   query filterProductsByPrice(
     $catSlugG: String
     $valueG: [SortOrderEnum]
-    $greaterThan: [float]
-    $lessThan: [float]
+    $greaterThan: Float
+    $lessThan: Float
   ) {
     allContentfulProduct(
       filter: {
@@ -103,11 +112,18 @@ const SORT_QUERY = gql`
 
 const MobileFilter = ({ catSlug, products }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false)
-  const [minInterval, setMinInterval] = React.useState(25)
 
-  console.info(products, "maxmin")
+  const [minInterval, setMinInterval] = React.useState(50)
+  const [priceFilter, setPriceFilter] = React.useState({})
+  const dispatch = useDispatch()
+
   const sortProductState = useSelector(
     state => state.categoryReducer.sortProductState,
+    shallowEqual
+  )
+
+  const checkedPriceFiltersState = useSelector(
+    state => state.filterReducer.checkedPriceFilters,
     shallowEqual
   )
 
@@ -121,26 +137,145 @@ const MobileFilter = ({ catSlug, products }) => {
     setIsOpen(false)
   }
 
-  // Creatinf Filters Dynamically
+  const handlePriceFilterClicked = e => {
+    console.info("clicked", e.target.value)
+    console.info("clicked", e.target.checked)
 
-  const minPriceFind = () => {
-    let tempArray = []
-    products.map(item => {
-      console.info(item.node.price)
-      tempArray.push(item.node.price)
-    })
+    let value = e.target.value
+    if (value / minInterval === 1) {
+      let greaterThanTemp = 0
+      filterProductsPrice(e, greaterThanTemp, value)
+    } else if (value / minInterval != 5) {
+      filterProductsPrice(e, (value / minInterval - 1) * minInterval, value)
+    } else if (value / minInterval === 5) {
+      filterProductsPrice(e, value, 1000000)
+    }
+  }
 
-    let minnumber = Math.min(tempArray)
-    setMinInterval(minnumber)
+  const filterProductsPrice = (e, greater, order) => {
+    let isChecked = e.target.checked
+    let chekboxValue = e.target.value
+    if (isChecked) {
+      client
+        .query({
+          query: FILTER_BY_PRICE,
+          variables: {
+            catSlugG: catSlug,
+            valueG:
+              sortProductState === "recommended" ||
+              sortProductState === "highest-discount"
+                ? "ASC"
+                : sortProductState,
+            greaterThan: parseFloat(greater),
+            lessThan: parseFloat(order),
+          },
+        })
+        .then(res => {
+          console.info("oha", res.data.allContentfulProduct.edges)
+          let categoryProducts = res.data.allContentfulProduct.edges
+          if (checkedPriceFiltersState.length < 1 && isChecked) {
+            dispatch(filterByPrice(categoryProducts))
+          } else if (isChecked) {
+            dispatch(filterByPriceAdd(categoryProducts))
+          }
+          dispatch(checkedPriceFilters(chekboxValue))
+        })
+    } else {
+      let tempArr = checkedPriceFiltersState
+      const result = tempArr.filter(item => item != chekboxValue)
+      console.info("result", result)
+      dispatch(checkedPriceFilters(chekboxValue))
+    }
+
+    checkCheckBoxes(e, chekboxValue)
+  }
+
+  const checkCheckBoxes = (e, spanId) => {
+    let checkbox = document.getElementById(`${spanId}`)
+    let checkIt = checkedPriceFiltersState.some(item => item === spanId)
+    console.info(checkbox)
+    if (checkIt) {
+      checkbox.classList.remove("active")
+
+      checkbox.classList.add("not-active")
+    } else {
+      checkbox.classList.add("active")
+      checkbox.classList.remove("not-active")
+    }
   }
 
   useEffect(() => {
-    minPriceFind()
-  }, [])
+    renderDynamicPriceFilter()
+    // checkCheckBoxes()
+  }, [checkedPriceFiltersState])
+
+  const renderDynamicPriceFilter = (interval, rowNumber) => {
+    return (
+      <div>
+        {Array(5)
+          .fill(0, 0, 5)
+          .map((item, index) => {
+            if (index !== 4) {
+              let tempvalue = (index + 1) * interval
+              console.info("ozan", index)
+              return (
+                <div style={{ display: "flex" }}>
+                  <span
+                    id={(index + 1) * interval}
+                    className={
+                      checkedPriceFiltersState.some(item => item === tempvalue)
+                        ? "active"
+                        : "not-active"
+                    }
+                  ></span>
+                  <input
+                    onChange={e => {
+                      handlePriceFilterClicked(e)
+                    }}
+                    index={(index + 1) * interval}
+                    className={filterStyle.inputself}
+                    type="checkbox"
+                    name="Price Filter"
+                    value={(index + 1) * interval}
+                  />
+                  <label className={filterStyle.labelself} for="Price Filter">
+                    {index * interval}$ - ${(index + 1) * interval}
+                  </label>
+                </div>
+              )
+            } else if (index === 4) {
+              return (
+                <div>
+                  <input
+                    onChange={e => {
+                      handlePriceFilterClicked(e)
+                    }}
+                    className={filterStyle.inputself}
+                    type="checkbox"
+                    name="Price Filter"
+                    value={(index + 1) * interval}
+                  />
+                  <label className={filterStyle.labelself} for="Price Filter">
+                    {(index + 1) * interval}$ - Above
+                  </label>
+                </div>
+              )
+            }
+          })}
+      </div>
+    )
+  }
+
+  // Creatinf Filters Dynamically
+  const renderFilters = () => {}
+
+  useEffect(() => {}, [])
 
   return (
-    <div onClick={toggleModal} className={filterStyle.filterWrap}>
-      FILTER
+    <React.Fragment>
+      <div onClick={toggleModal} className={filterStyle.filterWrap}>
+        FILTER
+      </div>
       <Modal
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
@@ -148,10 +283,20 @@ const MobileFilter = ({ catSlug, products }) => {
         style={customStyles}
         contentLabel="Filter Modal"
         closeTimeoutMS={200}
+        // shouldCloseOnOverlayClick={true}
       >
-        <div>Yarrak</div>
+        <div
+          onClick={() => {
+            closeModal()
+          }}
+          className={filterStyle.closeIcon}
+        >
+          &times;
+        </div>
+
+        <section>{renderDynamicPriceFilter(50)}</section>
       </Modal>
-    </div>
+    </React.Fragment>
   )
 }
 

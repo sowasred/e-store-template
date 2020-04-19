@@ -6,6 +6,8 @@ import {
   FIRST_PAGE,
   LAST_PAGE,
   SORT_PRODUCTS,
+  FILTER_PRODUCTS_BYPRICE,
+  PRICE_FILTER_ADD_PRODUCT,
 } from "../type.js"
 
 const initialState = {
@@ -16,6 +18,7 @@ const initialState = {
   currentPage: 1,
   productPerPage: 6,
   sortProductState: "",
+  priceFilterValue: 0,
 }
 
 const categoryReducer = (state = initialState, { type, payload }) => {
@@ -64,6 +67,16 @@ const categoryReducer = (state = initialState, { type, payload }) => {
         ...state,
         categoryProducts: payload.categoryProducts,
         sortProductState: payload.value,
+      }
+    case FILTER_PRODUCTS_BYPRICE:
+      return {
+        ...state,
+        categoryProducts: payload,
+      }
+    case PRICE_FILTER_ADD_PRODUCT:
+      return {
+        ...state,
+        categoryProducts: [...state.categoryProducts, ...payload],
       }
     default:
       return state

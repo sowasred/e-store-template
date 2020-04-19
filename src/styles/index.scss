@@ -40,10 +40,24 @@ body {
 .ReactModal__Overlay {
   transition: opacity 200ms ease-in-out;
   background: rgba(0, 0, 0, 0.15);
+
   &--after-open {
     opacity: 1;
   }
   &--before-close {
     opacity: 0;
   }
+}
+
+.active {
+  width: 30px;
+  height: 30px;
+  background: red;
+}
+
+.not-active {
+  width: 30px;
+  background: black;
+
+  height: 30px;
 }

@@ -1,15 +1,17 @@
-import { PRICE_FILTER_CHECK } from "../type.js"
+import { CHECKED_PRICE_FILTERS } from "../type.js"
 
 const initialState = {
-  priceFilter: 0,
+  checkedPriceFilters: [],
 }
 
 const filterReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case PRICE_FILTER_CHECK:
+    case CHECKED_PRICE_FILTERS:
       return {
         ...state,
-        priceFilter: payload,
+        checkedPriceFilters: state.checkedPriceFilters.includes(payload)
+          ? state.checkedPriceFilters.filter((item, index) => item !== payload)
+          : [...state.checkedPriceFilters, payload],
       }
     default:
       return state

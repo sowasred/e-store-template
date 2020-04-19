@@ -5,7 +5,7 @@ import React from "react"
 import catProductsStyle from "./styles/categoryproducts.module.scss"
 
 const CategoryProducts = ({ catSlug, products }) => {
-  console.info("YARRAK", products)
+  console.info("category Products ", products)
   return (
     <section className={catProductsStyle.catWraper}>
       {products && products.length > 0
