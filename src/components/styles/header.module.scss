@@ -16,25 +16,34 @@ header {
   -moz-box-shadow: 0 6px 6px -6px black;
   box-shadow: 0 6px 6px -6px black;
 }
-h1 {
-  margin-block-start: 0;
-  margin-block-end: 0;
-}
+.navigation {
 
+}
 .siteTitle {
-  width: 100%;
-  width: -moz-available; /* WebKit-based browsers will ignore this. */
-  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-  width: fill-available;
+  width: fit-content;
   text-align: center;
   font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  font-size: 2.5rem;
-  margin-right: -1rem;
-  transition: all 0.2s;
+  font-size: 2rem;
 }
-.wrapper {
+@media all and (max-width: 768) {
+  .siteTitle {
+    font-size: 25px !important;
+  }
+}
+@media all and (min-width: 768) {
+  .siteTitle {
+    a {
+      width: fit-content;
+      position: absolute;
+      border: 1px black solid;
+      margin: 2rem;
+      padding: 1rem;
+    }
+  }
+}
+.mobileWrapper {
   display: flex;
+  align-self: center;
   a {
     padding: 1rem;
   }
@@ -47,20 +56,6 @@ h1 {
   }
 }
 
-@media all and (min-width: 768) {
-  .siteTitle {
-    a {
-      width: fit-content;
-      position: absolute;
-      border: 1px black solid;
-      margin: 2rem;
-      padding: 1rem;
-    }
-  }
-}
 
-@media all and (max-width: 768) {
-  .siteTitle {
-    font-size: 25px !important;
-  }
-}
+
+

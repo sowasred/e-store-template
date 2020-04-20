@@ -9,26 +9,28 @@ import search from "../images/search.svg"
 
 const Dashboard = () => {
   return (
-    <div className={navigationStyle.dashboardWrapper}>
-      <div className={navigationStyle.navItem2}>
-        <h3>Sign in</h3>
-        <img src={user}></img>
-      </div>
-      <div className={navigationStyle.navItem2}>
-        <h3>Favorites</h3>
-        <img src={heart}></img>
-      </div>
-      <div className={navigationStyle.navItem2}>
-        <h3>Search</h3>
-        <img src={search}></img>
-      </div>
-      <div className={navigationStyle.navItem2}>
-        <h3>Canada</h3>
-        <img className={navigationStyle.flag} src={canada}></img>
-      </div>
-      <div className={navigationStyle.navItem2}>
-        <h3>Bag</h3>
-        <img src={bag}></img>
+    <div className={navigationStyle.dashboard}>
+      <div className={navigationStyle.dashboardElements}>
+        <span className={navigationStyle.navItem}>
+          <a>Sign in</a>
+          <img src={user}></img>
+        </span>
+        <span className={navigationStyle.navItem}>
+          <a>Favorites</a>
+          <img src={heart}></img>
+        </span>
+        <span className={navigationStyle.navItem}>
+          <a>Search</a>
+          <img src={search}></img>
+        </span>
+        <span className={navigationStyle.navItem}>
+          <a>Canada</a>
+          <img className={navigationStyle.flag} src={canada}></img>
+        </span>
+        <span className={navigationStyle.navItem}>
+          <a>Bag</a>
+          <img src={bag}></img>
+        </span>
       </div>
     </div>
   )
