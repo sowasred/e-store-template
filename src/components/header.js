@@ -39,17 +39,19 @@ const Header = ({ siteTitle }) => {
   return (
     <header onScroll={animateHeader()}>
       <Navigation className={headerStyle.navigation} />
-      <h1 className={headerStyle.siteTitle}>
-        <Link
-          to="/"
-          style={{
-            color: `black`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
+      <span className={headerStyle.siteTitle}>
+        <h1>
+          <Link
+            to="/"
+            style={{
+              color: `black`,
+              textDecoration: `none`,
+            }}
+          >
+            {siteTitle}
+          </Link>
+        </h1>
+      </span>
       {isMobileState ? (
         <React.Fragment>
           <div className={headerStyle.mobileWrapper}>

@@ -104,7 +104,7 @@ const Navigation = props => {
   }, [currentScreenWidth])
 
   return (
-    <nav id={navigationStyle.navitself} role="navigation">
+    <nav class={navigationStyle.navitself} role="navigation">
       {!isMobileState ? (
         <div className={navigationStyle.innerNav}>
           <span className={navigationStyle.navItem}>

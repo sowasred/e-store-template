@@ -7,7 +7,7 @@ header {
   position: fixed;
   position: -webkit-sticky;
   position: sticky;
-  top: 0vh;
+  // top: 0vh;  
   z-index: 9;
   font-size: 1.4rem;
   background-color: #fff;
@@ -15,37 +15,27 @@ header {
   -webkit-box-shadow: 0 6px 6px -6px black;
   -moz-box-shadow: 0 6px 6px -6px black;
   box-shadow: 0 6px 6px -6px black;
-}
-.navigation {
 
-}
-.siteTitle {
-  width: fit-content;
-  text-align: center;
-  font-family: "Poppins", sans-serif;
-  font-size: 2rem;
-}
-@media all and (max-width: 768) {
+  .navigation {
+    flex: 1 0;
+  }
   .siteTitle {
-    font-size: 25px !important;
+    display: flex;
+    flex: 1 0;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
   }
 }
-@media all and (min-width: 768) {
-  .siteTitle {
-    a {
-      width: fit-content;
-      position: absolute;
-      border: 1px black solid;
-      margin: 2rem;
-      padding: 1rem;
-    }
-  }
-}
+
+
 .mobileWrapper {
   display: flex;
   align-self: center;
+  justify-content: flex-end;
+  flex: 1 0;
   a {
-    padding: 1rem;
+    padding: .5rem;
   }
   img {
     height: 1.6rem;

@@ -12,23 +12,23 @@ const Dashboard = () => {
     <div className={navigationStyle.dashboard}>
       <div className={navigationStyle.dashboardElements}>
         <span className={navigationStyle.navItem}>
-          <a>Sign in</a>
+          <a className={navigationStyle.right}>Sign in</a>
           <img src={user}></img>
         </span>
         <span className={navigationStyle.navItem}>
-          <a>Favorites</a>
+          <a className={navigationStyle.right}>Favorites</a>
           <img src={heart}></img>
         </span>
         <span className={navigationStyle.navItem}>
-          <a>Search</a>
+          <a className={navigationStyle.right}>Search</a>
           <img src={search}></img>
         </span>
         <span className={navigationStyle.navItem}>
-          <a>Canada</a>
+          <a className={navigationStyle.right}>Canada</a>
           <img className={navigationStyle.flag} src={canada}></img>
         </span>
         <span className={navigationStyle.navItem}>
-          <a>Bag</a>
+          <a className={navigationStyle.right}>Bag</a>
           <img src={bag}></img>
         </span>
       </div>

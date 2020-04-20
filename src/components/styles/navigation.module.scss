@@ -1,56 +1,62 @@
 .navitself {
   display: flex;
-}
-.innerNav {
-  justify-content: center;
-  display: flex;
-  margin: 0 auto;
+  flex: 1 0;
+  .innerNav {
+    display: flex;
+    flex: 1 0;
+    justify-content: center;
+    text-align: center;
+  }
+  .navitself:first-child > span { margin-right: auto; }
+  .navitself:last-child  > span { margin-left: auto;  }
+  
+  // Innernav probably extra
+  .innerNav:first-child > span { margin-right: auto; }
+  .innerNav:last-child  > span { margin-left: auto;  }
 }
 .navItem {
   display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1rem;
-  margin-right: 1rem;
-  justify-content: flex-end;
   min-width: fit-content;
   text-align: center;
   min-width: max-content !important;
   cursor: pointer;
   a {
     text-decoration: none ;
-    margin-left: 2rem;
-    margin-top: 1rem;
   }
   img {
     height: 16px;
     width: 16px;
-    margin-top: 1rem;
-    margin-left: 0.5em;
+    padding: .5em;
+  }
+  @media all and (min-width: 769px) and (max-width: 1023px) {
+    .right {
+      display: none;
+    }
   }
 }
-.dashboardElements {
-  display: flex;
-  // min-width: 48vw;
-  justify-content: center;
-  margin-right: 1rem;
+.dashboard {
+  flex: 1 0;
+  .dashboardElements {
+    display: flex;
+    flex: 1 0;
+    justify-content: center;
+    text-align: center;
+  }
+  .dashboard:first-child > span { margin-right: auto; }
+  .dashboard:last-child  > span { margin-left: auto;  }
+  // dashboardElements are probably extra
+  .dashboardElements:first-child > span { margin-right: auto; }
+  .dashboardElements:last-child  > span { margin-left: auto;  }
 }
 
 .flag {
   width: 32px !important;
 }
 
-@media all and (min-width: 769) {
-  .navItem a {
-    margin-left: 1rem !important;
-  }
-  .navItem2 {
-    display: flex;
-    flex-wrap: nowrap;
-    margin-left: 1em;
-    h3 {
-      font-size: 1.6rem;
-    }
-  }
-}
+
 @media all and (max-width: 425px) {
   .innerNav {
     display: none;
