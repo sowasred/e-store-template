@@ -77,6 +77,10 @@ const CategoryPages = props => {
     state => state.categoryReducer.currentPage,
     shallowEqual
   )
+  const navCategoryState = useSelector(
+    state => state.categoryReducer.navCategory,
+    shallowEqual
+  )
   const dispatch = useDispatch()
 
   const fetchCategoriesLocal = () => {

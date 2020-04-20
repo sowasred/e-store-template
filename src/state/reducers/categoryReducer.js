@@ -8,6 +8,7 @@ import {
   SORT_PRODUCTS,
   FILTER_PRODUCTS_BYPRICE,
   PRICE_FILTER_ADD_PRODUCT,
+  PRICE_FILTER_REMOVE_PRODUCT,
 } from "../type.js"
 
 const initialState = {
@@ -77,6 +78,14 @@ const categoryReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         categoryProducts: [...state.categoryProducts, ...payload],
+      }
+    case PRICE_FILTER_REMOVE_PRODUCT:
+      let tempArray = state.categoryProducts.filter(
+        item => !payload.includes(item)
+      )
+      return {
+        ...state,
+        categoryProducts: tempArray,
       }
     default:
       return state

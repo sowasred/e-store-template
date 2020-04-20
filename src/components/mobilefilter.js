@@ -15,7 +15,9 @@ import {
 
 import {
   filterByPrice,
+  fetchCategories,
   filterByPriceAdd,
+  filterByPriceRemove,
 } from "../state/actions/categoryActions"
 
 import filterStyle from "./styles/filter.module.scss"
@@ -41,7 +43,7 @@ const FILTER_BY_PRICE = gql`
   ) {
     allContentfulProduct(
       filter: {
-        price: { gt: $greaterThan, lt: $lessThan }
+        price: { gt: $greaterThan, lte: $lessThan }
         categories: { elemMatch: { slug: { eq: $catSlugG } } }
       }
       sort: { fields: price, order: $valueG }
@@ -69,14 +71,24 @@ const FILTER_BY_PRICE = gql`
   }
 `
 
-const SORT_QUERY = gql`
-  query sortProducts($catSlugG: String, $valueG: [SortOrderEnum]) {
+const PRODUCT_COUNT_QUERY = gql`
+  query sortProducts(
+    $catSlugG: String
+    $valueG: [SortOrderEnum]
+    $greaterThan: Float
+    $lessThan: Float
+  ) {
     allContentfulProduct(
-      filter: { categories: { elemMatch: { slug: { eq: "women" } } } }
+      filter: {
+        price: { gt: $greaterThan, lte: $lessThan }
+        categories: { elemMatch: { slug: { eq: $catSlugG } } }
+      }
+      sort: { fields: price, order: $valueG }
     ) {
       edges {
         node {
           price
+          quantity
         }
       }
       totalCount
@@ -114,7 +126,7 @@ const MobileFilter = ({ catSlug, products }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false)
 
   const [minInterval, setMinInterval] = React.useState(50)
-  const [priceFilter, setPriceFilter] = React.useState({})
+  const [priceFilter, setPriceFilter] = React.useState([{}])
   const dispatch = useDispatch()
 
   const sortProductState = useSelector(
@@ -126,7 +138,10 @@ const MobileFilter = ({ catSlug, products }) => {
     state => state.filterReducer.checkedPriceFilters,
     shallowEqual
   )
-
+  const navCategoryState = useSelector(
+    state => state.categoryReducer.navCategory,
+    shallowEqual
+  )
   const openModal = () => {
     setIsOpen(true)
   }
@@ -138,76 +153,68 @@ const MobileFilter = ({ catSlug, products }) => {
   }
 
   const handlePriceFilterClicked = e => {
-    console.info("clicked", e.target.value)
-    console.info("clicked", e.target.checked)
-
+    filterProductsPrice(e)
     let value = e.target.value
     if (value / minInterval === 1) {
       let greaterThanTemp = 0
-      filterProductsPrice(e, greaterThanTemp, value)
+      queryProducts(e, greaterThanTemp, value)
     } else if (value / minInterval != 5) {
-      filterProductsPrice(e, (value / minInterval - 1) * minInterval, value)
+      queryProducts(e, (value / minInterval - 1) * minInterval, value)
     } else if (value / minInterval === 5) {
-      filterProductsPrice(e, value, 1000000)
+      queryProducts(e, value, 1000000)
     }
   }
 
-  const filterProductsPrice = (e, greater, order) => {
-    let isChecked = e.target.checked
+  const filterProductsPrice = e => {
     let chekboxValue = e.target.value
-    if (isChecked) {
-      client
-        .query({
-          query: FILTER_BY_PRICE,
-          variables: {
-            catSlugG: catSlug,
-            valueG:
-              sortProductState === "recommended" ||
-              sortProductState === "highest-discount"
-                ? "ASC"
-                : sortProductState,
-            greaterThan: parseFloat(greater),
-            lessThan: parseFloat(order),
-          },
-        })
-        .then(res => {
-          console.info("oha", res.data.allContentfulProduct.edges)
-          let categoryProducts = res.data.allContentfulProduct.edges
-          if (checkedPriceFiltersState.length < 1 && isChecked) {
-            dispatch(filterByPrice(categoryProducts))
-          } else if (isChecked) {
-            dispatch(filterByPriceAdd(categoryProducts))
-          }
-          dispatch(checkedPriceFilters(chekboxValue))
-        })
-    } else {
-      let tempArr = checkedPriceFiltersState
-      const result = tempArr.filter(item => item != chekboxValue)
-      console.info("result", result)
-      dispatch(checkedPriceFilters(chekboxValue))
-    }
-
-    checkCheckBoxes(e, chekboxValue)
+    dispatch(checkedPriceFilters({ value: chekboxValue }))
   }
 
-  const checkCheckBoxes = (e, spanId) => {
-    let checkbox = document.getElementById(`${spanId}`)
-    let checkIt = checkedPriceFiltersState.some(item => item === spanId)
-    console.info(checkbox)
-    if (checkIt) {
-      checkbox.classList.remove("active")
+  const queryProducts = (e, greater, order) => {
+    let chekboxValue = e.target.value
+    let isChecked = e.target.checked
 
-      checkbox.classList.add("not-active")
-    } else {
-      checkbox.classList.add("active")
-      checkbox.classList.remove("not-active")
-    }
+    let categoryProducts = []
+
+    let priceIsChecked = checkedPriceFiltersState.some(
+      item => item.value === chekboxValue
+    )
+    console.info("priceIsChecked", checkedPriceFiltersState)
+
+    client
+      .query({
+        query: FILTER_BY_PRICE,
+        variables: {
+          catSlugG: catSlug,
+          valueG:
+            sortProductState === "recommended" ||
+            sortProductState === "highest-discount"
+              ? "ASC"
+              : sortProductState,
+          greaterThan: parseFloat(greater),
+          lessThan: parseFloat(order),
+        },
+      })
+      .then(res => {
+        categoryProducts = res.data.allContentfulProduct.edges
+        console.info("res", res)
+
+        console.info("OZAN", checkedPriceFiltersState)
+        if (checkedPriceFiltersState.length === 0) {
+          console.info("ozan muldur ", checkedPriceFiltersState)
+          console.info("ozan muldur ", categoryProducts)
+          dispatch(filterByPrice(categoryProducts))
+        } else if (checkedPriceFiltersState.length > 0 && !priceIsChecked) {
+          console.info("ozan muldur99 ", categoryProducts)
+
+          dispatch(filterByPriceAdd(categoryProducts))
+        } else if (priceIsChecked) {
+          console.info("ozan muldur200 ", categoryProducts)
+
+          dispatch(filterByPriceRemove(categoryProducts))
+        }
+      })
   }
-
-  useEffect(() => {
-    renderDynamicPriceFilter()
-    // checkCheckBoxes()
-  }, [checkedPriceFiltersState])
 
   const renderDynamicPriceFilter = (interval, rowNumber) => {
     return (
@@ -216,14 +223,18 @@ const MobileFilter = ({ catSlug, products }) => {
           .fill(0, 0, 5)
           .map((item, index) => {
             if (index !== 4) {
-              let tempvalue = (index + 1) * interval
-              console.info("ozan", index)
+              let tempArray = priceFilter.filter(
+                item => item.value === (index + 1) * interval
+              )
+              console.info("temparray", tempArray)
               return (
                 <div style={{ display: "flex" }}>
                   <span
-                    id={(index + 1) * interval}
+                    id={index}
                     className={
-                      checkedPriceFiltersState.some(item => item === tempvalue)
+                      checkedPriceFiltersState.some(
+                        item => parseInt(item.value) === (index + 1) * interval
+                      )
                         ? "active"
                         : "not-active"
                     }
@@ -232,7 +243,7 @@ const MobileFilter = ({ catSlug, products }) => {
                     onChange={e => {
                       handlePriceFilterClicked(e)
                     }}
-                    index={(index + 1) * interval}
+                    index={index}
                     className={filterStyle.inputself}
                     type="checkbox"
                     name="Price Filter"
@@ -241,11 +252,24 @@ const MobileFilter = ({ catSlug, products }) => {
                   <label className={filterStyle.labelself} for="Price Filter">
                     {index * interval}$ - ${(index + 1) * interval}
                   </label>
+                  <span>
+                    {tempArray.length > 0 ? tempArray.quantity : null}
+                  </span>
                 </div>
               )
             } else if (index === 4) {
               return (
-                <div>
+                <div style={{ display: "flex" }}>
+                  <span
+                    id={index}
+                    className={
+                      checkedPriceFiltersState.some(
+                        item => parseInt(item.value) === (index + 1) * interval
+                      )
+                        ? "active"
+                        : "not-active"
+                    }
+                  ></span>
                   <input
                     onChange={e => {
                       handlePriceFilterClicked(e)
@@ -269,7 +293,79 @@ const MobileFilter = ({ catSlug, products }) => {
   // Creatinf Filters Dynamically
   const renderFilters = () => {}
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    Array(0, 0, 5).map((item, index) => {
+      console.info(index)
+      if (index === 0) {
+        client
+          .query({
+            query: PRODUCT_COUNT_QUERY,
+            variables: {
+              catSlugG: catSlug,
+              valueG: "ASC",
+              greaterThan: parseFloat(0),
+              lessThan: parseFloat(minInterval),
+            },
+          })
+          .then(res => {
+            console.info("response", res)
+            let contentfulProducs = res.data.allContentfulProduct.edges
+            let quantityNumber = contentfulProducs.length
+            let tempValue = (index + 1) * minInterval
+            setPriceFilter([
+              ...priceFilter,
+              { value: tempValue, quantity: quantityNumber },
+            ])
+          })
+      } else if (index != 5) {
+        client
+          .query({
+            query: PRODUCT_COUNT_QUERY,
+            variables: {
+              catSlugG: catSlug,
+              valueG: "ASC",
+              greaterThan: parseFloat(index * minInterval),
+              lessThan: parseFloat((index + 1) * minInterval),
+            },
+          })
+          .then(res => {
+            console.info("response", res)
+            let contentfulProducs = res.data.allContentfulProduct.edges
+            let quantityNumber = contentfulProducs.length
+            let tempValue = (index + 1) * minInterval
+            setPriceFilter([
+              ...priceFilter,
+              { value: tempValue, quantity: quantityNumber },
+            ])
+          })
+      } else if (index === 5) {
+        client
+          .query({
+            query: PRODUCT_COUNT_QUERY,
+            variables: {
+              catSlugG: catSlug,
+              valueG: "ASC",
+              greaterThan: parseFloat((index + 1) * minInterval),
+              lessThan: parseFloat(100000000),
+            },
+          })
+          .then(res => {
+            console.info("response", res)
+            let contentfulProducs = res.data.allContentfulProduct.edges
+            let quantityNumber = contentfulProducs.length
+            let tempValue = (index + 1) * minInterval
+            setPriceFilter([
+              ...priceFilter,
+              { value: tempValue, quantity: quantityNumber },
+            ])
+          })
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    dispatch(uncheckedPriceFilters())
+  }, [navCategoryState])
 
   return (
     <React.Fragment>
@@ -293,8 +389,7 @@ const MobileFilter = ({ catSlug, products }) => {
         >
           &times;
         </div>
-
-        <section>{renderDynamicPriceFilter(50)}</section>
+        {modalIsOpen ? renderDynamicPriceFilter(50) : null}
       </Modal>
     </React.Fragment>
   )

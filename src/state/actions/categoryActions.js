@@ -8,13 +8,17 @@ import {
   SORT_PRODUCTS,
   FILTER_PRODUCTS_BYPRICE,
   PRICE_FILTER_ADD_PRODUCT,
+  PRICE_FILTER_REMOVE_PRODUCT,
 } from "../type"
 
 export const fetchCategories = payload => ({
   type: CATEGORY_FETCHING,
   payload: payload,
 })
-
+export const filterByPriceRemove = payload => ({
+  type: PRICE_FILTER_REMOVE_PRODUCT,
+  payload: payload,
+})
 export const filterByPriceAdd = payload => ({
   type: PRICE_FILTER_ADD_PRODUCT,
   payload: payload,
