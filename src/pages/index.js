@@ -11,6 +11,7 @@ import FeaturedProduct from "../components/featuredproduct"
 
 const IndexPage = ({ data }) => {
   // let imageUrl = `https:${data.allContentfulMainPage.nodes[0].mainImage.fluid.src}`
+
   let womenImage = `https:${data.allContentfulMainPage.nodes[0].firstRow[0].fluid.src}`
 
   let menImage = `https:${data.allContentfulMainPage.nodes[0].firstRow[1].fluid.src}`

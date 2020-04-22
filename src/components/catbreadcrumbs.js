@@ -12,8 +12,6 @@ const CatBreadCrumb = ({ title, slug }) => {
     shallowEqual
   )
 
-  console.info("titkle", title)
-
   return (
     <nav className={breadCrumbStyle.breadcrumbsWrap}>
       {isMobileState && breadcrumbs && breadcrumbs.length > 0

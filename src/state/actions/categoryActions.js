@@ -5,10 +5,12 @@ import {
   PREVIOUS_PAGE,
   FIRST_PAGE,
   LAST_PAGE,
+  SET_SORT_STATE,
   SORT_PRODUCTS,
   FILTER_PRODUCTS_BYPRICE,
   PRICE_FILTER_ADD_PRODUCT,
   PRICE_FILTER_REMOVE_PRODUCT,
+  SORT_PRODUCTS_BY_PRICE,
 } from "../type"
 
 export const fetchCategories = payload => ({
@@ -30,6 +32,15 @@ export const filterByPrice = payload => ({
 })
 export const sortCategorieProducts = payload => ({
   type: SORT_PRODUCTS,
+  payload: payload,
+})
+
+export const sortCategorieProductsByPrice = payload => ({
+  type: SORT_PRODUCTS_BY_PRICE,
+  payload: payload,
+})
+export const setSortState = payload => ({
+  type: SET_SORT_STATE,
   payload: payload,
 })
 

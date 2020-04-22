@@ -2,6 +2,7 @@ import { CHECKED_PRICE_FILTERS, UNCHECKED_PRICE_FILTERS } from "../type.js"
 
 const initialState = {
   checkedPriceFilters: [],
+  minPriceInterval: 50,
 }
 
 const filterReducer = (state = initialState, { type, payload }) => {

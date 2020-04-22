@@ -5,10 +5,12 @@ import {
   PREVIOUS_PAGE,
   FIRST_PAGE,
   LAST_PAGE,
+  SET_SORT_STATE,
   SORT_PRODUCTS,
   FILTER_PRODUCTS_BYPRICE,
   PRICE_FILTER_ADD_PRODUCT,
   PRICE_FILTER_REMOVE_PRODUCT,
+  SORT_PRODUCTS_BY_PRICE,
 } from "../type.js"
 
 const initialState = {
@@ -18,8 +20,7 @@ const initialState = {
   loading: true,
   currentPage: 1,
   productPerPage: 6,
-  sortProductState: "",
-  priceFilterValue: 0,
+  sortProductState: "r",
 }
 
 const categoryReducer = (state = initialState, { type, payload }) => {
@@ -28,8 +29,6 @@ const categoryReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         navCategory: payload.navCategory,
-        categoryProducts: payload.categoryProducts,
-        numberOfItems: payload.numberOfItems,
         loading: payload.loading,
         currentPage: payload.currentPage,
       }
@@ -63,30 +62,69 @@ const categoryReducer = (state = initialState, { type, payload }) => {
           state.categoryProducts.length / state.productPerPage
         ),
       }
-    case SORT_PRODUCTS:
+    case SET_SORT_STATE:
       return {
         ...state,
-        categoryProducts: payload.categoryProducts,
-        sortProductState: payload.value,
+        sortProductState: payload,
       }
-    case FILTER_PRODUCTS_BYPRICE:
+    case SORT_PRODUCTS:
       return {
         ...state,
         categoryProducts: payload,
       }
-    case PRICE_FILTER_ADD_PRODUCT:
+    case FILTER_PRODUCTS_BYPRICE:
       return {
         ...state,
         categoryProducts: [...state.categoryProducts, ...payload],
       }
+    case PRICE_FILTER_ADD_PRODUCT:
+      let checkAgainTemp = state.categoryProducts.some(
+        item => item.node.price > payload.arrayValue
+      )
+      if (state.sortProductState === "ASC") {
+        return {
+          ...state,
+          categoryProducts: checkAgainTemp
+            ? [...payload.categoryProducts, ...state.categoryProducts]
+            : [...state.categoryProducts, ...payload.categoryProducts],
+        }
+      } else if (state.sortProductState === "DESC") {
+        return {
+          ...state,
+          categoryProducts: checkAgainTemp
+            ? [...state.categoryProducts, ...payload.categoryProducts]
+            : [...payload.categoryProducts, ...state.categoryProducts],
+        }
+      }
     case PRICE_FILTER_REMOVE_PRODUCT:
       let tempArray = state.categoryProducts.filter(
-        item => !payload.includes(item)
+        item => !payload.categoryProducts.includes(item)
       )
+      console.info(tempArray, "tempArray", payload.categoryProducts)
       return {
         ...state,
         categoryProducts: tempArray,
       }
+    case SORT_PRODUCTS_BY_PRICE:
+      let checkFirst = state.categoryProducts.some(
+        item => item.node.price > payload.tempValue1
+      )
+      if (state.sortProductState === "ASC") {
+        return {
+          ...state,
+          categoryProducts: checkFirst
+            ? [...payload.categoryProducts, ...state.categoryProducts]
+            : [...state.categoryProducts, ...payload.categoryProducts],
+        }
+      } else if (state.sortProductState === "DESC") {
+        return {
+          ...state,
+          categoryProducts: checkFirst
+            ? [...state.categoryProducts, ...payload.categoryProducts]
+            : [...payload.categoryProducts, ...state.categoryProducts],
+        }
+      }
+
     default:
       return state
   }

@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import { Link, graphql } from "gatsby"
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
 
-import Pagination from "../components/Pagination"
 import CatBreadCrumb from "../components/catbreadcrumbs"
 import MobileFilter from "../components/mobilefilter"
 import CategoryProducts from "../components/categoryproducts"
@@ -10,7 +9,8 @@ import CategoryProducts from "../components/categoryproducts"
 import Layout from "../components/layout"
 import MobileSort from "../components/mobilesort"
 
-import { fetchCategories, changePage } from "../state/actions/categoryActions"
+import { fetchCategories } from "../state/actions/categoryActions"
+import { client } from "../context/ApolloClient"
 
 export const query = graphql`
   query($slug: String!) {
@@ -35,65 +35,24 @@ export const query = graphql`
       }
       slug
     }
-    allContentfulProduct(
-      filter: { categories: { elemMatch: { slug: { eq: $slug } } } }
-    ) {
-      edges {
-        node {
-          price
-          slug
-          discountedPrice
-          image {
-            fluid {
-              src
-            }
-            title
-          }
-          productName {
-            productName
-          }
-        }
-      }
-    }
   }
 `
 
 const CategoryPages = props => {
-  const categoryProductsState = useSelector(
-    state => state.categoryReducer.categoryProducts,
-    shallowEqual
-  )
-  const productPerPageState = useSelector(
-    state => state.categoryReducer.productPerPage,
-    shallowEqual
-  )
-
   const checkedPriceFilters = useSelector(
     state => state.filterReducer.checkedPriceFilters,
     shallowEqual
   )
 
-  const currentPageState = useSelector(
-    state => state.categoryReducer.currentPage,
-    shallowEqual
-  )
-  const navCategoryState = useSelector(
-    state => state.categoryReducer.navCategory,
-    shallowEqual
-  )
   const dispatch = useDispatch()
 
   const fetchCategoriesLocal = () => {
-    let categoryProducts = props.data.allContentfulProduct.edges
-    let numberOfItems = props.data.allContentfulProduct.edges.length
     let navCategory = props.data.contentfulCategory.title.title
     let loading = false
     let currentPage = 1
 
     dispatch(
       fetchCategories({
-        categoryProducts,
-        numberOfItems,
         navCategory,
         loading,
         currentPage,
@@ -106,17 +65,6 @@ const CategoryPages = props => {
       fetchCategoriesLocal()
     }
   }, [checkedPriceFilters])
-
-  // Get current posts
-  const indexOfLastPost = currentPageState * productPerPageState
-  const indexOfFirstPost = indexOfLastPost - productPerPageState
-  const currentPosts = categoryProductsState.slice(
-    indexOfFirstPost,
-    indexOfLastPost
-  )
-
-  // Change page
-  const paginate = pageNumber => dispatch(changePage(pageNumber))
 
   const createMarkup = () => {
     return {
@@ -136,23 +84,11 @@ const CategoryPages = props => {
       </h1>
       {/* <p dangerouslySetInnerHTML={createMarkup()} /> */}
       <div style={{ display: "flex" }}>
-        <MobileFilter
-          catSlug={props.data.contentfulCategory.slug}
-          products={currentPosts}
-        />
+        <MobileFilter catSlug={props.data.contentfulCategory.slug} />
         <MobileSort catSlug={props.data.contentfulCategory.slug} />
       </div>
 
-      <CategoryProducts
-        catSlug={props.data.contentfulCategory.slug}
-        products={currentPosts}
-      />
-      <Pagination
-        productPerPage={productPerPageState}
-        totalProducts={categoryProductsState.length}
-        paginate={paginate}
-        currentPage={currentPageState}
-      />
+      <CategoryProducts catSlug={props.data.contentfulCategory.slug} />
     </Layout>
   )
 }

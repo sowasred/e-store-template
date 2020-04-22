@@ -71,71 +71,18 @@ const FILTER_BY_PRICE = gql`
   }
 `
 
-const PRODUCT_COUNT_QUERY = gql`
-  query sortProducts(
-    $catSlugG: String
-    $valueG: [SortOrderEnum]
-    $greaterThan: Float
-    $lessThan: Float
-  ) {
-    allContentfulProduct(
-      filter: {
-        price: { gt: $greaterThan, lte: $lessThan }
-        categories: { elemMatch: { slug: { eq: $catSlugG } } }
-      }
-      sort: { fields: price, order: $valueG }
-    ) {
-      edges {
-        node {
-          price
-          quantity
-        }
-      }
-      totalCount
-    }
-  }
-`
-
-// const SORT_QUERY = gql`
-//   query sortProducts($catSlugG: String, $valueG:) {
-//     allContentfulProduct(filter: {price: {gt: 0, lt: 15}}, sort: {fields: price, order: ASC}) {
-//       edges {
-//         node {
-//           price
-//           slug
-//           discountedPrice
-//           image {
-//             fluid {
-//               src
-//             }
-//             title
-//           }
-//           productName {
-//             productName
-//           }
-//           quantity
-//           sku
-//         }
-//       }
-//       totalCount
-//     }
-//   }
-// `
-
 const MobileFilter = ({ catSlug, products }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false)
 
   const [minInterval, setMinInterval] = React.useState(50)
-  const [priceFilter, setPriceFilter] = React.useState([{}])
   const dispatch = useDispatch()
-
-  const sortProductState = useSelector(
-    state => state.categoryReducer.sortProductState,
-    shallowEqual
-  )
 
   const checkedPriceFiltersState = useSelector(
     state => state.filterReducer.checkedPriceFilters,
+    shallowEqual
+  )
+  const sortProductState = useSelector(
+    state => state.categoryReducer.sortProductState,
     shallowEqual
   )
   const navCategoryState = useSelector(
@@ -155,65 +102,19 @@ const MobileFilter = ({ catSlug, products }) => {
   const handlePriceFilterClicked = e => {
     filterProductsPrice(e)
     let value = e.target.value
-    if (value / minInterval === 1) {
-      let greaterThanTemp = 0
-      queryProducts(e, greaterThanTemp, value)
-    } else if (value / minInterval != 5) {
-      queryProducts(e, (value / minInterval - 1) * minInterval, value)
-    } else if (value / minInterval === 5) {
-      queryProducts(e, value, 1000000)
-    }
+    // if (value / minInterval === 1) {
+    //   let greaterThanTemp = 0
+    //   queryProducts(e, greaterThanTemp, value)
+    // } else if (value / minInterval != 5) {
+    //   queryProducts(e, (value / minInterval - 1) * minInterval, value)
+    // } else if (value / minInterval === 5) {
+    //   queryProducts(e, value, 1000000)
+    // }
   }
 
   const filterProductsPrice = e => {
     let chekboxValue = e.target.value
     dispatch(checkedPriceFilters({ value: chekboxValue }))
-  }
-
-  const queryProducts = (e, greater, order) => {
-    let chekboxValue = e.target.value
-    let isChecked = e.target.checked
-
-    let categoryProducts = []
-
-    let priceIsChecked = checkedPriceFiltersState.some(
-      item => item.value === chekboxValue
-    )
-    console.info("priceIsChecked", checkedPriceFiltersState)
-
-    client
-      .query({
-        query: FILTER_BY_PRICE,
-        variables: {
-          catSlugG: catSlug,
-          valueG:
-            sortProductState === "recommended" ||
-            sortProductState === "highest-discount"
-              ? "ASC"
-              : sortProductState,
-          greaterThan: parseFloat(greater),
-          lessThan: parseFloat(order),
-        },
-      })
-      .then(res => {
-        categoryProducts = res.data.allContentfulProduct.edges
-        console.info("res", res)
-
-        console.info("OZAN", checkedPriceFiltersState)
-        if (checkedPriceFiltersState.length === 0) {
-          console.info("ozan muldur ", checkedPriceFiltersState)
-          console.info("ozan muldur ", categoryProducts)
-          dispatch(filterByPrice(categoryProducts))
-        } else if (checkedPriceFiltersState.length > 0 && !priceIsChecked) {
-          console.info("ozan muldur99 ", categoryProducts)
-
-          dispatch(filterByPriceAdd(categoryProducts))
-        } else if (priceIsChecked) {
-          console.info("ozan muldur200 ", categoryProducts)
-
-          dispatch(filterByPriceRemove(categoryProducts))
-        }
-      })
   }
 
   const renderDynamicPriceFilter = (interval, rowNumber) => {
@@ -223,10 +124,6 @@ const MobileFilter = ({ catSlug, products }) => {
           .fill(0, 0, 5)
           .map((item, index) => {
             if (index !== 4) {
-              let tempArray = priceFilter.filter(
-                item => item.value === (index + 1) * interval
-              )
-              console.info("temparray", tempArray)
               return (
                 <div style={{ display: "flex" }}>
                   <span
@@ -252,9 +149,6 @@ const MobileFilter = ({ catSlug, products }) => {
                   <label className={filterStyle.labelself} for="Price Filter">
                     {index * interval}$ - ${(index + 1) * interval}
                   </label>
-                  <span>
-                    {tempArray.length > 0 ? tempArray.quantity : null}
-                  </span>
                 </div>
               )
             } else if (index === 4) {
@@ -280,7 +174,7 @@ const MobileFilter = ({ catSlug, products }) => {
                     value={(index + 1) * interval}
                   />
                   <label className={filterStyle.labelself} for="Price Filter">
-                    {(index + 1) * interval}$ - Above
+                    {index * interval}$ - Above
                   </label>
                 </div>
               )
@@ -294,78 +188,54 @@ const MobileFilter = ({ catSlug, products }) => {
   const renderFilters = () => {}
 
   useEffect(() => {
-    Array(0, 0, 5).map((item, index) => {
-      console.info(index)
-      if (index === 0) {
-        client
-          .query({
-            query: PRODUCT_COUNT_QUERY,
-            variables: {
-              catSlugG: catSlug,
-              valueG: "ASC",
-              greaterThan: parseFloat(0),
-              lessThan: parseFloat(minInterval),
-            },
-          })
-          .then(res => {
-            console.info("response", res)
-            let contentfulProducs = res.data.allContentfulProduct.edges
-            let quantityNumber = contentfulProducs.length
-            let tempValue = (index + 1) * minInterval
-            setPriceFilter([
-              ...priceFilter,
-              { value: tempValue, quantity: quantityNumber },
-            ])
-          })
-      } else if (index != 5) {
-        client
-          .query({
-            query: PRODUCT_COUNT_QUERY,
-            variables: {
-              catSlugG: catSlug,
-              valueG: "ASC",
-              greaterThan: parseFloat(index * minInterval),
-              lessThan: parseFloat((index + 1) * minInterval),
-            },
-          })
-          .then(res => {
-            console.info("response", res)
-            let contentfulProducs = res.data.allContentfulProduct.edges
-            let quantityNumber = contentfulProducs.length
-            let tempValue = (index + 1) * minInterval
-            setPriceFilter([
-              ...priceFilter,
-              { value: tempValue, quantity: quantityNumber },
-            ])
-          })
-      } else if (index === 5) {
-        client
-          .query({
-            query: PRODUCT_COUNT_QUERY,
-            variables: {
-              catSlugG: catSlug,
-              valueG: "ASC",
-              greaterThan: parseFloat((index + 1) * minInterval),
-              lessThan: parseFloat(100000000),
-            },
-          })
-          .then(res => {
-            console.info("response", res)
-            let contentfulProducs = res.data.allContentfulProduct.edges
-            let quantityNumber = contentfulProducs.length
-            let tempValue = (index + 1) * minInterval
-            setPriceFilter([
-              ...priceFilter,
-              { value: tempValue, quantity: quantityNumber },
-            ])
-          })
-      }
-    })
-  }, [])
-
-  useEffect(() => {
     dispatch(uncheckedPriceFilters())
-  }, [navCategoryState])
+  }, [navCategoryState, sortProductState])
+
+  // const queryProducts = (e, greater, order) => {
+  //   let chekboxValue = e.target.value
+  //   let isChecked = e.target.checked
+
+  //   let categoryProducts = []
+
+  //   let priceIsChecked = checkedPriceFiltersState.some(
+  //     item => item.value === chekboxValue
+  //   )
+  //   console.info("priceIsChecked", checkedPriceFiltersState)
+
+  //   client
+  //     .query({
+  //       query: FILTER_BY_PRICE,
+  //       variables: {
+  //         catSlugG: catSlug,
+  //         valueG:
+  //           sortProductState === "recommended" ||
+  //           sortProductState === "highest-discount"
+  //             ? "ASC"
+  //             : sortProductState,
+  //         greaterThan: parseFloat(greater),
+  //         lessThan: parseFloat(order),
+  //       },
+  //     })
+  //     .then(res => {
+  //       categoryProducts = res.data.allContentfulProduct.edges
+  //       console.info("res", res)
+
+  //       console.info("OZAN", checkedPriceFiltersState)
+  //       if (checkedPriceFiltersState.length === 0) {
+  //         console.info("ozan muldur ", checkedPriceFiltersState)
+  //         console.info("ozan muldur ", categoryProducts)
+  //         dispatch(filterByPrice(categoryProducts))
+  //       } else if (checkedPriceFiltersState.length > 0 && !priceIsChecked) {
+  //         console.info("ozan muldur99 ", categoryProducts)
+
+  //         dispatch(filterByPriceAdd({ categoryProducts, chekboxValue }))
+  //       } else if (priceIsChecked) {
+  //         console.info("ozan muldur200 ", categoryProducts)
+
+  //         dispatch(filterByPriceRemove(categoryProducts))
+  //       }
+  //     })
+  // }
 
   return (
     <React.Fragment>
