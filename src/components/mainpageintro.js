@@ -11,11 +11,14 @@ const MainpageIntro = ({
   menImageTitle,
 }) => {
   return (
-    <section className={mainpageStyle.mainsection}>
-      <a className={mainpageStyle.mainsectimg}>
+    <section className={mainpageStyle.hero}>
+      <div className={mainpageStyle.heroText}>
+        <h2>Feel the Difference?</h2>
+      </div>
+      <a className={mainpageStyle.heroImage}>
         <img src={womenImage} alt={womeImageTitle} />
       </a>
-      <a className={mainpageStyle.mainsectimg}>
+      <a className={mainpageStyle.heroImage}>
         <img src={menImage} alt={menImageTitle} />
       </a>
     </section>

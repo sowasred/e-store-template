@@ -21,6 +21,7 @@ const Layout = ({ children }) => {
           <main>{children}</main>
         </div>
         <Footer />
+        <div className={layoutStyle.footerBottom}></div>
       </div>
     </React.Fragment>
   )
