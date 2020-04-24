@@ -32,6 +32,7 @@ module.exports = {
           `'Raleway', sans-serif`,
           `'Zeyada', cursive`,
           `'Arapey', serif`,
+          `'Noto Serif', serif`,
         ],
         display: "swap",
       },

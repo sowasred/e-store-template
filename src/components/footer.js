@@ -67,49 +67,51 @@ const Footer = () => {
 
   return (
     <footer>
-      <div className={footerStyle.footItem}>
-        <h3>Company</h3>
-        {companyTitles && companyTitles.length > 0
-          ? companyTitles.map(item => {
-              return (
-                <h4>
-                  <Link to={item.slug}>{item.title}</Link>
-                </h4>
-              )
-            })
-          : null}
-      </div>
-      <div className={(footerStyle.middleDiv, footerStyle.footItem)}>
-        <h3 className={footerStyle.classy}>
-          Be part of our Thoughtful Fashion
-        </h3>
-        <div className={footerStyle.socialLinks}>
-          <a>
-            <img src={facebook}></img>
-          </a>
-          <a>
-            <img src={instagram}></img>
-          </a>
-          <a>
-            <img src={linkedin}></img>
-          </a>
-          <a>
-            <img src={twitter}></img>
-          </a>
+      <div className={footerStyle.footItems}>
+        <div className={footerStyle.footItem}>
+          <h3>Company</h3>
+          {companyTitles && companyTitles.length > 0
+            ? companyTitles.map(item => {
+                return (
+                  <h4>
+                    <Link to={item.slug}>{item.title}</Link>
+                  </h4>
+                )
+              })
+            : null}
         </div>
-        <h5>@DERRY</h5>
-      </div>
-      <div className={footerStyle.footItem}>
-        <h3>Help</h3>
-        {helpTitles && helpTitles.length > 0
-          ? helpTitles.map(item => {
-              return (
-                <h4>
-                  <Link to={item.slug}>{item.title}</Link>
-                </h4>
-              )
-            })
-          : null}
+        <div className={(footerStyle.middleDiv, footerStyle.footItem)}>
+          <h3 className={footerStyle.classy}>
+            Be part of our Thoughtful Fashion
+          </h3>
+          <div className={footerStyle.socialLinks}>
+            <a>
+              <img src={facebook}></img>
+            </a>
+            <a>
+              <img src={instagram}></img>
+            </a>
+            <a>
+              <img src={linkedin}></img>
+            </a>
+            <a>
+              <img src={twitter}></img>
+            </a>
+          </div>
+          <h5>@DERRY</h5>
+        </div>
+        <div className={footerStyle.footItem}>
+          <h3>Help</h3>
+          {helpTitles && helpTitles.length > 0
+            ? helpTitles.map(item => {
+                return (
+                  <h4>
+                    <Link to={item.slug}>{item.title}</Link>
+                  </h4>
+                )
+              })
+            : null}
+        </div>
       </div>
     </footer>
   )

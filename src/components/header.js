@@ -14,30 +14,30 @@ const Header = ({ siteTitle }) => {
     shallowEqual
   )
 
-  const animateHeader = () => {
-    let siteTitle = document.querySelector("#sitetitle")
+  // const animateHeader = () => {
+  //   let siteTitle = document.querySelector("#sitetitle")
 
-    if (
-      document.body.scrollTop > 50 ||
-      (document.documentElement.scrollTop > 50 && siteTitle)
-    ) {
-      siteTitle.style.fontSize = "20px"
-      siteTitle.style.lineHeight = "20px"
-      siteTitle.style.fontWeight = "300"
-    } else {
-      if (siteTitle) {
-        siteTitle.style.fontSize = "30px"
-        siteTitle.style.lineHeight = "30px"
-      }
-    }
-  }
+  //   if (
+  //     document.body.scrollTop > 50 ||
+  //     (document.documentElement.scrollTop > 50 && siteTitle)
+  //   ) {
+  //     siteTitle.style.fontSize = "20px"
+  //     siteTitle.style.lineHeight = "20px"
+  //     siteTitle.style.fontWeight = "300"
+  //   } else {
+  //     if (siteTitle) {
+  //       siteTitle.style.fontSize = "30px"
+  //       siteTitle.style.lineHeight = "30px"
+  //     }
+  //   }
+  // }
 
-  window.onscroll = () => {
-    // animateHeader()
-  }
+  // window.onscroll = () => {
+  //   // animateHeader()
+  // }
 
   return (
-    <header onScroll={animateHeader()}>
+    <header>
       <Navigation className={headerStyle.navigation} />
       <span className={headerStyle.siteTitle}>
         <h1>

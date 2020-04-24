@@ -15,6 +15,7 @@ const IndexPage = ({ data }) => {
   let womenImage = `https:${data.allContentfulMainPage.nodes[0].firstRow[0].fluid.src}`
 
   let menImage = `https:${data.allContentfulMainPage.nodes[0].firstRow[1].fluid.src}`
+  // let bannerImage = `https:${data.allContentfulMainPage.nodes[0].firstRow[2].fluid.src}`
 
   let firstImage = `https:${data.allContentfulMainPage.nodes[0].secondRow[0].fluid.src}`
   let secondImage = `https:${data.allContentfulMainPage.nodes[0].secondRow[1].fluid.src}`

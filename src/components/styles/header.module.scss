@@ -7,14 +7,14 @@ header {
   position: fixed;
   position: -webkit-sticky;
   position: sticky;
-  // top: 0vh;  
+  top: 0vh;  
   z-index: 9;
   font-size: 1.4rem;
   background-color: #fff;
 
-  -webkit-box-shadow: 0 6px 6px -6px black;
-  -moz-box-shadow: 0 6px 6px -6px black;
-  box-shadow: 0 6px 6px -6px black;
+  // -webkit-box-shadow: 0 6px 6px -6px black;
+  // -moz-box-shadow: 0 6px 6px -6px black;
+  // box-shadow: 0 6px 6px -6px black;
 
   .navigation {
     flex: 1 0;

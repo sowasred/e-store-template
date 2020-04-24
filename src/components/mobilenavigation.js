@@ -10,18 +10,30 @@ import user from "../images/user.svg"
 import heart from "../images/heart.svg"
 import search from "../images/search.svg"
 import canada from "../images/canada.svg"
-import bag from "../images/bag.svg"
+import rightArrow from "../images/chevron-right-solid.svg"
 
 import navigationStyle from "./styles/navigation.module.scss"
 
 const customStyles = {
   content: {
-    top: "0",
-    left: "0",
+    display: "block",
+    overflow: "auto",
     position: "absolute",
+    top: "40px",
+    left: "0",
     margin: "0",
-    width: "60vw",
+    top: "15px",
+    bottom: "0",
+    zIndex: "9",
+    width: "300px",
     height: "100vh",
+    listStyle: "none",
+    textDecoration: "none",
+    // flexDirection: "column",
+    // justifyContent: "space-evenly",
+    background: "#f8f8f8",
+    // pointer-events: auto;
+    // overscroll-behavior: contain;
     // transform: "translate(-50%, -50%)",
   },
 }
@@ -60,32 +72,39 @@ const MobileNavigation = props => {
         contentLabel="Mobile Navigation Modal"
         closeTimeoutMS={200}
       >
-        {/* <span className={navigationStyle.closeButton} onClick={closeModal}>
-          X
-        </span> */}
-        <span className={navigationStyle.mobItem}>
-          <Link to="/" className={navigationStyle.link}>
-            Home
-          </Link>
-        </span>
-        {navCategories && navCategories.length > 0 ? (
-          <React.Fragment>
-            {navCategories.map(item => (
-              <span className={navigationStyle.navItem}>
-                <Link to={`/${item.slug}`}>{item.title}</Link>
-              </span>
-            ))}
-            <span className={navigationStyle.navItem}>
-              <a>Sign in</a>
-            </span>
-            <span className={navigationStyle.navItem}>
-              <a>Favorites</a>
-            </span>
-            <span className={navigationStyle.navItem}>
-              <a>Canada</a>
-            </span>
-          </React.Fragment>
-        ) : null}
+        <ul className={navigationStyle.list}>
+          <li className={navigationStyle.mobItem}>
+            <Link to="/" className={navigationStyle.link}>
+              Home
+            </Link>
+          </li>
+          {navCategories && navCategories.length > 0 ? (
+            <React.Fragment>
+              {navCategories.map(item => (
+                <li
+                  className={(navigationStyle.navItem, navigationStyle.mobItem)}
+                >
+                  <Link to={`/${item.slug}`}>{item.title}</Link>
+                </li>
+              ))}
+              <li
+                className={(navigationStyle.navItem, navigationStyle.mobItem)}
+              >
+                <a>Sign in</a>
+              </li>
+              <li
+                className={(navigationStyle.navItem, navigationStyle.mobItem)}
+              >
+                <a>Favorites</a>
+              </li>
+              <li
+                className={(navigationStyle.navItem, navigationStyle.mobItem)}
+              >
+                <a>Canada</a>
+              </li>
+            </React.Fragment>
+          ) : null}
+        </ul>
       </Modal>
     </div>
   )
