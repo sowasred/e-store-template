@@ -114,6 +114,11 @@ const CategoryProducts = ({ catSlug }) => {
     indexOfLastPost
   )
 
+  const lastRemovedPriceFilter = useSelector(
+    state => state.filterReducer.lastRemovedPriceFilter,
+    shallowEqual
+  )
+
   // Change page
   const paginate = pageNumber => dispatch(changePage(pageNumber))
 
@@ -128,7 +133,6 @@ const CategoryProducts = ({ catSlug }) => {
       let tempNum = checkedPriceFilters.length - 1
       let arrayValue1 = tempArray[tempNum].value
 
-      console.info("ozan", tempArray[0])
       if (tempArray[0].value / minPriceInterval != 5) {
         client
           .query({
@@ -356,12 +360,9 @@ const CategoryProducts = ({ catSlug }) => {
       }
     }
   }
-  const removeProductsByFilter = () => {
-    console.info("filter remove", filterRemove)
-  }
+
   useEffect(() => {
     fetchFilterSortCategorieProducts()
-    removeProductsByFilter()
   }, [checkedPriceFilters, sortProductState])
 
   return (

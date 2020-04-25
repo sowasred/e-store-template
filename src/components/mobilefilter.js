@@ -82,6 +82,7 @@ const MobileFilter = ({ catSlug, products }) => {
     state => state.filterReducer.checkedPriceFilters,
     shallowEqual
   )
+
   const sortProductState = useSelector(
     state => state.categoryReducer.sortProductState,
     shallowEqual
@@ -102,29 +103,21 @@ const MobileFilter = ({ catSlug, products }) => {
 
   const handlePriceFilterClicked = e => {
     filterProductsPrice(e)
-    let value = e.target.value
-
-    // if (value / minInterval === 1) {
-    //   let greaterThanTemp = 0
-    //   queryProducts(e, greaterThanTemp, value)
-    // } else if (value / minInterval != 5) {
-    //   queryProducts(e, (value / minInterval - 1) * minInterval, value)
-    // } else if (value / minInterval === 5) {
-    //   queryProducts(e, value, 1000000)
-    // }
   }
 
   const filterProductsPrice = e => {
     let chekboxValue = e.target.value
-    let size1 = checkedPriceFilters.length
-    dispatch(checkedPriceFilters({ value: chekboxValue }))
-    let size2 = checkedPriceFilters.length
-    if (size1 > size2) {
+    let tempArray = checkedPriceFiltersState
+    let remove = false
+    if (tempArray.length > 0) {
+      remove = tempArray.some(item => item.value === chekboxValue)
+      console.info(tempArray, "temparray", remove)
+    }
+    if (remove) {
       dispatch(setLastRemovedFilter(chekboxValue))
-      console.info("inside", size1, size2)
     }
 
-    console.info("size22", size1, size2)
+    dispatch(checkedPriceFilters({ value: chekboxValue }))
   }
 
   const renderDynamicPriceFilter = (interval, rowNumber) => {
