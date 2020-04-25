@@ -119,14 +119,8 @@ const CategoryProducts = ({ catSlug }) => {
 
   const fetchFilterSortCategorieProducts = () => {
     let removeBoolean = checkedPriceFilters.length > filterRemove.length
-    console.info("remove", removeBoolean)
-    if (removeBoolean) {
-      setLastRemovedFilter(
-        filterRemove.filter(item => !checkedPriceFilters.includes(item))
-      )
-    }
+
     let tempArray = checkedPriceFilters
-    setfilterRemove(checkedPriceFilters)
 
     if (checkedPriceFilters.length === 1) {
       // checked or not filter products
@@ -162,7 +156,7 @@ const CategoryProducts = ({ catSlug }) => {
             variables: {
               catSlugG: catSlug,
               valueG: "ASC",
-              greaterThan: parseFloat(arrayValue1),
+              greaterThan: parseFloat(arrayValue1 - minPriceInterval),
               lessThan: parseFloat(10000000000),
               sortType: "price",
             },
@@ -209,7 +203,7 @@ const CategoryProducts = ({ catSlug }) => {
               variables: {
                 catSlugG: catSlug,
                 valueG: sortProductState,
-                greaterThan: parseFloat(arrayValue),
+                greaterThan: parseFloat(arrayValue - minPriceInterval),
                 lessThan: parseFloat(10000000000),
                 sortType: "price",
               },
@@ -252,7 +246,7 @@ const CategoryProducts = ({ catSlug }) => {
               variables: {
                 catSlugG: catSlug,
                 valueG: "ASC",
-                greaterThan: parseFloat(arrayValue),
+                greaterThan: parseFloat(arrayValue - minPriceInterval),
                 lessThan: parseFloat(10000000000),
                 sortType: "price",
               },
@@ -294,7 +288,7 @@ const CategoryProducts = ({ catSlug }) => {
               variables: {
                 catSlugG: catSlug,
                 valueG: "ASC",
-                greaterThan: parseFloat(arrayValue),
+                greaterThan: parseFloat(arrayValue - minPriceInterval),
                 lessThan: parseFloat(10000000000),
                 sortType: "discountedPrice",
               },

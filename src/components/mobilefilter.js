@@ -11,6 +11,7 @@ import {
   handlePriceFilter,
   checkedPriceFilters,
   uncheckedPriceFilters,
+  setLastRemovedFilter,
 } from "../state/actions/filterActions"
 
 import {
@@ -102,6 +103,7 @@ const MobileFilter = ({ catSlug, products }) => {
   const handlePriceFilterClicked = e => {
     filterProductsPrice(e)
     let value = e.target.value
+
     // if (value / minInterval === 1) {
     //   let greaterThanTemp = 0
     //   queryProducts(e, greaterThanTemp, value)
@@ -114,7 +116,15 @@ const MobileFilter = ({ catSlug, products }) => {
 
   const filterProductsPrice = e => {
     let chekboxValue = e.target.value
+    let size1 = checkedPriceFilters.length
     dispatch(checkedPriceFilters({ value: chekboxValue }))
+    let size2 = checkedPriceFilters.length
+    if (size1 > size2) {
+      dispatch(setLastRemovedFilter(chekboxValue))
+      console.info("inside", size1, size2)
+    }
+
+    console.info("size22", size1, size2)
   }
 
   const renderDynamicPriceFilter = (interval, rowNumber) => {
@@ -190,52 +200,6 @@ const MobileFilter = ({ catSlug, products }) => {
   useEffect(() => {
     dispatch(uncheckedPriceFilters())
   }, [navCategoryState, sortProductState])
-
-  // const queryProducts = (e, greater, order) => {
-  //   let chekboxValue = e.target.value
-  //   let isChecked = e.target.checked
-
-  //   let categoryProducts = []
-
-  //   let priceIsChecked = checkedPriceFiltersState.some(
-  //     item => item.value === chekboxValue
-  //   )
-  //   console.info("priceIsChecked", checkedPriceFiltersState)
-
-  //   client
-  //     .query({
-  //       query: FILTER_BY_PRICE,
-  //       variables: {
-  //         catSlugG: catSlug,
-  //         valueG:
-  //           sortProductState === "recommended" ||
-  //           sortProductState === "highest-discount"
-  //             ? "ASC"
-  //             : sortProductState,
-  //         greaterThan: parseFloat(greater),
-  //         lessThan: parseFloat(order),
-  //       },
-  //     })
-  //     .then(res => {
-  //       categoryProducts = res.data.allContentfulProduct.edges
-  //       console.info("res", res)
-
-  //       console.info("OZAN", checkedPriceFiltersState)
-  //       if (checkedPriceFiltersState.length === 0) {
-  //         console.info("ozan muldur ", checkedPriceFiltersState)
-  //         console.info("ozan muldur ", categoryProducts)
-  //         dispatch(filterByPrice(categoryProducts))
-  //       } else if (checkedPriceFiltersState.length > 0 && !priceIsChecked) {
-  //         console.info("ozan muldur99 ", categoryProducts)
-
-  //         dispatch(filterByPriceAdd({ categoryProducts, chekboxValue }))
-  //       } else if (priceIsChecked) {
-  //         console.info("ozan muldur200 ", categoryProducts)
-
-  //         dispatch(filterByPriceRemove(categoryProducts))
-  //       }
-  //     })
-  // }
 
   return (
     <React.Fragment>

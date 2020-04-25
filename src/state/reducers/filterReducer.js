@@ -1,8 +1,13 @@
-import { CHECKED_PRICE_FILTERS, UNCHECKED_PRICE_FILTERS } from "../type.js"
+import {
+  CHECKED_PRICE_FILTERS,
+  UNCHECKED_PRICE_FILTERS,
+  LAST_REMOVED_PRICE_FILTER,
+} from "../type.js"
 
 const initialState = {
   checkedPriceFilters: [],
   minPriceInterval: 50,
+  lastRemovedPriceFilter: 0,
 }
 
 const filterReducer = (state = initialState, { type, payload }) => {
@@ -22,6 +27,11 @@ const filterReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         checkedPriceFilters: [],
+      }
+    case LAST_REMOVED_PRICE_FILTER:
+      return {
+        ...state,
+        lastRemovedPriceFilter: payload,
       }
 
     default:
