@@ -46,6 +46,7 @@ const Header = ({ siteTitle }) => {
             style={{
               color: `black`,
               textDecoration: `none`,
+              letterSpacing: "5.5px",
             }}
           >
             {siteTitle}

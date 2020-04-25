@@ -12,14 +12,21 @@ const MainpageIntro = ({
 }) => {
   return (
     <section className={mainpageStyle.hero}>
-      <div className={mainpageStyle.heroText}>
-        <h2>Feel the Difference?</h2>
-      </div>
+      {/* <div className={mainpageStyle.heroText} id={mainpageStyle.middle}>
+        <h2>UP TO 60% OFF</h2>
+      </div> */}
+
       <a className={mainpageStyle.heroImage}>
         <img src={womenImage} alt={womeImageTitle} />
+        <h2 className={mainpageStyle.heroText} id={mainpageStyle.bottom}>
+          FEEL THE DERRY
+        </h2>
       </a>
       <a className={mainpageStyle.heroImage}>
         <img src={menImage} alt={menImageTitle} />
+        <h2 className={mainpageStyle.heroText} id={mainpageStyle.top}>
+          ETHIC & CHIC
+        </h2>
       </a>
     </section>
   )

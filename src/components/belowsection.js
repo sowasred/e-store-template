@@ -13,17 +13,26 @@ const BelowSection = ({
 }) => {
   return (
     <section className={mainpageStyle.belowsection}>
-      <img
-        className={mainpageStyle.belowimg}
-        src={firstImage}
-        alt={firstImageTitle}
-      />
-      <h2 className={mainpageStyle.longDescription}>{longDescription}</h2>
-      <img
-        className={mainpageStyle.belowimg}
-        src={secondImage}
-        alt={secondImageTitle}
-      />
+      <div className={mainpageStyle.belowimg}>
+        <img src={firstImage} alt={firstImageTitle} />
+        <a className={mainpageStyle.longDescription}>
+          <h3 className={mainpageStyle.title}>Women's Clothing</h3>
+          <p>
+            Leather pieces, romantic blouses, and just-right jeans. Here’s what
+            we’re loving right now.
+          </p>
+        </a>
+      </div>
+      <div className={mainpageStyle.belowimg}>
+        <img src={secondImage} alt={secondImageTitle} />
+        <a className={mainpageStyle.longDescription}>
+          <h3 className={mainpageStyle.title}>Men's Clothing</h3>
+          <p>
+            Leather pieces, romantic blouses, and just-right jeans. Here’s what
+            we’re loving right now.
+          </p>
+        </a>
+      </div>
     </section>
   )
 }

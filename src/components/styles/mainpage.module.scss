@@ -1,36 +1,80 @@
 .hero {
-  height: 100vh;
-  overflow: hidden;
-  .heroText {
-    position: absolute;
-    width: 40%;
-    right: 30px;
-    top: 500px;
-    margin-top: 64px;
-    z-index: 99999;
-    text-align: center;
-    font-size: 36px;
-    background-color: coral;
-    margin-left: 0;
-  }
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 90vh;
+
   .heroImage {
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    width: 40vw;
+    .heroText {
+      padding: .2em;
+      z-index: 999;
+      text-align: center;
+      cursor: pointer;
+      background-color: black;
+      color: rgba(226, 96, 96, 0.829);
+      font-size: 4.4rem;
+      font-weight: 900;
+      font-family: 'Yantramanav', sans-serif;
+    }
+
+    .heroText:hover {
+      font-style: italic;
+    }
+
+    #top {
+    }
+
+    #bottom {
+    }
+
     img {
-      width: 45vw;
-      height: 100vh;
-      object-fit: contain;
+      -o-object-fit: cover;
+      object-fit: cover;
+      height: 75vh;
       transition: all 1s linear;
     }
+
+    @media all and (max-width: 769px) {
+      // img {
+      //   width: auto;
+      // }
+    }
   }
-  .heroImage:nth-of-type(1){
-    right: 4rem;
-    top: 1em;
+  @media all and (max-width: 515px){
+    .heroImage {
+      width: 100vw;
+    }
   }
-  .heroImage:nth-of-type(2){
-    left: 4rem;
-    top: 1em
+  @media all and (min-width: 515px) and (max-width: 769px) {
+    .heroImage {
+      width: 50vw;
+      height: 88vh;
+
+      .heroText {
+        font-size: 3.4rem;
+      }
+
+      #top {
+        left: 4rem;
+      }
+
+      #bottom {
+        left: 3rem;
+      }
+    }
   }
 }
+@media all and (max-width: 769px) {
+  .hero {
+    gap: .5em 1em;
+    align-items: center;
+  }
+}
+
 .menImageTitle {
   display: flex;
   flex-wrap: wrap;
@@ -52,17 +96,20 @@
   font-style: oblique;
   transition: all ease-in 1s;
 }
+
 .mainButton:hover {
   background: white;
   color: black;
   transition: all ease-in 1s;
 }
+
 .mainsignin {
   display: flex;
   flex-direction: column-reverse;
   margin: 2rem 1rem;
   justify-content: center;
   align-self: center;
+
   .maindesc {
     max-width: 100%;
     margin: 1rem;
@@ -73,33 +120,40 @@
     flex-direction: column-reverse;
     margin: 1rem;
     position: relative;
+
     input {
       min-width: 60vw;
       margin: 0 auto;
       height: 1.6rem;
       border: 2px gray;
     }
+
     input::placeholder {
       padding: 0.5em;
       font-size: 1rem;
     }
+
     input:focus {
       outline: none;
       border: 1px solid;
     }
+
     input[type="text"] {
       font-size: 1rem;
       padding: 1em;
       font-family: "Raleway", sans-serif;
     }
+
     .options {
       display: flex;
       justify-content: space-around;
+
       .option {
         padding: 1rem;
         cursor: pointer;
         opacity: 0.7;
       }
+
       .option:hover {
         opacity: 1;
       }
@@ -109,37 +163,63 @@
 
 .belowsection {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   background-color: #fff;
+
   .belowimg {
-    max-width: 100vw;
-    object-fit: cover;
-    margin: 5rem 0;
+    display: flex;
+    flex-direction: column;
+    margin: 3rem 1rem;
+    width: 30vw;
+
+    img {
+      -o-object-fit: cover;
+      object-fit: cover;
+      height: 85vh;
+    }
+
+    .longDescription {
+      display: border-box;
+      text-align: center;
+
+      .title {
+        font-family: "Noto Serif";
+        margin: .5em auto;
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+
+      p {
+        width: 20vw;
+
+        font-size: 1.2rem;
+        margin: -.5em auto;
+      }
+    }
   }
 }
 
-.belowimg:hover {
-}
-.longDescription {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-}
+.belowimg:hover {}
+
+
+
 .products {
   display: block;
   overflow: auto;
+
   .productsWrapper {
     display: flex;
     flex-wrap: nowrap;
     width: 200%;
     // height: 75vh;
     justify-content: space-between;
+
     .productWrapper {
       display: flex;
       flex-direction: column;
       margin: 1rem;
       width: 70vw;
+
       img {
         object-fit: cover;
         // width: 25vw;
