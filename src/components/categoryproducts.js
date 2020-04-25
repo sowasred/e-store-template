@@ -124,189 +124,175 @@ const CategoryProducts = ({ catSlug }) => {
 
   const fetchFilterSortCategorieProducts = () => {
     let removeBoolean = checkedPriceFilters.length > filterRemove.length
-
+    let lastRemoved = lastRemovedPriceFilter
     let tempArray = checkedPriceFilters
 
-    if (checkedPriceFilters.length === 1) {
-      // checked or not filter products
-
-      let tempNum = checkedPriceFilters.length - 1
-      let arrayValue1 = tempArray[tempNum].value
-
-      if (tempArray[0].value / minPriceInterval != 5) {
-        client
-          .query({
-            query: SORT_FILTER_QUERY,
-            variables: {
-              catSlugG: catSlug,
-              valueG: "ASC",
-              greaterThan:
-                arrayValue1 / minPriceInterval === 1
-                  ? parseFloat(0)
-                  : parseFloat(arrayValue1 / minPriceInterval - 1) *
-                    minPriceInterval,
-              lessThan: parseFloat(arrayValue1),
-              sortType: "price",
-            },
-          })
-          .then(res => {
-            let categoryProducts = res.data.allContentfulProduct.edges
-            dispatch(sortCategorieProducts(categoryProducts))
-          })
-      } else {
-        client
-          .query({
-            query: SORT_FILTER_QUERY,
-            variables: {
-              catSlugG: catSlug,
-              valueG: "ASC",
-              greaterThan: parseFloat(arrayValue1 - minPriceInterval),
-              lessThan: parseFloat(10000000000),
-              sortType: "price",
-            },
-          })
-          .then(res => {
-            let categoryProducts = res.data.allContentfulProduct.edges
-            dispatch(sortCategorieProducts(categoryProducts))
-          })
-      }
-    } else if (checkedPriceFilters.length > 1 && removeBoolean) {
-      let tempNumber = checkedPriceFilters.length - 1
-      let arrayValue = tempArray[tempNumber].value
-
-      console.info("ozan", arrayValue, tempNumber)
-      if (sortProductState === "ASC" || sortProductState === "DESC") {
-        if (arrayValue / minPriceInterval != 5) {
-          client
-            .query({
-              query: SORT_FILTER_QUERY,
-              variables: {
-                catSlugG: catSlug,
-                valueG: sortProductState,
-                greaterThan:
-                  arrayValue / minPriceInterval === 1
-                    ? parseFloat(0)
-                    : parseFloat(
-                        (arrayValue / minPriceInterval - 1) * minPriceInterval
-                      ),
-                lessThan: parseFloat(arrayValue),
-                sortType: "price",
-              },
-            })
-            .then(res => {
-              console.info(res, "ozan")
-              console.info("data", res.data.allContentfulProduct.edges)
-              const categoryProducts = res.data.allContentfulProduct.edges
-
-              dispatch(filterByPriceAdd({ categoryProducts, arrayValue }))
-            })
-        } else {
-          client
-            .query({
-              query: SORT_FILTER_QUERY,
-              variables: {
-                catSlugG: catSlug,
-                valueG: sortProductState,
-                greaterThan: parseFloat(arrayValue - minPriceInterval),
-                lessThan: parseFloat(10000000000),
-                sortType: "price",
-              },
-            })
-            .then(res => {
-              const categoryProducts = res.data.allContentfulProduct.edges
-
-              dispatch(filterByPriceAdd({ categoryProducts, arrayValue }))
-            })
+    if (tempArray.length > 0) {
+      tempArray.map((item, index) => {
+        if (index === 0) {
+          if (item.value / minPriceInterval != 4) {
+            client
+              .query({
+                query: SORT_FILTER_QUERY,
+                variables: {
+                  catSlugG: catSlug,
+                  valueG: "ASC",
+                  greaterThan:
+                    item.value / minPriceInterval === 1
+                      ? parseFloat(0)
+                      : parseFloat(item.value / minPriceInterval - 1) *
+                        minPriceInterval,
+                  lessThan: parseFloat(item.value),
+                  sortType: "price",
+                },
+              })
+              .then(res => {
+                let categoryProducts = res.data.allContentfulProduct.edges
+                dispatch(sortCategorieProducts(categoryProducts))
+              })
+          } else {
+            client
+              .query({
+                query: SORT_FILTER_QUERY,
+                variables: {
+                  catSlugG: catSlug,
+                  valueG: "ASC",
+                  greaterThan: parseFloat(item.value - minPriceInterval),
+                  lessThan: parseFloat(10000000000),
+                  sortType: "price",
+                },
+              })
+              .then(res => {
+                let categoryProducts = res.data.allContentfulProduct.edges
+                dispatch(sortCategorieProducts(categoryProducts))
+              })
+          }
+        } else if (index > 0) {
+          if (sortProductState === "ASC" || sortProductState === "DESC") {
+            let tempValue = item.value
+            if (item.value / minPriceInterval != 4) {
+              client
+                .query({
+                  query: SORT_FILTER_QUERY,
+                  variables: {
+                    catSlugG: catSlug,
+                    valueG: sortProductState,
+                    greaterThan:
+                      item.value / minPriceInterval === 1
+                        ? parseFloat(0)
+                        : parseFloat(
+                            (item.value / minPriceInterval - 1) *
+                              minPriceInterval
+                          ),
+                    lessThan: parseFloat(item.value),
+                    sortType: "price",
+                  },
+                })
+                .then(res => {
+                  const categoryProducts = res.data.allContentfulProduct.edges
+                  dispatch(filterByPriceAdd({ categoryProducts, tempValue }))
+                })
+            } else {
+              client
+                .query({
+                  query: SORT_FILTER_QUERY,
+                  variables: {
+                    catSlugG: catSlug,
+                    valueG: sortProductState,
+                    greaterThan: parseFloat(item.value - minPriceInterval),
+                    lessThan: parseFloat(10000000000),
+                    sortType: "price",
+                  },
+                })
+                .then(res => {
+                  const categoryProducts = res.data.allContentfulProduct.edges
+                  dispatch(filterByPriceAdd({ categoryProducts, tempValue }))
+                })
+            }
+          } else if (sortProductState === "r") {
+            if (item.value / minPriceInterval != 4) {
+              client
+                .query({
+                  query: SORT_FILTER_QUERY,
+                  variables: {
+                    catSlugG: catSlug,
+                    valueG: "ASC",
+                    greaterThan:
+                      item.value / minPriceInterval === 1
+                        ? parseFloat(0)
+                        : parseFloat(
+                            (item.value / minPriceInterval - 1) *
+                              minPriceInterval
+                          ),
+                    lessThan: parseFloat(item.value),
+                    sortType: "price",
+                  },
+                })
+                .then(res => {
+                  const categoryProducts = res.data.allContentfulProduct.edges
+                  dispatch(filterByPrice(categoryProducts))
+                })
+            } else {
+              client
+                .query({
+                  query: SORT_FILTER_QUERY,
+                  variables: {
+                    catSlugG: catSlug,
+                    valueG: "ASC",
+                    greaterThan: parseFloat(item.value - minPriceInterval),
+                    lessThan: parseFloat(10000000000),
+                    sortType: "price",
+                  },
+                })
+                .then(res => {
+                  const categoryProducts = res.data.allContentfulProduct.edges
+                  dispatch(filterByPrice(categoryProducts))
+                })
+            }
+          } else if (sortProductState === "highest-discount") {
+            if (item.value / minPriceInterval != 4) {
+              client
+                .query({
+                  query: SORT_FILTER_QUERY,
+                  variables: {
+                    catSlugG: catSlug,
+                    valueG: "ASC",
+                    greaterThan:
+                      item.value / minPriceInterval === 1
+                        ? parseFloat(0)
+                        : parseFloat(
+                            (item.value / minPriceInterval - 1) *
+                              minPriceInterval
+                          ),
+                    lessThan: parseFloat(item.value),
+                    sortType: "price",
+                  },
+                })
+                .then(res => {
+                  const categoryProducts = res.data.allContentfulProduct.edges
+                  dispatch(filterByPrice(categoryProducts))
+                })
+            } else {
+              client
+                .query({
+                  query: SORT_FILTER_QUERY,
+                  variables: {
+                    catSlugG: catSlug,
+                    valueG: "ASC",
+                    greaterThan: parseFloat(item.value - minPriceInterval),
+                    lessThan: parseFloat(10000000000),
+                    sortType: "price",
+                  },
+                })
+                .then(res => {
+                  const categoryProducts = res.data.allContentfulProduct.edges
+                  dispatch(filterByPrice(categoryProducts))
+                })
+            }
+          }
         }
-      } else if (sortProductState === "r" && removeBoolean) {
-        if (arrayValue / minPriceInterval != 5) {
-          client
-            .query({
-              query: SORT_FILTER_QUERY,
-              variables: {
-                catSlugG: catSlug,
-                valueG: "ASC",
-                greaterThan:
-                  arrayValue / minPriceInterval === 1
-                    ? parseFloat(0)
-                    : parseFloat(
-                        (arrayValue / minPriceInterval - 1) * minPriceInterval
-                      ),
-                lessThan: parseFloat(arrayValue),
-                sortType: "price",
-              },
-            })
-            .then(res => {
-              console.info(res, "ozan")
-              console.info("data", res.data.allContentfulProduct.edges)
-              const categoryProducts = res.data.allContentfulProduct.edges
-
-              dispatch(filterByPrice(categoryProducts))
-            })
-        } else {
-          client
-            .query({
-              query: SORT_FILTER_QUERY,
-              variables: {
-                catSlugG: catSlug,
-                valueG: "ASC",
-                greaterThan: parseFloat(arrayValue - minPriceInterval),
-                lessThan: parseFloat(10000000000),
-                sortType: "price",
-              },
-            })
-            .then(res => {
-              const categoryProducts = res.data.allContentfulProduct.edges
-              dispatch(filterByPrice(categoryProducts))
-            })
-        }
-      } else if (sortProductState === "highest-discount") {
-        if (arrayValue / minPriceInterval != 5) {
-          client
-            .query({
-              query: SORT_FILTER_QUERY,
-              variables: {
-                catSlugG: catSlug,
-                valueG: "ASC",
-                greaterThan:
-                  arrayValue / minPriceInterval === 1
-                    ? parseFloat(0)
-                    : parseFloat(
-                        (arrayValue / minPriceInterval - 1) * minPriceInterval
-                      ),
-                lessThan: parseFloat(arrayValue),
-                sortType: "discountedPrice",
-              },
-            })
-            .then(res => {
-              console.info(res, "ozan")
-              console.info("data", res.data.allContentfulProduct.edges)
-              const categoryProducts = res.data.allContentfulProduct.edges
-
-              dispatch(filterByPrice(categoryProducts, arrayValue))
-            })
-        } else {
-          client
-            .query({
-              query: SORT_FILTER_QUERY,
-              variables: {
-                catSlugG: catSlug,
-                valueG: "ASC",
-                greaterThan: parseFloat(arrayValue - minPriceInterval),
-                lessThan: parseFloat(10000000000),
-                sortType: "discountedPrice",
-              },
-            })
-            .then(res => {
-              const categoryProducts = res.data.allContentfulProduct.edges
-              dispatch(filterByPrice(categoryProducts))
-            })
-        }
-      }
+      })
     } else {
-      // regular catgory products calling
-      console.info(sortProductState, "sortproduct")
-
       if (sortProductState === "ASC" || sortProductState === "DESC") {
         client
           .query({
