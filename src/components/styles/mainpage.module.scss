@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  height: 90vh;
+  // height: 100vh;
 
   .heroImage {
     display: flex;
@@ -11,7 +11,6 @@
     width: 40vw;
     .heroText {
       padding: .2em;
-      z-index: 999;
       text-align: center;
       cursor: pointer;
       background-color: black;
@@ -25,11 +24,6 @@
       font-style: italic;
     }
 
-    #top {
-    }
-
-    #bottom {
-    }
 
     img {
       -o-object-fit: cover;
@@ -49,10 +43,15 @@
       width: 100vw;
     }
   }
+  @media all and (min-width: 415px) and (max-width: 769px) {
+    .heroImage{
+      width: 80vw;
+      height: 100vh;
+
+    }
+  }
   @media all and (min-width: 515px) and (max-width: 769px) {
     .heroImage {
-      width: 50vw;
-      height: 88vh;
 
       .heroText {
         font-size: 3.4rem;
@@ -190,8 +189,11 @@
       }
 
       p {
-        width: 20vw;
-
+        width: 25vw;
+        max-height: 5rem;
+        white-space: wrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
         font-size: 1.2rem;
         margin: -.5em auto;
       }
@@ -199,7 +201,7 @@
   }
 }
 
-.belowimg:hover {}
+// @media all and 
 
 
 
@@ -225,19 +227,22 @@
         // width: 25vw;
         height: 85vh;
       }
-    }
-  }
-}
-
-@media all and (max-width: 768px) and (min-width: 515px) {
-  .mainsection {
-    .mainsectimg {
-      img {
-        height: initial;
+      .productName {
+        text-align: center;
       }
     }
   }
 }
+
+// @media all and (max-width: 768px) and (min-width: 515px) {
+//   .mainsection {
+//     .mainsectimg {
+//       img {
+//         // height: initial;
+//       }
+//     }
+//   }
+// }
 
 @media all and (min-width: 768px) {
   .mainsectimg {
