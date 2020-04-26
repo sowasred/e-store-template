@@ -87,7 +87,6 @@ const CategoryPages = props => {
         <MobileFilter catSlug={props.data.contentfulCategory.slug} />
         <MobileSort catSlug={props.data.contentfulCategory.slug} />
       </div>
-
       <CategoryProducts catSlug={props.data.contentfulCategory.slug} />
     </Layout>
   )

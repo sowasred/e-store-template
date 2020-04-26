@@ -21,6 +21,8 @@ import {
   filterByPriceRemove,
 } from "../state/actions/categoryActions"
 
+import OtherFilters from "./otherfilters"
+
 import filterStyle from "./styles/filter.module.scss"
 
 const customStyles = {
@@ -75,11 +77,15 @@ const FILTER_BY_PRICE = gql`
 const MobileFilter = ({ catSlug, products }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false)
 
-  const [minInterval, setMinInterval] = React.useState(50)
   const dispatch = useDispatch()
 
   const checkedPriceFiltersState = useSelector(
     state => state.filterReducer.checkedPriceFilters,
+    shallowEqual
+  )
+
+  const minPriceInterval = useSelector(
+    state => state.filterReducer.minPriceInterval,
     shallowEqual
   )
 
@@ -111,7 +117,6 @@ const MobileFilter = ({ catSlug, products }) => {
     let remove = false
     if (tempArray.length > 0) {
       remove = tempArray.some(item => item.value === chekboxValue)
-      console.info(tempArray, "temparray", remove)
     }
     if (remove) {
       dispatch(setLastRemovedFilter(chekboxValue))
@@ -123,6 +128,7 @@ const MobileFilter = ({ catSlug, products }) => {
   const renderDynamicPriceFilter = (interval, rowNumber) => {
     return (
       <div>
+        <h2>Price</h2>
         {Array(5)
           .fill(0, 0, 5)
           .map((item, index) => {
@@ -216,7 +222,8 @@ const MobileFilter = ({ catSlug, products }) => {
         >
           &times;
         </div>
-        {modalIsOpen ? renderDynamicPriceFilter(50) : null}
+        {modalIsOpen ? renderDynamicPriceFilter(minPriceInterval) : null}
+        <OtherFilters />
       </Modal>
     </React.Fragment>
   )

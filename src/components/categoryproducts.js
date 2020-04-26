@@ -22,11 +22,13 @@ const SORT_FILTER_QUERY = gql`
     $greaterThan: Float
     $lessThan: Float
     $sortType: [ContentfulProductFieldsEnum]
+    $fit: ContentfulFiltersFilterInput
   ) {
     allContentfulProduct(
       filter: {
         price: { gt: $greaterThan, lte: $lessThan }
         categories: { elemMatch: { slug: { eq: $catSlugG } } }
+        filters: $fit
       }
       sort: { fields: $sortType, order: $valueG }
     ) {
@@ -50,9 +52,12 @@ const SORT_FILTER_QUERY = gql`
   }
 `
 const PRODUCT_QUERY = gql`
-  query sortProducts($catSlugG: String) {
+  query sortProducts($catSlugG: String, $fit: ContentfulFiltersFilterInput) {
     allContentfulProduct(
-      filter: { categories: { elemMatch: { slug: { eq: $catSlugG } } } }
+      filter: {
+        categories: { elemMatch: { slug: { eq: $catSlugG } } }
+        filters: $fit
+      }
     ) {
       edges {
         node {
@@ -75,9 +80,6 @@ const PRODUCT_QUERY = gql`
 `
 
 const CategoryProducts = ({ catSlug }) => {
-  const [filterRemove, setfilterRemove] = useState([])
-  const [lastRemovedFilter, setLastRemovedFilter] = useState()
-
   const dispatch = useDispatch()
 
   const categoryProductsState = useSelector(
@@ -105,6 +107,10 @@ const CategoryProducts = ({ catSlug }) => {
     state => state.filterReducer.minPriceInterval,
     shallowEqual
   )
+  const checkedFitFiltersState = useSelector(
+    state => state.filterReducer.checkedFitFilters,
+    shallowEqual
+  )
   // Get current posts
   const indexOfLastPost = currentPageState * productPerPageState
   const indexOfFirstPost = indexOfLastPost - productPerPageState
@@ -123,9 +129,15 @@ const CategoryProducts = ({ catSlug }) => {
   const paginate = pageNumber => dispatch(changePage(pageNumber))
 
   const fetchFilterSortCategorieProducts = () => {
-    let removeBoolean = checkedPriceFilters.length > filterRemove.length
-    let lastRemoved = lastRemovedPriceFilter
     let tempArray = checkedPriceFilters
+    let letfitArray = checkedFitFiltersState.map(item => item.value)
+    // let letfitArray = ["Slim", "Oversized"]
+    let tempString = { fit: { in: letfitArray } }
+    let fullFitFilters = {
+      fit: { in: ["Slim", "Oversized", "Cropped", "Regular"] },
+    }
+
+    // var quotedAndCommaSeparated = '["' + letfitArray.join('","') + '"]'
 
     if (tempArray.length > 0) {
       tempArray.map((item, index) => {
@@ -144,6 +156,7 @@ const CategoryProducts = ({ catSlug }) => {
                         minPriceInterval,
                   lessThan: parseFloat(item.value),
                   sortType: "price",
+                  fit: letfitArray.length > 0 ? tempString : fullFitFilters,
                 },
               })
               .then(res => {
@@ -160,6 +173,7 @@ const CategoryProducts = ({ catSlug }) => {
                   greaterThan: parseFloat(item.value - minPriceInterval),
                   lessThan: parseFloat(10000000000),
                   sortType: "price",
+                  fit: letfitArray.length > 0 ? tempString : fullFitFilters,
                 },
               })
               .then(res => {
@@ -186,6 +200,7 @@ const CategoryProducts = ({ catSlug }) => {
                           ),
                     lessThan: parseFloat(item.value),
                     sortType: "price",
+                    fit: letfitArray.length > 0 ? tempString : fullFitFilters,
                   },
                 })
                 .then(res => {
@@ -202,6 +217,7 @@ const CategoryProducts = ({ catSlug }) => {
                     greaterThan: parseFloat(item.value - minPriceInterval),
                     lessThan: parseFloat(10000000000),
                     sortType: "price",
+                    fit: letfitArray.length > 0 ? tempString : fullFitFilters,
                   },
                 })
                 .then(res => {
@@ -226,6 +242,7 @@ const CategoryProducts = ({ catSlug }) => {
                           ),
                     lessThan: parseFloat(item.value),
                     sortType: "price",
+                    fit: letfitArray.length > 0 ? tempString : fullFitFilters,
                   },
                 })
                 .then(res => {
@@ -242,6 +259,7 @@ const CategoryProducts = ({ catSlug }) => {
                     greaterThan: parseFloat(item.value - minPriceInterval),
                     lessThan: parseFloat(10000000000),
                     sortType: "price",
+                    fit: letfitArray.length > 0 ? tempString : fullFitFilters,
                   },
                 })
                 .then(res => {
@@ -266,6 +284,7 @@ const CategoryProducts = ({ catSlug }) => {
                           ),
                     lessThan: parseFloat(item.value),
                     sortType: "price",
+                    fit: letfitArray.length > 0 ? tempString : fullFitFilters,
                   },
                 })
                 .then(res => {
@@ -282,6 +301,7 @@ const CategoryProducts = ({ catSlug }) => {
                     greaterThan: parseFloat(item.value - minPriceInterval),
                     lessThan: parseFloat(10000000000),
                     sortType: "price",
+                    fit: letfitArray.length > 0 ? tempString : fullFitFilters,
                   },
                 })
                 .then(res => {
@@ -303,6 +323,7 @@ const CategoryProducts = ({ catSlug }) => {
               greaterThan: parseFloat(0),
               lessThan: parseFloat(10000000),
               sortType: "price",
+              fit: letfitArray.length > 0 ? tempString : fullFitFilters,
             },
           })
           .then(res => {
@@ -317,6 +338,7 @@ const CategoryProducts = ({ catSlug }) => {
             query: PRODUCT_QUERY,
             variables: {
               catSlugG: catSlug,
+              fit: letfitArray.length > 0 ? tempString : fullFitFilters,
             },
           })
           .then(res => {
@@ -335,6 +357,7 @@ const CategoryProducts = ({ catSlug }) => {
               greaterThan: parseFloat(0),
               lessThan: parseFloat(10000000),
               sortType: "discountedPrice",
+              fit: letfitArray.length > 0 ? tempString : fullFitFilters,
             },
           })
           .then(res => {
@@ -349,7 +372,7 @@ const CategoryProducts = ({ catSlug }) => {
 
   useEffect(() => {
     fetchFilterSortCategorieProducts()
-  }, [checkedPriceFilters, sortProductState])
+  }, [checkedPriceFilters, sortProductState, checkedFitFiltersState])
 
   return (
     <React.Fragment>

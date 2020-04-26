@@ -1,18 +1,10 @@
 import {
-  PRICE_FILTER_CHECK,
   CHECKED_PRICE_FILTERS,
   UNCHECKED_PRICE_FILTERS,
   LAST_REMOVED_PRICE_FILTER,
+  CHECKED_FIT_FILTERS,
+  UNCHECKED_FIT_FILTERS,
 } from "../type"
-import { batchActions } from "redux-batched-actions"
-
-import store from "../createStore"
-
-export const setLastRemovedFilter = payload => ({
-  type: LAST_REMOVED_PRICE_FILTER,
-  payload: payload,
-})
-export const handlePriceFilter = payload => {}
 
 export const checkedPriceFilters = payload => ({
   type: CHECKED_PRICE_FILTERS,
@@ -21,5 +13,20 @@ export const checkedPriceFilters = payload => ({
 
 export const uncheckedPriceFilters = payload => ({
   type: UNCHECKED_PRICE_FILTERS,
+  payload: payload,
+})
+
+export const setLastRemovedFilter = payload => ({
+  type: LAST_REMOVED_PRICE_FILTER,
+  payload: payload,
+})
+
+export const checkedFitFilters = payload => ({
+  type: CHECKED_FIT_FILTERS,
+  payload: payload,
+})
+
+export const uncheckedFitFilters = payload => ({
+  type: UNCHECKED_FIT_FILTERS,
   payload: payload,
 })
