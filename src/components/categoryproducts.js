@@ -148,7 +148,10 @@ const CategoryProducts = ({ catSlug }) => {
                 query: SORT_FILTER_QUERY,
                 variables: {
                   catSlugG: catSlug,
-                  valueG: "ASC",
+                  valueG:
+                    sortProductState === "ASC" || sortProductState === "DESC"
+                      ? sortProductState
+                      : "ASC",
                   greaterThan:
                     item.value / minPriceInterval === 1
                       ? parseFloat(0)
