@@ -1,43 +1,75 @@
 .catWraper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
   font-size: 1rem;
   margin-bottom: 4vh;
   gap: 2rem;
-  a {
-    text-decoration: none !important;
-  }
+  width: 95%;
+
   article {
     display: flex;
-    margin: auto 0;
-  }
-  article:nth-child(2) {
-    display: flex;
     flex-direction: column;
-    img {
+    overflow: hidden;
+    margin: .5rem 0;
+
+    a {
+      position: relative;
+      text-decoration: none !important;
+      height: 85vh;
+
+      #best {
+        font-size: 1rem;
+        position: absolute;
+        background-color: rgba(248, 85, 85, 0.582);
+        color: black;
+        padding: .1rem 1rem;
+      }
+
+      #sale {
+        display: block;
+        width: 25px;
+        height: 25px;
+        padding: .5rem;
+        font-size: 1rem;
+        position: absolute;
+        color: black;
+        background-color: rgba(248, 236, 236, 0.582);
+        border-radius: 50%;
+        top: .5rem;
+        right: 1.5rem;
+        text-align: center;
+      }
+
+      img {
+        height: 90%;
+      }
+
+      h4 {
+        height: 10%;
+      }
+      aside {
+        width: 100%;
+      }
     }
   }
-  article {
-    display: flex;
-    flex-direction: column;
-    height: 50vh;
-    overflow: hidden;
-  }
-  h4,
-  aside {
-    margin-left: 2em;
-    margin-top: 0.5em;
-    color: #000000;
-  }
+}
 
-  img {
-    width: 100%;
-  }
-  aside {
-    span {
-      line-height: 1.6rem;
-      color: #000000;
+@media all and (max-width: 425px) {
+  .catWraper {
+    grid-template-columns: 1fr;
+
+    article {
+      width: 90vw;
+      margin: 0 auto;
+
+      a {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      img {
+        object-fit: contain;
+      }
     }
   }
 }

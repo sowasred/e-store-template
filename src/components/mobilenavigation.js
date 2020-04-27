@@ -29,12 +29,7 @@ const customStyles = {
     height: "100vh",
     listStyle: "none",
     textDecoration: "none",
-    // flexDirection: "column",
-    // justifyContent: "space-evenly",
     background: "#f8f8f8",
-    // pointer-events: auto;
-    // overscroll-behavior: contain;
-    // transform: "translate(-50%, -50%)",
   },
 }
 
@@ -87,11 +82,6 @@ const MobileNavigation = props => {
                   <Link to={`/${item.slug}`}>{item.title}</Link>
                 </li>
               ))}
-              <li
-                className={(navigationStyle.navItem, navigationStyle.mobItem)}
-              >
-                <a>Sign in</a>
-              </li>
               <li
                 className={(navigationStyle.navItem, navigationStyle.mobItem)}
               >

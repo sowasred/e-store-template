@@ -7,6 +7,7 @@ import Navigation from "./navigation"
 import Dashboard from "./dashboard"
 import bag from "../images/bag.svg"
 import search from "../images/search.svg"
+import user from "../images/user.svg"
 import { useSelector, shallowEqual } from "react-redux"
 const Header = ({ siteTitle }) => {
   const isMobileState = useSelector(
@@ -14,27 +15,29 @@ const Header = ({ siteTitle }) => {
     shallowEqual
   )
 
-  // const animateHeader = () => {
-  //   let siteTitle = document.querySelector("#sitetitle")
+  const animateHeader = () => {
+    let siteTitle = document.querySelector("#sitetitle")
 
-  //   if (
-  //     document.body.scrollTop > 50 ||
-  //     (document.documentElement.scrollTop > 50 && siteTitle)
-  //   ) {
-  //     siteTitle.style.fontSize = "20px"
-  //     siteTitle.style.lineHeight = "20px"
-  //     siteTitle.style.fontWeight = "300"
-  //   } else {
-  //     if (siteTitle) {
-  //       siteTitle.style.fontSize = "30px"
-  //       siteTitle.style.lineHeight = "30px"
-  //     }
-  //   }
-  // }
+    if (
+      document.body.scrollTop > 50 ||
+      (document.documentElement.scrollTop > 50 && siteTitle)
+    ) {
+      siteTitle.style.fontSize = "20px"
+      siteTitle.style.lineHeight = "20px"
+      siteTitle.style.fontWeight = "300"
+      // console.info("asaagida")
+    } else {
+      if (siteTitle) {
+        siteTitle.style.fontSize = "30px"
+        siteTitle.style.lineHeight = "30px"
+        // console.info("yukarda")
+      }
+    }
+  }
 
-  // window.onscroll = () => {
-  //   // animateHeader()
-  // }
+  window.onscroll = () => {
+    animateHeader()
+  }
 
   return (
     <header>
@@ -56,6 +59,9 @@ const Header = ({ siteTitle }) => {
       {isMobileState ? (
         <React.Fragment>
           <div className={headerStyle.mobileWrapper}>
+            <a>
+              <img src={user}></img>
+            </a>
             <a>
               <img src={search}></img>
             </a>

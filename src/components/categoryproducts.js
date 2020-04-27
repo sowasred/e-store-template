@@ -473,6 +473,8 @@ const CategoryProducts = ({ catSlug }) => {
             return (
               <article>
                 <Link to={`${catSlug}/${item.node.slug}`}>
+                  <span id={catProductsStyle.best}>BEST</span>
+                  <span id={catProductsStyle.sale}>SALE</span>
                   <img
                     src={item.node.image[0].fluid.src}
                     alt={item.node.productName.productName}
