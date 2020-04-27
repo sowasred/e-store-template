@@ -4,6 +4,10 @@ import {
   LAST_REMOVED_PRICE_FILTER,
   CHECKED_FIT_FILTERS,
   UNCHECKED_FIT_FILTERS,
+  CHECKED_STYLE_FILTERS,
+  UNCHECKED_STYLE_FILTERS,
+  CHECKED_SEASON_FILTERS,
+  UNCHECKED_SEASON_FILTERS,
 } from "../type"
 
 export const checkedPriceFilters = payload => ({
@@ -28,5 +32,24 @@ export const checkedFitFilters = payload => ({
 
 export const uncheckedFitFilters = payload => ({
   type: UNCHECKED_FIT_FILTERS,
+  payload: payload,
+})
+
+export const styledFitFilters = payload => ({
+  type: CHECKED_STYLE_FILTERS,
+  payload: payload,
+})
+
+export const uncheckedStyledFilters = payload => ({
+  type: UNCHECKED_STYLE_FILTERS,
+  payload: payload,
+})
+export const seasonTypeFilters = payload => ({
+  type: CHECKED_SEASON_FILTERS,
+  payload: payload,
+})
+
+export const uncheckedseasonTypeFilters = payload => ({
+  type: UNCHECKED_SEASON_FILTERS,
   payload: payload,
 })
