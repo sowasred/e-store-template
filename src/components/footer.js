@@ -113,6 +113,7 @@ const Footer = () => {
             : null}
         </div>
       </div>
+      <div className={footerStyle.footerBottom}></div>
     </footer>
   )
 }

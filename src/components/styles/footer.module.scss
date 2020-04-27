@@ -1,22 +1,28 @@
 footer {
-    width: 100%;
+    position: relative;
+    width: 100vw;
     box-sizing: border-box;
-    height: 35vh;
-    padding: 5rem;
+    padding: 3rem 0 0 0;
     border-top: 1px black solid;
     .footItems{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
         margin: 0 auto;
         padding: 2rem;
         .footItem {
             text-align: center;
-            width: 30vw;
+            width: 100vw;
+            padding: 1rem;
+            margin: 1rem;
             h3 {
-                font-family: 'Raleway', sans-serif;
-                font-size: 1.1rem;
+                // font-family: 'Raleway';
+                font-family: 'Arapey', serif;
+                font-size: 1.4rem;
             }
             h4 {
                 text-decoration: none;
-                font-size: .7rem;
+                font-size: 1rem;
             }
             h5 {
                 display: none;
@@ -24,12 +30,17 @@ footer {
 
             .socialLinks {
                 display: flex;
-                justify-content: space-around;
-                img {
-                    width: 1rem;
+                justify-content: center;
+                a {
+                    padding: 1rem;
+                    margin: .5rem;
+                    img {
+                        width: 1rem;
+                    }
                 }
             }
         }
+        
         .middleDiv {
             display: flex;
             flex-direction: column;
@@ -38,35 +49,42 @@ footer {
             }
         }
     }
+    .footerBottom {
+        // position: absolute;
+        // bottom: 10px;
+        // width: 100%;
+        height: 6rem;
+        background-color: #000;
+      }
     
 }
 
 
-@media all and (max-width: 425px) {
-    footer {
-        flex-wrap: wrap;
-        flex-direction: column;
-        align-items: center;
-        h3 {
-            margin-top: 2rem;
-        }
-        .footItem {
-            .classy {
-                display: none;
-            }
-            .socialLinks {
-                margin-top: 5rem;
-                vertical-align: text-bottom
-            }
-            h5 {
-                display: initial;
-                // position: absolute;
-                // background-color: red;
-                font-size: 1rem;
-                margin-top: 1rem;
-                bottom: 0;
-            }
-        }
+// @media all and (max-width: 425px) {
+//     footer {
+//         flex-wrap: wrap;
+//         flex-direction: column;
+//         align-items: center;
+//         h3 {
+//             margin-top: 2rem;
+//         }
+//         .footItem {
+//             .classy {
+//                 display: none;
+//             }
+//             .socialLinks {
+//                 margin-top: 5rem;
+//                 vertical-align: text-bottom
+//             }
+//             h5 {
+//                 display: initial;
+//                 // position: absolute;
+//                 // background-color: red;
+//                 font-size: 1rem;
+//                 margin-top: 1rem;
+//                 bottom: 0;
+//             }
+//         }
 
-    }
-}
+//     }
+// }

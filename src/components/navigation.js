@@ -86,6 +86,26 @@ const Navigation = props => {
         dispatch(fillAllMenuTitles([...tempArray]))
       })
   }
+  if (window != undefined) {
+    window.onscroll = function() {
+      styleChanger()
+    }
+  }
+
+  const styleChanger = () => {
+    let classTemp = document.getElementsByClassName("navitself")
+    // console.info(classTemp, "Cagd")
+    if (
+      (document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20) &&
+      classTemp != "scrolling"
+    ) {
+      // document.getElementById("header").classList.add()
+      // console.info("works")
+    } else {
+      // document.getElementById("header").classList.add()
+    }
+  }
 
   useEffect(() => {
     fillMenu()
