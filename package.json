@@ -28,6 +28,7 @@
     "gatsby-transformer-sharp": "^2.3.19",
     "graphql-tag": "^2.10.3",
     "isomorphic-fetch": "^2.2.1",
+    "netlify-lambda": "^1.6.3",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -51,11 +52,15 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
+    "prod":"npm run build; npm run build:lambda",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "start-lambda":"netlify-lambda serve functions",
+    "build-lambda":"netlify-lambda build functions"
+
   },
   "repository": {
     "type": "git",
