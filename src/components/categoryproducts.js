@@ -142,7 +142,7 @@ const CategoryProducts = ({ catSlug }) => {
     if (tempArray.length > 0) {
       tempArray.map((item, index) => {
         if (index === 0) {
-          if (item.value / minPriceInterval != 4) {
+          if (item.value / minPriceInterval != 5) {
             client
               .query({
                 query: SORT_FILTER_QUERY,
@@ -187,7 +187,7 @@ const CategoryProducts = ({ catSlug }) => {
         } else if (index > 0) {
           if (sortProductState === "ASC" || sortProductState === "DESC") {
             let tempValue = item.value
-            if (item.value / minPriceInterval != 4) {
+            if (item.value / minPriceInterval != 5) {
               client
                 .query({
                   query: SORT_FILTER_QUERY,
@@ -229,7 +229,7 @@ const CategoryProducts = ({ catSlug }) => {
                 })
             }
           } else if (sortProductState === "r") {
-            if (item.value / minPriceInterval != 4) {
+            if (item.value / minPriceInterval != 5) {
               client
                 .query({
                   query: SORT_FILTER_QUERY,
@@ -271,7 +271,7 @@ const CategoryProducts = ({ catSlug }) => {
                 })
             }
           } else if (sortProductState === "highest-discount") {
-            if (item.value / minPriceInterval != 4) {
+            if (item.value / minPriceInterval != 5) {
               client
                 .query({
                   query: SORT_FILTER_QUERY,

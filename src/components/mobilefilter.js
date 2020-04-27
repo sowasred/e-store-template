@@ -12,6 +12,7 @@ import {
   checkedPriceFilters,
   uncheckedPriceFilters,
   setLastRemovedFilter,
+  uncheckedFitFilters,
 } from "../state/actions/filterActions"
 
 import {
@@ -198,6 +199,7 @@ const MobileFilter = ({ catSlug, products }) => {
 
   useEffect(() => {
     dispatch(uncheckedPriceFilters())
+    dispatch(uncheckedFitFilters())
   }, [navCategoryState, sortProductState])
 
   return (
