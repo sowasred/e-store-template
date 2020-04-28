@@ -59,13 +59,13 @@ module.exports = {
         plugins: [],
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `blogposts`,
-        path: `${__dirname}/src/blogposts`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     name: `blogposts`,
+    //     path: `${__dirname}/src/blogposts`,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
