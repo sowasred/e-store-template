@@ -65,13 +65,7 @@ export const query = graphql`
           canonical
           metakeywords
           title
-          description {
-            content {
-              content {
-                value
-              }
-            }
-          }
+          description
         }
         mainTitle
         description {

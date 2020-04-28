@@ -23,7 +23,7 @@ function SEO({ description, lang, meta, title, seo }) {
     `
   )
 
-  const metaDescription = seo.description.content[0].content[0].value
+  // const metaDescription = seo.description.content[0].content[0].value
 
   return (
     <Helmet
@@ -35,7 +35,7 @@ function SEO({ description, lang, meta, title, seo }) {
       meta={[
         {
           name: `description`,
-          content: metaDescription,
+          content: seo.description,
         },
         {
           name: `keywords`,
@@ -51,7 +51,7 @@ function SEO({ description, lang, meta, title, seo }) {
         },
         {
           property: `og:description`,
-          content: metaDescription,
+          content: seo.description,
         },
         {
           property: `og:type`,
@@ -71,7 +71,7 @@ function SEO({ description, lang, meta, title, seo }) {
         },
         {
           name: `twitter:description`,
-          content: metaDescription,
+          content: seo.description,
         },
       ].concat(meta)}
     />
