@@ -51,7 +51,8 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "develop": "NODE_ENV=development gatsby develop",
+    "develop": "gatsby develop",
+    "start:local": "env-cmd -f .env.development gatsby develop",
     "prod": "npm run build; npm run build-lambda",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
