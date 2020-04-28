@@ -8,7 +8,7 @@
 [context.production]
  publish = "public/"
  command = "npm run prod"
- environment = { GATSBY_CONTENTFUL_SPACE_ID = "3z8evcxuelp4", GATSBY_CONTENTFUL_ACCESS_TOKEN = "kUw9-v7AqmHyaMuyvLYEv1qETxhLT5CLU_Cd6Jy8xKQ", GATSBY_URI = "/.netlify/functions/graphql", NODE_VERSION = "13.9.0" YARN_VERSION ="1.17.3"}
+ environment = { GATSBY_CONTENTFUL_SPACE_ID = "3z8evcxuelp4", GATSBY_CONTENTFUL_ACCESS_TOKEN = "kUw9-v7AqmHyaMuyvLYEv1qETxhLT5CLU_Cd6Jy8xKQ", GATSBY_URI = "/.netlify/functions/graphql", NODE_VERSION = "13.9.0", YARN_VERSION ="1.17.3"}
 
 
   
