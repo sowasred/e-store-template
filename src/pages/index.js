@@ -9,7 +9,7 @@ import BelowSection from "../components/belowsection"
 import MailSignup from "../components/mailsignup"
 import FeaturedProduct from "../components/featuredproduct"
 
-export const query = graphql`
+export const pageQuery = graphql`
   query HomePageQuery {
     allContentfulMainPage {
       nodes {
@@ -88,8 +88,7 @@ const IndexPage = ({ data }) => {
 
   let featuredProducts = data.allContentfulMainPage.nodes[0].product
   let seoTemp = data.allContentfulMainPage.nodes[0].seo
-
-  console.info("ses55", featuredProducts[0])
+  console.info("seo check", seoTemp, data)
 
   return (
     <Layout>
