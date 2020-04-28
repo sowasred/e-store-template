@@ -1,6 +1,6 @@
 [build]
  base = "jacketstore"
- publish = "jacketstore/public/"
+ publish = "public/"
  functions = "lambda"
  command = "npm run prod"
 
