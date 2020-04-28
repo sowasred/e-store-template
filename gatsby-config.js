@@ -4,8 +4,8 @@ require("dotenv").config()
 let contentfulConfig
 // Overwrite the Contentful config with environment variables if they exist
 contentfulConfig = {
-  spaceId: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  spaceId: process.env.GATSBY_CONTENTFUL_SPACE_ID,
+  accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
 }
 
 const { spaceId, accessToken } = contentfulConfig
