@@ -1,5 +1,15 @@
 require("dotenv").config()
 
+console.info("Envinronmentttttttttttttt", process.env.NODE_ENV)
+console.info(
+  "Envinronmentttttttttttttt",
+  process.env.GATSBY_CONTENTFUL_SPACE_ID
+)
+console.info(
+  "Envinronmentttttttttttttt",
+  process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN
+)
+
 // Contentful Section
 let contentfulConfig
 // Overwrite the Contentful config with environment variables if they exist
