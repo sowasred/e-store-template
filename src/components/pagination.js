@@ -16,7 +16,7 @@ import {
 
 import paginationStyle from "./styles/pagination.module.scss"
 
-const Pagination = ({
+export const Pagination = ({
   productPerPage,
   totalProducts,
   paginate,
