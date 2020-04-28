@@ -1,5 +1,5 @@
 [build]
- functions = "functions"
+ functions = "lambda"
 
  command = "echo ACCESS_TOKEN"
 
