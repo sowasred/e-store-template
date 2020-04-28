@@ -31,28 +31,28 @@ function SEO({ description, lang, meta, title, seo }) {
       htmlAttributes={{
         lang,
       }}
-      title={seo.title}
-      titleTemplate={seo.title}
+      title={site.siteMetadata.author}
+      titleTemplate={site.siteMetadata.author}
       meta={[
         {
           name: `description`,
-          content: seo.description,
+          content: site.siteMetadata.author,
         },
         {
           name: `keywords`,
-          content: seo.metakeywords,
+          content: site.siteMetadata.author,
         },
         {
           name: `canonical`,
-          content: seo.canonical,
+          content: site.siteMetadata.author,
         },
         {
           property: `og:title`,
-          content: seo.title,
+          content: site.siteMetadata.author,
         },
         {
           property: `og:description`,
-          content: seo.description,
+          content: site.siteMetadata.author,
         },
         {
           property: `og:type`,
@@ -68,11 +68,11 @@ function SEO({ description, lang, meta, title, seo }) {
         },
         {
           name: `twitter:title`,
-          content: seo.title,
+          content: site.siteMetadata.author,
         },
         {
           name: `twitter:description`,
-          content: seo.description,
+          content: site.siteMetadata.author,
         },
       ].concat(meta)}
     />
