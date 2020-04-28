@@ -1,5 +1,4 @@
 import fetch from "isomorphic-fetch"
-// import { URI } from "gatsby-env-variables"
 
 import ApolloClient from "apollo-boost"
 
