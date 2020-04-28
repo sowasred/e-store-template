@@ -1,8 +1,7 @@
 [build]
- base = "web/"
  functions = "lambda"
  command = "npm run prod"
- publish = "public/"
+ publish = "public"
 
 
   
