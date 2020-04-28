@@ -47,8 +47,9 @@ const TEST_QUERY = gql`
 
 const Navigation = props => {
   const [currentScreenWidth, setCurrentScreenWidth] = React.useState(
-    window.innerWidth
+    windowInnerWidth
   )
+  let windowInnerWidth = typeof window !== `undefined` ? window.innerWidth : 360
   const dispatch = useDispatch()
 
   const navCategories = useSelector(

@@ -29,11 +29,13 @@ export const Pagination = ({
     pageNumbers.push(i)
   }
   const triggerScroll = () => {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    })
+    if (typeof window !== `undefined`) {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      })
+    }
   }
 
   return (
