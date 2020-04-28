@@ -26,12 +26,13 @@ const IndexPage = ({ data }) => {
     data.allContentfulMainPage.nodes[0].longDescription.longDescription
 
   let featuredProducts = data.allContentfulMainPage.nodes[0].product
+  let seoTemp = data.allContentfulMainPage.nodes[0].seo
 
   console.info("ses55", featuredProducts[0])
 
   return (
     <Layout>
-      <SEO title="Home" seo={data.allContentfulMainPage.nodes[0].seo} />
+      <SEO title="Home" seo={seoTemp} />
       <MainpageIntro
         womenImage={womenImage}
         womeImageTitle={data.allContentfulMainPage.nodes[0].firstRow[0].title}
