@@ -34,11 +34,11 @@ const Header = ({ siteTitle }) => {
       }
     }
   }
-
-  window.onscroll = () => {
-    animateHeader()
+  if (typeof window !== `undefined`) {
+    window.onscroll = () => {
+      animateHeader()
+    }
   }
-
   return (
     <header>
       <Navigation className={headerStyle.navigation} />

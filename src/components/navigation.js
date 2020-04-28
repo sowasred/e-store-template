@@ -86,7 +86,7 @@ const Navigation = props => {
         dispatch(fillAllMenuTitles([...tempArray]))
       })
   }
-  if (window != undefined) {
+  if (typeof window !== `undefined`) {
     window.onscroll = function() {
       styleChanger()
     }
