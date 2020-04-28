@@ -40,7 +40,6 @@ module.exports = {
     },
     `gatsby-plugin-stripe`,
     `gatsby-plugin-sass`,
-    `gatsby-env-variables`,
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
