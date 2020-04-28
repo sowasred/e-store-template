@@ -22,6 +22,7 @@ function SEO({ description, lang, meta, title, seo }) {
       }
     `
   )
+  console.info("ozannnnnn", seo)
 
   // const metaDescription = seo.description.content[0].content[0].value
 
