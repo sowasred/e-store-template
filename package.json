@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "estore-template",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "JamStack E-commerce app",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "sowasred <muldurozan@gmail.com>",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@contentful/rich-text-react-renderer": "^13.4.0",

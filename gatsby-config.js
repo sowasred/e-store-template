@@ -1,7 +1,6 @@
 require("dotenv").config()
 
 // Contentful Section
-
 let contentfulConfig
 // Overwrite the Contentful config with environment variables if they exist
 contentfulConfig = {
