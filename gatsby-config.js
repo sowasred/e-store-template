@@ -47,7 +47,6 @@ module.exports = {
         display: "swap",
       },
     },
-    `gatsby-plugin-stripe`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
