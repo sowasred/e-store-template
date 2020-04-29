@@ -92,7 +92,13 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Home" seo={seoTemp} />
+      <SEO
+        title="Home"
+        title={seoTemp.title}
+        description={seoTemp.description}
+        metakeys={seoTemp.metakeywords}
+        canonical={seoTemp.canonical}
+      />
       <MainpageIntro
         womenImage={womenImage}
         womeImageTitle={data.allContentfulMainPage.nodes[0].firstRow[0].title}
