@@ -88,7 +88,11 @@ const Navigation = props => {
         dispatch(fillAllMenuTitles([...tempArray]))
       })
   }
+<<<<<<< Updated upstream
   if (typeof window !== `undefined`) {
+=======
+  if (window != undefined) {
+>>>>>>> Stashed changes
     window.onscroll = function() {
       styleChanger()
     }
