@@ -22,6 +22,7 @@ function SEO({ description, metakeys, title, canonical }) {
       }
     `
   )
+  console.info("description", description, "metakeys", metakeys)
 
   // const metaDescription = seo.description.content[0].content[0].value
 
