@@ -63,7 +63,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "start:local": "env-cmd -f .env.development gatsby develop",
-    "prod": "npm prune; npm run build;",
+    "prod": "npm prune; npm fund; npm run build;",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
