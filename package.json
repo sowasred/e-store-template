@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "sowasred <muldurozan@gmail.com>",
   "dependencies": {
+    "@apollo/client": "^3.0.0-beta.44",
     "@apollo/react-hooks": "^3.1.5",
     "@contentful/rich-text-react-renderer": "^13.4.0",
     "apollo-boost": "^0.4.7",
