@@ -106,7 +106,9 @@ const Navigation = props => {
   }
 
   useEffect(() => {
-    fillMenu()
+    if (data) {
+      fillMenu()
+    }
   }, [])
 
   let isMobile
