@@ -43,6 +43,7 @@
     "redux-devtools-extension": "^2.13.8"
   },
   "devDependencies": {
+    "install-peers-cli": "^2.2.0",
     "prettier": "^1.19.1"
   },
   "keywords": [
@@ -60,7 +61,8 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "start-lambda": "netlify-lambda serve functions",
-    "build-lambda": "netlify-lambda build functions"
+    "build-lambda": "netlify-lambda build functions",
+    "prepare": "install-peers"
   },
   "repository": {
     "type": "git",
