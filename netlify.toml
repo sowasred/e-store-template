@@ -1,5 +1,5 @@
 [build]
-
+ Functions = "lambda"
  command = "echo ACCESS_TOKEN"
 
 # Production context: all deploys from the Production branch set in your site's
