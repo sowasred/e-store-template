@@ -70,6 +70,10 @@ function SEO({ description, metakeys, title, canonical }) {
           name: `twitter:description`,
           content: description,
         },
+        {
+          name: `keywords`,
+          content: metakeys,
+        },
       ].concat(metakeys)}
     />
   )
