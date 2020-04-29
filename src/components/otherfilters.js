@@ -26,18 +26,15 @@ export const OtherFilters = () => {
 
   const handleFitFilterClicked = e => {
     let tempValue = e.target.value
-    console.info("ozan", tempValue)
     dispatch(checkedFitFilters({ value: tempValue }))
   }
 
   const handleStyleFilterClicked = e => {
     let tempValue = e.target.value
-    console.info("ozan", tempValue)
     dispatch(styledFitFilters({ value: tempValue }))
   }
   const handleSeasonFilterClicked = e => {
     let tempValue = e.target.value
-    console.info("ozan", tempValue)
     dispatch(seasonTypeFilters({ value: tempValue }))
   }
 

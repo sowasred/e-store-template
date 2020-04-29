@@ -88,7 +88,6 @@ const IndexPage = ({ data }) => {
 
   let featuredProducts = data.allContentfulMainPage.nodes[0].product
   let seoTemp = data.allContentfulMainPage.nodes[0].seo
-  console.info("seo check", seoTemp, data)
 
   return (
     <Layout>

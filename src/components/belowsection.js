@@ -2,7 +2,6 @@ import { Link } from "gatsby"
 import React from "react"
 
 import mainpageStyle from "./styles/mainpage.module.scss"
-import imgsrc from "../images/leather.jpg"
 
 const BelowSection = ({
   firstImage,

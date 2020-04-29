@@ -47,7 +47,6 @@ const TEST_QUERY = gql`
 
 const Navigation = props => {
   const { loading, error, data } = useQuery(TEST_QUERY)
-  console.info(loading, error, data, "loading, error, data")
   let windowInnerWidth = typeof window !== `undefined` ? window.innerWidth : 360
   const [currentScreenWidth, setCurrentScreenWidth] = React.useState(
     windowInnerWidth
@@ -68,6 +67,7 @@ const Navigation = props => {
   let tempArray = []
   const fillMenu = () => {
     if (!loading) {
+      console.info("iste burda", data)
       let categories = data.allContentfulNavMenu.edges[0].node.categories
       let otherPages = data.allContentfulNavMenu.edges[0].node.otherPages
 

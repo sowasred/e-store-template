@@ -35,7 +35,6 @@ const Blog = props => {
       <h1>{props.data.contentfulBlog.title}</h1>
       <p>{props.data.contentfulBlog.description}</p>
       {props.data.contentfulBlog.images.map(item => {
-        console.info("fluid", item.fluid.src)
         return <img src={`https:${item.fluid.src}`}></img>
       })}
     </Layout>

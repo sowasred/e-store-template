@@ -147,12 +147,6 @@ const CategoryProducts = ({ catSlug }) => {
       checkedFitFiltersState.length > 0 ||
       checkedStyledFiltersState.length > 0 ||
       checkedSeasonFiltersState.length > 0
-    console.info(
-      "yarrak ne sandin",
-      styledArray,
-      letfitArray,
-      fullFiltersBoolean
-    )
 
     const fullFitFilters = {
       fit: { in: ["Slim", "Oversized", "Cropped", "Regular"] },
@@ -175,8 +169,6 @@ const CategoryProducts = ({ catSlug }) => {
     if (seasonArray.length > 0) {
       temp3 = { seasonType: { in: seasonArray } }
     }
-
-    console.info("tempSrr", tempString)
 
     if (
       letfitArray.length > 0 &&
@@ -412,8 +404,6 @@ const CategoryProducts = ({ catSlug }) => {
             },
           })
           .then(res => {
-            console.info(res, "ozan")
-            console.info("data", res.data.allContentfulProduct.edges)
             const categoryProducts = res.data.allContentfulProduct.edges
             dispatch(sortCategorieProducts(categoryProducts))
           })
@@ -427,8 +417,6 @@ const CategoryProducts = ({ catSlug }) => {
             },
           })
           .then(res => {
-            console.info(res, "ozan")
-            console.info("data", res.data.allContentfulProduct.edges)
             const categoryProducts = res.data.allContentfulProduct.edges
             dispatch(sortCategorieProducts(categoryProducts))
           })
@@ -446,8 +434,6 @@ const CategoryProducts = ({ catSlug }) => {
             },
           })
           .then(res => {
-            console.info(res, "ozan")
-            console.info("data", res.data.allContentfulProduct.edges)
             const categoryProducts = res.data.allContentfulProduct.edges
             dispatch(sortCategorieProducts(categoryProducts))
           })
