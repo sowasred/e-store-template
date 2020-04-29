@@ -47,7 +47,7 @@ const TEST_QUERY = gql`
 
 const Navigation = props => {
   const { loading, error, data } = useQuery(TEST_QUERY)
-  console.info(loading, error, data, "loading, error, data")
+  // console.info(loading, error, data, "loading, error, data")
   let windowInnerWidth = typeof window !== `undefined` ? window.innerWidth : 360
   const [currentScreenWidth, setCurrentScreenWidth] = React.useState(
     windowInnerWidth
@@ -106,7 +106,7 @@ const Navigation = props => {
   }
 
   useEffect(() => {
-    if (data) {
+    if (loading) {
       fillMenu()
     }
   }, [])
