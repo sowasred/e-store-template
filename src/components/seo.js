@@ -74,7 +74,7 @@ function SEO({ description, metakeys, title, canonical }) {
           name: `keywords`,
           content: metakeys,
         },
-      ].concat(metakeys)}
+      ]}
     />
   )
 }
