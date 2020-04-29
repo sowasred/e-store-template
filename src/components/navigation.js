@@ -46,6 +46,8 @@ const TEST_QUERY = gql`
 `
 
 const Navigation = props => {
+  const { loading, error, data } = useQuery(TEST_QUERY)
+  console.info(loading, error, data, "loading, error, data")
   let windowInnerWidth = typeof window !== `undefined` ? window.innerWidth : 360
   const [currentScreenWidth, setCurrentScreenWidth] = React.useState(
     windowInnerWidth
@@ -65,28 +67,22 @@ const Navigation = props => {
 
   let tempArray = []
   const fillMenu = () => {
-    client
-      .query({
-        query: TEST_QUERY,
-      })
-      .then(res => {
-        let categories = res.data.allContentfulNavMenu.edges[0].node.categories
-        let otherPages = res.data.allContentfulNavMenu.edges[0].node.otherPages
+    let categories = data.allContentfulNavMenu.edges[0].node.categories
+    let otherPages = data.allContentfulNavMenu.edges[0].node.otherPages
 
-        categories.map(item => {
-          tempArray.push({
-            title: item.title.title,
-            slug: item.slug,
-          })
-        })
-        otherPages.map(item => {
-          tempArray.push({
-            title: item.title,
-            slug: item.slug,
-          })
-        })
-        dispatch(fillAllMenuTitles([...tempArray]))
+    categories.map(item => {
+      tempArray.push({
+        title: item.title.title,
+        slug: item.slug,
       })
+    })
+    otherPages.map(item => {
+      tempArray.push({
+        title: item.title,
+        slug: item.slug,
+      })
+    })
+    dispatch(fillAllMenuTitles([...tempArray]))
   }
 <<<<<<< Updated upstream
   if (typeof window !== `undefined`) {
@@ -114,7 +110,9 @@ const Navigation = props => {
   }
 
   useEffect(() => {
-    fillMenu()
+    if (data) {
+      fillMenu()
+    }
   }, [])
 
   let isMobile
