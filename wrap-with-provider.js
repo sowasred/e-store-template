@@ -2,9 +2,17 @@ import React from "react"
 import { Provider } from "react-redux"
 
 import { ApolloProvider } from "@apollo/react-hooks"
-import { client } from "./src/context/ApolloClient"
 
 import createStore from "./src/state/createStore"
+
+import fetch from "isomorphic-fetch"
+
+import ApolloClient from "apollo-boost"
+
+export const client = new ApolloClient({
+  fetch,
+  uri: process.env.GATSBY_URI,
+})
 
 // eslint-disable-next-line react/display-name,react/prop-types
 export default ({ element }) => {
@@ -14,9 +22,7 @@ export default ({ element }) => {
   const store = createStore()
   return (
     <ApolloProvider client={client}>
-      <Provider client={client} store={store}>
-        {element}
-      </Provider>
+      <Provider store={store}>{element}</Provider>
     </ApolloProvider>
   )
 }

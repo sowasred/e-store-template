@@ -5,7 +5,7 @@ import gql from "graphql-tag"
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
 
-import { client } from "../context/ApolloClient"
+import { client } from "../../wrap-with-provider"
 
 import {
   handlePriceFilter,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
 
 import gql from "graphql-tag"
-import { client } from "../context/ApolloClient"
+import { client } from "../../wrap-with-provider"
 import footerStyle from "./styles/footer.module.scss"
 import facebook from "../images/facebook.svg"
 import twitter from "../images/twitter.svg"

@@ -10,7 +10,6 @@ import Layout from "../components/layout"
 import MobileSort from "../components/mobilesort"
 
 import { fetchCategories } from "../state/actions/categoryActions"
-import { client } from "../context/ApolloClient"
 
 export const query = graphql`
   query($slug: String!) {

@@ -10,7 +10,6 @@ import {
 } from "../state/actions/menuActions"
 
 import gql from "graphql-tag"
-import { client } from "../context/ApolloClient"
 import MobileNavigation from "./mobilenavigation"
 import navigationStyle from "./styles/navigation.module.scss"
 const TEST_QUERY = gql`
@@ -45,7 +44,7 @@ const TEST_QUERY = gql`
   }
 `
 
-const Navigation = props => {
+const Navigation = () => {
   const { loading, error, data } = useQuery(TEST_QUERY)
   let windowInnerWidth = typeof window !== `undefined` ? window.innerWidth : 360
   const [currentScreenWidth, setCurrentScreenWidth] = React.useState(

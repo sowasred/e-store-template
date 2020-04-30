@@ -6,20 +6,41 @@
 
 // You can delete this file if you're not using it
 
-// export { wrapRootElement } from "./src/apollo/wrap-root-element"
-
-// import React from "react"
-// import { ApolloProvider } from "react-apollo"
-// import { client } from "./src/context/ApolloClient"
-
-// export const wrapRootElement = ({ element }) => {
-//   return () => <ApolloProvider client={client}>{element}</ApolloProvider>
-// }
-// export const replaceRouterComponent = () => {
-//   const ConnectedRouterWrapper = ({ children }) => (
-//     <ApolloProvider client={client}>
-//       <GlobalContextProvider>{children}</GlobalContextProvider>
-//     </ApolloProvider>
-//   )
 import wrapWithProvider from "./wrap-with-provider.js"
 export const wrapRootElement = wrapWithProvider
+
+// import React from "react"
+// import { Router } from "react-router-dom"
+// import ApolloClient, { createNetworkInterface } from "apollo-client"
+// import { ApolloProvider } from "@apollo/react-hooks"
+// import fetch from "isomorphic-fetch"
+
+// import ApolloClient, { InMemoryCache } from "apollo-boost"
+// import createStore from "./src/state/createStore"
+// import { Provider } from "react-redux"
+
+// // endpoint comes from .env.development/production
+
+// const store = createStore()
+
+// // const client = new ApolloClient({
+// //   uri: process.env.GATSBY_URI,
+// //   initialState: window.__APOLLO_STATE__,
+// // })
+// const replaceRouterComponent = ({ history }) => {
+//   const client = new ApolloClient({
+//     fetch,
+//     uri: process.env.GATSBY_URI,
+//   })
+
+//   const ConnectedRouterWrapper = ({ children }) => (
+//     <ApolloProvider client={client}>
+//       <Provider store={store}>
+//         <Router history={history}>{children}</Router>
+//       </Provider>
+//     </ApolloProvider>
+//   )
+
+//   return ConnectedRouterWrapper
+// }
+// export default replaceRouterComponent

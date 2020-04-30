@@ -13,7 +13,7 @@ import {
   filterByPrice,
   filterByPriceRemove,
 } from "../state/actions/categoryActions"
-import { client } from "../context/ApolloClient"
+import { client } from "../../wrap-with-provider"
 
 const SORT_FILTER_QUERY = gql`
   query sortFilterProducts(
