@@ -41,9 +41,6 @@ const Footer = () => {
         let tempArray = []
         let tempArray2 = []
 
-        console.info("ses", helpPages)
-        console.info("ses", companyPages)
-        // console.info("ses2", otherPages[0].title)
         helpPages.map(item => {
           tempArray.push({
             title: item.title,

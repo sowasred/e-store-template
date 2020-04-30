@@ -3,8 +3,6 @@ import React from "react"
 import mainpageStyle from "./styles/mainpage.module.scss"
 
 const FeaturedProduct = ({ featuredProducts }) => {
-  console.info("pro", featuredProducts)
-
   return (
     <React.Fragment>
       <section className={mainpageStyle.products}>

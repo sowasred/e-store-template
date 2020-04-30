@@ -14,7 +14,6 @@ import Img from "gatsby-image"
  */
 
 const Image = ({ img }) => {
-  console.info("yarrak", `https:${img.src}`, img.fluid)
   let imageUrl = `https:${img.src}`
   return <Img fluid={img.fluid} />
 }

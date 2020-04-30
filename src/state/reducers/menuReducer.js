@@ -20,7 +20,6 @@ const menuReducer = (state = initialState, { type, payload }) => {
         currentScreenWidth: payload.currentScreenWidth,
       }
     case FETCHING_MENU_SUCCESS:
-      console.info("payload", payload)
       return {
         ...state,
         navCats: payload,

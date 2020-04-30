@@ -80,7 +80,6 @@ const categoryReducer = (state = initialState, { type, payload }) => {
     case PRICE_FILTER_ADD_PRODUCT:
       let tempArr = []
       let tempCats = state.categoryProducts
-      console.info("payload", payload.tempValue)
       tempCats.map(item => {
         tempArr.push(item.node.price)
       })
@@ -88,10 +87,6 @@ const categoryReducer = (state = initialState, { type, payload }) => {
       let maxValue = Math.max(...tempArr)
 
       let checkAgainTemp = parseFloat(maxValue) > parseFloat(payload.tempValue)
-
-      console.info("tempcats", tempCats, tempArr)
-
-      console.info(maxValue, "maxvalue", checkAgainTemp, parseFloat(maxValue))
 
       if (state.sortProductState === "ASC") {
         return {
@@ -112,7 +107,6 @@ const categoryReducer = (state = initialState, { type, payload }) => {
       let tempArray = state.categoryProducts.filter(
         item => !payload.categoryProducts.includes(item)
       )
-      console.info(tempArray, "tempArray", payload.categoryProducts)
       return {
         ...state,
         categoryProducts: tempArray,
