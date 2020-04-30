@@ -14,7 +14,9 @@ export default ({ element }) => {
   const store = createStore()
   return (
     <ApolloProvider client={client}>
-      <Provider store={store}>{element}</Provider>
+      <Provider client={client} store={store}>
+        {element}
+      </Provider>
     </ApolloProvider>
   )
 }
