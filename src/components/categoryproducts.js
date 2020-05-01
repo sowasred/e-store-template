@@ -32,20 +32,19 @@ const SORT_FILTER_QUERY = gql`
       }
       sort: { fields: $sortType, order: $valueG }
     ) {
-      edges {
-        node {
-          price
-          slug
-          discountedPrice
-          image {
-            fluid {
-              src
-            }
-            title
+      nodes {
+        id
+        price
+        slug
+        discountedPrice
+        image {
+          fluid {
+            src
           }
-          productName {
-            productName
-          }
+          title
+        }
+        productName {
+          productName
         }
       }
     }
@@ -78,7 +77,7 @@ const PRODUCT_QUERY = gql`
   }
 `
 
-const CategoryProducts = ({ catSlug, catProds }) => {
+const CategoryProducts = ({ catSlug }) => {
   const dispatch = useDispatch()
 
   const categoryProductsState = useSelector(
@@ -123,16 +122,15 @@ const CategoryProducts = ({ catSlug, catProds }) => {
   const indexOfLastPost = currentPageState * productPerPageState
   const indexOfFirstPost = indexOfLastPost - productPerPageState
 
-  const currentPosts = categoryProductsState.slice(
-    indexOfFirstPost,
-    indexOfLastPost
-  )
+  // const currentPosts = categoryProductsState.slice(
+  //   indexOfFirstPost,
+  //   indexOfLastPost
+  // )
 
   const lastRemovedPriceFilter = useSelector(
     state => state.filterReducer.lastRemovedPriceFilter,
     shallowEqual
   )
-  console.info("catprods", catProds)
 
   // Change page
   const paginate = pageNumber => dispatch(changePage(pageNumber))
@@ -237,8 +235,9 @@ const CategoryProducts = ({ catSlug, catProds }) => {
                 },
               })
               .then(res => {
-                let categoryProducts = res.data.allContentfulProduct.edges
+                let categoryProducts = res.data.allContentfulProduct.nodes
                 dispatch(sortCategorieProducts(categoryProducts))
+                console.info("catpros", CategoryProducts)
               })
           } else {
             client
@@ -254,7 +253,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
                 },
               })
               .then(res => {
-                let categoryProducts = res.data.allContentfulProduct.edges
+                let categoryProducts = res.data.allContentfulProduct.nodes
                 dispatch(sortCategorieProducts(categoryProducts))
               })
           }
@@ -281,7 +280,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
                   },
                 })
                 .then(res => {
-                  const categoryProducts = res.data.allContentfulProduct.edges
+                  const categoryProducts = res.data.allContentfulProduct.nodes
                   dispatch(filterByPriceAdd({ categoryProducts, tempValue }))
                 })
             } else {
@@ -298,7 +297,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
                   },
                 })
                 .then(res => {
-                  const categoryProducts = res.data.allContentfulProduct.edges
+                  const categoryProducts = res.data.allContentfulProduct.nodes
                   dispatch(filterByPriceAdd({ categoryProducts, tempValue }))
                 })
             }
@@ -323,7 +322,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
                   },
                 })
                 .then(res => {
-                  const categoryProducts = res.data.allContentfulProduct.edges
+                  const categoryProducts = res.data.allContentfulProduct.nodes
                   dispatch(filterByPrice(categoryProducts))
                 })
             } else {
@@ -340,7 +339,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
                   },
                 })
                 .then(res => {
-                  const categoryProducts = res.data.allContentfulProduct.edges
+                  const categoryProducts = res.data.allContentfulProduct.nodes
                   dispatch(filterByPrice(categoryProducts))
                 })
             }
@@ -365,7 +364,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
                   },
                 })
                 .then(res => {
-                  const categoryProducts = res.data.allContentfulProduct.edges
+                  const categoryProducts = res.data.allContentfulProduct.nodes
                   dispatch(filterByPrice(categoryProducts))
                 })
             } else {
@@ -382,7 +381,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
                   },
                 })
                 .then(res => {
-                  const categoryProducts = res.data.allContentfulProduct.edges
+                  const categoryProducts = res.data.allContentfulProduct.nodes
                   dispatch(filterByPrice(categoryProducts))
                 })
             }
@@ -405,7 +404,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
     //         },
     //       })
     //       .then(res => {
-    //         const categoryProducts = res.data.allContentfulProduct.edges
+    //         const categoryProducts = res.data.allContentfulProduct.nodes
     //         dispatch(sortCategorieProducts(categoryProducts))
     //       })
     //   } else if (sortProductState === "r") {
@@ -418,7 +417,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
     //         },
     //       })
     //       .then(res => {
-    //         const categoryProducts = res.data.allContentfulProduct.edges
+    //         const categoryProducts = res.data.allContentfulProduct.nodes
     //         dispatch(sortCategorieProducts(categoryProducts))
     //       })
     //   } else if (sortProductState === "highest-discount") {
@@ -435,7 +434,7 @@ const CategoryProducts = ({ catSlug, catProds }) => {
     //         },
     //       })
     //       .then(res => {
-    //         const categoryProducts = res.data.allContentfulProduct.edges
+    //         const categoryProducts = res.data.allContentfulProduct.nodes
     //         dispatch(sortCategorieProducts(categoryProducts))
     //       })
     //   }
@@ -457,7 +456,6 @@ const CategoryProducts = ({ catSlug, catProds }) => {
       <section className={catProductsStyle.catWraper}>
         {categoryProductsState && categoryProductsState.length > 0 ? (
           categoryProductsState.map(item => {
-            console.info(item, "item")
             return (
               <article>
                 <Link to={`${catSlug}/${item.slug}`}>
