@@ -33,6 +33,29 @@ export const query = graphql`
         }
       }
       slug
+      product {
+        id
+        color
+        price
+        size
+        quantity
+        sku
+        slug
+        productName {
+          productName
+        }
+        image {
+          fluid {
+            src
+          }
+        }
+        filters {
+          fit
+          gender
+          seasonType
+          style
+        }
+      }
     }
   }
 `
@@ -47,6 +70,7 @@ const CategoryPages = props => {
 
   const fetchCategoriesLocal = () => {
     let navCategory = props.data.contentfulCategory.title.title
+    let categoryProds = props.data.contentfulCategory.product
     let loading = false
     let currentPage = 1
 
@@ -55,6 +79,7 @@ const CategoryPages = props => {
         navCategory,
         loading,
         currentPage,
+        categoryProds,
       })
     )
   }
@@ -86,7 +111,10 @@ const CategoryPages = props => {
         <MobileFilter catSlug={props.data.contentfulCategory.slug} />
         <MobileSort catSlug={props.data.contentfulCategory.slug} />
       </div>
-      <CategoryProducts catSlug={props.data.contentfulCategory.slug} />
+      <CategoryProducts
+        catSlug={props.data.contentfulCategory.slug}
+        catProds={props.data.contentfulCategory.product}
+      />
     </Layout>
   )
 }

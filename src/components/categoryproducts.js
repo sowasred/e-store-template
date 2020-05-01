@@ -59,27 +59,26 @@ const PRODUCT_QUERY = gql`
         filters: $fit
       }
     ) {
-      edges {
-        node {
-          price
-          slug
-          discountedPrice
-          image {
-            fluid {
-              src
-            }
-            title
+      nodes {
+        id
+        price
+        slug
+        discountedPrice
+        image {
+          fluid {
+            src
           }
-          productName {
-            productName
-          }
+          title
+        }
+        productName {
+          productName
         }
       }
     }
   }
 `
 
-const CategoryProducts = ({ catSlug }) => {
+const CategoryProducts = ({ catSlug, catProds }) => {
   const dispatch = useDispatch()
 
   const categoryProductsState = useSelector(
@@ -133,6 +132,7 @@ const CategoryProducts = ({ catSlug }) => {
     state => state.filterReducer.lastRemovedPriceFilter,
     shallowEqual
   )
+  console.info("catprods", catProds)
 
   // Change page
   const paginate = pageNumber => dispatch(changePage(pageNumber))
@@ -389,56 +389,57 @@ const CategoryProducts = ({ catSlug }) => {
           }
         }
       })
-    } else {
-      if (sortProductState === "ASC" || sortProductState === "DESC") {
-        client
-          .query({
-            query: SORT_FILTER_QUERY,
-            variables: {
-              catSlugG: catSlug,
-              valueG: sortProductState,
-              greaterThan: parseFloat(0),
-              lessThan: parseFloat(10000000),
-              sortType: "price",
-              fit: fullFiltersBoolean ? tempString : fullFitFilters,
-            },
-          })
-          .then(res => {
-            const categoryProducts = res.data.allContentfulProduct.edges
-            dispatch(sortCategorieProducts(categoryProducts))
-          })
-      } else if (sortProductState === "r") {
-        client
-          .query({
-            query: PRODUCT_QUERY,
-            variables: {
-              catSlugG: catSlug,
-              fit: fullFiltersBoolean ? tempString : fullFitFilters,
-            },
-          })
-          .then(res => {
-            const categoryProducts = res.data.allContentfulProduct.edges
-            dispatch(sortCategorieProducts(categoryProducts))
-          })
-      } else if (sortProductState === "highest-discount") {
-        client
-          .query({
-            query: SORT_FILTER_QUERY,
-            variables: {
-              catSlugG: catSlug,
-              valueG: "ASC",
-              greaterThan: parseFloat(0),
-              lessThan: parseFloat(10000000),
-              sortType: "discountedPrice",
-              fit: fullFiltersBoolean ? tempString : fullFitFilters,
-            },
-          })
-          .then(res => {
-            const categoryProducts = res.data.allContentfulProduct.edges
-            dispatch(sortCategorieProducts(categoryProducts))
-          })
-      }
     }
+    // else {
+    //   if (sortProductState === "ASC" || sortProductState === "DESC") {
+    //     client
+    //       .query({
+    //         query: SORT_FILTER_QUERY,
+    //         variables: {
+    //           catSlugG: catSlug,
+    //           valueG: sortProductState,
+    //           greaterThan: parseFloat(0),
+    //           lessThan: parseFloat(10000000),
+    //           sortType: "price",
+    //           fit: fullFiltersBoolean ? tempString : fullFitFilters,
+    //         },
+    //       })
+    //       .then(res => {
+    //         const categoryProducts = res.data.allContentfulProduct.edges
+    //         dispatch(sortCategorieProducts(categoryProducts))
+    //       })
+    //   } else if (sortProductState === "r") {
+    //     client
+    //       .query({
+    //         query: PRODUCT_QUERY,
+    //         variables: {
+    //           catSlugG: catSlug,
+    //           fit: fullFiltersBoolean ? tempString : fullFitFilters,
+    //         },
+    //       })
+    //       .then(res => {
+    //         const categoryProducts = res.data.allContentfulProduct.edges
+    //         dispatch(sortCategorieProducts(categoryProducts))
+    //       })
+    //   } else if (sortProductState === "highest-discount") {
+    //     client
+    //       .query({
+    //         query: SORT_FILTER_QUERY,
+    //         variables: {
+    //           catSlugG: catSlug,
+    //           valueG: "ASC",
+    //           greaterThan: parseFloat(0),
+    //           lessThan: parseFloat(10000000),
+    //           sortType: "discountedPrice",
+    //           fit: fullFiltersBoolean ? tempString : fullFitFilters,
+    //         },
+    //       })
+    //       .then(res => {
+    //         const categoryProducts = res.data.allContentfulProduct.edges
+    //         dispatch(sortCategorieProducts(categoryProducts))
+    //       })
+    //   }
+    // }
   }
 
   useEffect(() => {
@@ -456,19 +457,20 @@ const CategoryProducts = ({ catSlug }) => {
       <section className={catProductsStyle.catWraper}>
         {categoryProductsState && categoryProductsState.length > 0 ? (
           categoryProductsState.map(item => {
+            console.info(item, "item")
             return (
               <article>
-                <Link to={`${catSlug}/${item.node.slug}`}>
+                <Link to={`${catSlug}/${item.slug}`}>
                   <span id={catProductsStyle.best}>BEST</span>
                   <span id={catProductsStyle.sale}>SALE</span>
                   <img
-                    src={item.node.image[0].fluid.src}
-                    alt={item.node.productName.productName}
+                    src={item.image[0].fluid.src}
+                    alt={item.productName.productName}
                   />
-                  <h4>{item.node.productName.productName}</h4>
+                  <h4>{item.productName.productName}</h4>
                 </Link>
                 <aside>
-                  <span>CA${item.node.price.toFixed(2)}</span>
+                  <span>CA${item.price.toFixed(2)}</span>
                   {/* <span>CA${item.discountedPrice}</span> */}
                 </aside>
               </article>

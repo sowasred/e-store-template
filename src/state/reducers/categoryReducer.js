@@ -31,6 +31,7 @@ const categoryReducer = (state = initialState, { type, payload }) => {
         navCategory: payload.navCategory,
         loading: payload.loading,
         currentPage: payload.currentPage,
+        categoryProducts: payload.categoryProds,
       }
     case CHANGE_PAGE:
       return {
