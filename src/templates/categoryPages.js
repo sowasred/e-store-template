@@ -71,7 +71,6 @@ export const query = graphql`
               icon {
                 fluid {
                   src
-                  tracedSVG
                 }
               }
               categoryDescription {
