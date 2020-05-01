@@ -8,6 +8,8 @@ import MainpageIntro from "../components/mainpageintro"
 import BelowSection from "../components/belowsection"
 import MailSignup from "../components/mailsignup"
 import FeaturedProduct from "../components/featuredproduct"
+import Navigation from "../components/navigation"
+import headerStyle from "../components/styles/header.module.scss"
 
 export const pageQuery = graphql`
   query HomePageQuery {
@@ -67,6 +69,33 @@ export const pageQuery = graphql`
         }
       }
     }
+    allContentfulNavMenu {
+      edges {
+        node {
+          categories {
+            ... on ContentfulCategory {
+              title {
+                title
+              }
+              slug
+              icon {
+                fluid {
+                  src
+                  tracedSVG
+                }
+              }
+              categoryDescription {
+                categoryDescription
+              }
+            }
+          }
+          otherPages {
+            title
+            slug
+          }
+        }
+      }
+    }
   }
 `
 
@@ -88,6 +117,7 @@ const IndexPage = ({ data }) => {
 
   let featuredProducts = data.allContentfulMainPage.nodes[0].product
   let seoTemp = data.allContentfulMainPage.nodes[0].seo
+  let navTemp = data
 
   return (
     <Layout>
@@ -97,6 +127,11 @@ const IndexPage = ({ data }) => {
         description={seoTemp.description}
         metakeys={seoTemp.metakeywords}
         canonical={seoTemp.canonical}
+      />
+      <Navigation
+        categories={navTemp.allContentfulNavMenu.edges[0].node.categories}
+        otherPages={navTemp.allContentfulNavMenu.edges[0].node.otherPages}
+        className={headerStyle.navigation}
       />
       <MainpageIntro
         womenImage={womenImage}

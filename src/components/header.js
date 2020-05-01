@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import React from "react"
 
 import headerStyle from "./styles/header.module.scss"
-import Navigation from "./navigation"
 import Dashboard from "./dashboard"
 import bag from "../images/bag.svg"
 import search from "../images/search.svg"
@@ -41,7 +40,6 @@ const Header = ({ siteTitle }) => {
   }
   return (
     <header>
-      <Navigation className={headerStyle.navigation} />
       <span className={headerStyle.siteTitle}>
         <h1>
           <Link

@@ -2,50 +2,16 @@ import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 
 import { useSelector, shallowEqual, useDispatch } from "react-redux"
-import { useQuery } from "@apollo/react-hooks"
 
 import {
   handleMobileOrDesktop,
   fillAllMenuTitles,
 } from "../state/actions/menuActions"
 
-import gql from "graphql-tag"
 import MobileNavigation from "./mobilenavigation"
 import navigationStyle from "./styles/navigation.module.scss"
-const TEST_QUERY = gql`
-  {
-    allContentfulNavMenu {
-      edges {
-        node {
-          categories {
-            ... on ContentfulCategory {
-              title {
-                title
-              }
-              slug
-              icon {
-                fluid {
-                  src
-                  tracedSVG
-                }
-              }
-              categoryDescription {
-                categoryDescription
-              }
-            }
-          }
-          otherPages {
-            title
-            slug
-          }
-        }
-      }
-    }
-  }
-`
 
-const Navigation = () => {
-  const { loading, error, data } = useQuery(TEST_QUERY)
+const Navigation = ({ categories, otherPages }) => {
   let windowInnerWidth = typeof window !== `undefined` ? window.innerWidth : 360
   const [currentScreenWidth, setCurrentScreenWidth] = React.useState(
     windowInnerWidth
@@ -61,29 +27,22 @@ const Navigation = () => {
     state => state.menuReducer.isMobile,
     shallowEqual
   )
-  // const [menuTitles, setMenuTitles] = useState([{ title: "", slug: "" }])
 
   let tempArray = []
   const fillMenu = () => {
-    if (!loading) {
-      console.info("iste burda", data)
-      let categories = data.allContentfulNavMenu.edges[0].node.categories
-      let otherPages = data.allContentfulNavMenu.edges[0].node.otherPages
-
-      categories.map(item => {
-        tempArray.push({
-          title: item.title.title,
-          slug: item.slug,
-        })
+    categories.map(item => {
+      tempArray.push({
+        title: item.title.title,
+        slug: item.slug,
       })
-      otherPages.map(item => {
-        tempArray.push({
-          title: item.title,
-          slug: item.slug,
-        })
+    })
+    otherPages.map(item => {
+      tempArray.push({
+        title: item.title,
+        slug: item.slug,
       })
-      dispatch(fillAllMenuTitles([...tempArray]))
-    }
+    })
+    dispatch(fillAllMenuTitles([...tempArray]))
   }
   if (typeof window !== `undefined`) {
     window.onscroll = function() {
@@ -107,10 +66,8 @@ const Navigation = () => {
   }
 
   useEffect(() => {
-    if (!loading) {
-      fillMenu()
-    }
-  }, [loading])
+    fillMenu()
+  }, [])
 
   let isMobile
   const mobileSize = 768
