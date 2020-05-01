@@ -388,57 +388,56 @@ const CategoryProducts = ({ catSlug }) => {
           }
         }
       })
+    } else if (fullFiltersBoolean && tempArray.length === 0) {
+      if (sortProductState === "ASC" || sortProductState === "DESC") {
+        client
+          .query({
+            query: SORT_FILTER_QUERY,
+            variables: {
+              catSlugG: catSlug,
+              valueG: sortProductState,
+              greaterThan: parseFloat(0),
+              lessThan: parseFloat(10000000),
+              sortType: "price",
+              fit: fullFiltersBoolean ? tempString : fullFitFilters,
+            },
+          })
+          .then(res => {
+            const categoryProducts = res.data.allContentfulProduct.nodes
+            dispatch(sortCategorieProducts(categoryProducts))
+          })
+      } else if (sortProductState === "r") {
+        client
+          .query({
+            query: PRODUCT_QUERY,
+            variables: {
+              catSlugG: catSlug,
+              fit: fullFiltersBoolean ? tempString : fullFitFilters,
+            },
+          })
+          .then(res => {
+            const categoryProducts = res.data.allContentfulProduct.nodes
+            dispatch(sortCategorieProducts(categoryProducts))
+          })
+      } else if (sortProductState === "highest-discount") {
+        client
+          .query({
+            query: SORT_FILTER_QUERY,
+            variables: {
+              catSlugG: catSlug,
+              valueG: "ASC",
+              greaterThan: parseFloat(0),
+              lessThan: parseFloat(10000000),
+              sortType: "discountedPrice",
+              fit: fullFiltersBoolean ? tempString : fullFitFilters,
+            },
+          })
+          .then(res => {
+            const categoryProducts = res.data.allContentfulProduct.nodes
+            dispatch(sortCategorieProducts(categoryProducts))
+          })
+      }
     }
-    // else {
-    //   if (sortProductState === "ASC" || sortProductState === "DESC") {
-    //     client
-    //       .query({
-    //         query: SORT_FILTER_QUERY,
-    //         variables: {
-    //           catSlugG: catSlug,
-    //           valueG: sortProductState,
-    //           greaterThan: parseFloat(0),
-    //           lessThan: parseFloat(10000000),
-    //           sortType: "price",
-    //           fit: fullFiltersBoolean ? tempString : fullFitFilters,
-    //         },
-    //       })
-    //       .then(res => {
-    //         const categoryProducts = res.data.allContentfulProduct.nodes
-    //         dispatch(sortCategorieProducts(categoryProducts))
-    //       })
-    //   } else if (sortProductState === "r") {
-    //     client
-    //       .query({
-    //         query: PRODUCT_QUERY,
-    //         variables: {
-    //           catSlugG: catSlug,
-    //           fit: fullFiltersBoolean ? tempString : fullFitFilters,
-    //         },
-    //       })
-    //       .then(res => {
-    //         const categoryProducts = res.data.allContentfulProduct.nodes
-    //         dispatch(sortCategorieProducts(categoryProducts))
-    //       })
-    //   } else if (sortProductState === "highest-discount") {
-    //     client
-    //       .query({
-    //         query: SORT_FILTER_QUERY,
-    //         variables: {
-    //           catSlugG: catSlug,
-    //           valueG: "ASC",
-    //           greaterThan: parseFloat(0),
-    //           lessThan: parseFloat(10000000),
-    //           sortType: "discountedPrice",
-    //           fit: fullFiltersBoolean ? tempString : fullFitFilters,
-    //         },
-    //       })
-    //       .then(res => {
-    //         const categoryProducts = res.data.allContentfulProduct.nodes
-    //         dispatch(sortCategorieProducts(categoryProducts))
-    //       })
-    //   }
-    // }
   }
 
   useEffect(() => {

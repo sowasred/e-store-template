@@ -65,6 +65,18 @@ const CategoryPages = props => {
     state => state.filterReducer.checkedPriceFilters,
     shallowEqual
   )
+  const checkedFitFiltersState = useSelector(
+    state => state.filterReducer.checkedFitFilters,
+    shallowEqual
+  )
+  const checkedStyledFiltersState = useSelector(
+    state => state.filterReducer.checkedStyledFilters,
+    shallowEqual
+  )
+  const checkedSeasonFiltersState = useSelector(
+    state => state.filterReducer.checkedSeasonFilters,
+    shallowEqual
+  )
 
   const dispatch = useDispatch()
 
@@ -85,10 +97,20 @@ const CategoryPages = props => {
   }
 
   useEffect(() => {
-    if (checkedPriceFilters === null || checkedPriceFilters.length === 0) {
+    if (
+      checkedPriceFilters.length === 0 &&
+      checkedFitFiltersState.length === 0 &&
+      checkedStyledFiltersState.length === 0 &&
+      checkedSeasonFiltersState.length === 0
+    ) {
       fetchCategoriesLocal()
     }
-  }, [checkedPriceFilters])
+  }, [
+    checkedPriceFilters,
+    checkedFitFiltersState,
+    checkedStyledFiltersState,
+    checkedSeasonFiltersState,
+  ])
 
   const createMarkup = () => {
     return {
