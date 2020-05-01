@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
     <React.Fragment>
       <div className={layoutStyle.container}>
         <div className={layoutStyle.content}>
-          <Header siteTitle={"DERRY"} />
+          {/* <Header  /> */}
           <main>{children}</main>
         </div>
         <Footer />

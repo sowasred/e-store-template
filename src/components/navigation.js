@@ -30,19 +30,21 @@ const Navigation = ({ categories, otherPages }) => {
 
   let tempArray = []
   const fillMenu = () => {
-    categories.map(item => {
-      tempArray.push({
-        title: item.title.title,
-        slug: item.slug,
+    if (categories != undefined && otherPages != undefined) {
+      categories.map(item => {
+        tempArray.push({
+          title: item.title.title,
+          slug: item.slug,
+        })
       })
-    })
-    otherPages.map(item => {
-      tempArray.push({
-        title: item.title,
-        slug: item.slug,
+      otherPages.map(item => {
+        tempArray.push({
+          title: item.title,
+          slug: item.slug,
+        })
       })
-    })
-    dispatch(fillAllMenuTitles([...tempArray]))
+      dispatch(fillAllMenuTitles([...tempArray]))
+    }
   }
   if (typeof window !== `undefined`) {
     window.onscroll = function() {

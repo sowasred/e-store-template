@@ -7,8 +7,9 @@ import Dashboard from "./dashboard"
 import bag from "../images/bag.svg"
 import search from "../images/search.svg"
 import user from "../images/user.svg"
+import Navigation from "../components/navigation"
 import { useSelector, shallowEqual } from "react-redux"
-const Header = ({ siteTitle }) => {
+const Header = ({ siteTitle, categories, otherPages }) => {
   const isMobileState = useSelector(
     state => state.menuReducer.isMobile,
     shallowEqual
@@ -40,6 +41,7 @@ const Header = ({ siteTitle }) => {
   }
   return (
     <header>
+      <Navigation categories={categories} otherPages={otherPages} />
       <span className={headerStyle.siteTitle}>
         <h1>
           <Link

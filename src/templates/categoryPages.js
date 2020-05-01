@@ -8,7 +8,8 @@ import CategoryProducts from "../components/categoryproducts"
 
 import Layout from "../components/layout"
 import MobileSort from "../components/mobilesort"
-
+import Header from "../components/header"
+import headerStyle from "../components/styles/header.module.scss"
 import { fetchCategories } from "../state/actions/categoryActions"
 
 export const query = graphql`
@@ -57,6 +58,33 @@ export const query = graphql`
         }
       }
     }
+    allContentfulNavMenu {
+      edges {
+        node {
+          categories {
+            ... on ContentfulCategory {
+              title {
+                title
+              }
+              slug
+              icon {
+                fluid {
+                  src
+                  tracedSVG
+                }
+              }
+              categoryDescription {
+                categoryDescription
+              }
+            }
+          }
+          otherPages {
+            title
+            slug
+          }
+        }
+      }
+    }
   }
 `
 
@@ -79,7 +107,6 @@ const CategoryPages = props => {
   )
 
   const dispatch = useDispatch()
-
   const fetchCategoriesLocal = () => {
     let navCategory = props.data.contentfulCategory.title.title
     let categoryProds = props.data.contentfulCategory.product
@@ -121,6 +148,12 @@ const CategoryPages = props => {
   }
   return (
     <Layout>
+      <Header
+        categories={props.data.allContentfulNavMenu.edges[0].node.categories}
+        otherPages={props.data.allContentfulNavMenu.edges[0].node.otherPages}
+        className={headerStyle.navigation}
+        siteTitle={"DERRY"}
+      />
       <CatBreadCrumb
         title={props.data.contentfulCategory.title.title}
         slug={props.data.contentfulCategory.slug}

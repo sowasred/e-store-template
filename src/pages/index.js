@@ -8,7 +8,7 @@ import MainpageIntro from "../components/mainpageintro"
 import BelowSection from "../components/belowsection"
 import MailSignup from "../components/mailsignup"
 import FeaturedProduct from "../components/featuredproduct"
-import Navigation from "../components/navigation"
+import Header from "../components/header"
 import headerStyle from "../components/styles/header.module.scss"
 
 export const pageQuery = graphql`
@@ -128,10 +128,11 @@ const IndexPage = ({ data }) => {
         metakeys={seoTemp.metakeywords}
         canonical={seoTemp.canonical}
       />
-      <Navigation
+      <Header
         categories={navTemp.allContentfulNavMenu.edges[0].node.categories}
         otherPages={navTemp.allContentfulNavMenu.edges[0].node.otherPages}
         className={headerStyle.navigation}
+        siteTitle={"DERRY"}
       />
       <MainpageIntro
         womenImage={womenImage}
