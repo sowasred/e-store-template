@@ -8,6 +8,7 @@ import CategoryProducts from "../components/categoryproducts"
 
 import Layout from "../components/layout"
 import MobileSort from "../components/mobilesort"
+
 import Header from "../components/header"
 import headerStyle from "../components/styles/header.module.scss"
 import { fetchCategories } from "../state/actions/categoryActions"
