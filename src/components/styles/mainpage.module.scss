@@ -1,21 +1,17 @@
 .hero {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  // height: 100vh;
-
+  flex-wrap: nowrap;
   .heroImage {
     display: flex;
     flex-direction: column;
-    margin: 1rem;
-    width: 40vw;
     .heroText {
       padding: .2em;
       text-align: center;
       cursor: pointer;
       background-color: black;
       color: rgba(226, 96, 96, 0.829);
-      font-size: 4.4rem;
+      font-size: 4rem;
       font-weight: 900;
       font-family: 'Yantramanav', sans-serif;
     }
@@ -26,51 +22,35 @@
 
 
     img {
+      width: 100vw;
       -o-object-fit: cover;
       object-fit: cover;
-      height: 75vh;
       transition: all 1s linear;
     }
 
-    @media all and (max-width: 769px) {
-      // img {
-      //   width: auto;
-      // }
-    }
-  }
-  @media all and (max-width: 515px){
-    .heroImage {
-      width: 100vw;
-    }
-  }
-  @media all and (min-width: 415px) and (max-width: 769px) {
-    .heroImage{
-      width: 80vw;
-      height: 100vh;
-
-    }
-  }
-  @media all and (min-width: 515px) and (max-width: 769px) {
-    .heroImage {
-
-      .heroText {
-        font-size: 3.4rem;
+    @media all and (min-width: 769px) {
+      img {
+        height: 70vh;
+        width: 50vw;
       }
-
-      #top {
-        left: 4rem;
-      }
-
-      #bottom {
-        left: 3rem;
+      .down {
+          object-position: 50% 30%;
+        }
       }
     }
   }
-}
 @media all and (max-width: 769px) {
   .hero {
-    gap: .5em 1em;
-    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+@media all and (max-width: 510px) {
+  .hero{
+    .heroImage{
+      .heroText{
+        font-size: 3rem;
+      }
+    }
   }
 }
 
@@ -169,7 +149,7 @@
     display: flex;
     flex-direction: column;
     margin: 3rem 1rem;
-    width: 30vw;
+    width: 40vw;
 
     img {
       -o-object-fit: cover;
@@ -208,6 +188,7 @@
 .products {
   display: block;
   overflow: auto;
+  margin-top: 5rem;
 
   .productsWrapper {
     display: flex;
@@ -220,12 +201,12 @@
       display: flex;
       flex-direction: column;
       margin: 1rem;
-      width: 70vw;
+      width: 25vw;
 
       img {
         object-fit: cover;
         // width: 25vw;
-        height: 85vh;
+        height: 35vh;
       }
       .productName {
         text-align: center;

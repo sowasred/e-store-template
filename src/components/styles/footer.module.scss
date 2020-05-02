@@ -59,8 +59,14 @@ footer {
     
 }
 
+@media all and (min-width: 510px) {
+    footer {
 
-// @media all and (max-width: 425px) {
+        .footItems {
+            flex-wrap: nowrap;
+        }
+    }
+}
 //     footer {
 //         flex-wrap: wrap;
 //         flex-direction: column;

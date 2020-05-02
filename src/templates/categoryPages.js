@@ -162,7 +162,7 @@ const CategoryPages = props => {
         {props.data.contentfulCategory.title.title}
       </h1>
       {/* <p dangerouslySetInnerHTML={createMarkup()} /> */}
-      <div style={{ display: "flex" }}>
+      <div style={{ float: "left", display: "inline-block", width: "25vw" }}>
         <MobileFilter catSlug={props.data.contentfulCategory.slug} />
         <MobileSort catSlug={props.data.contentfulCategory.slug} />
       </div>

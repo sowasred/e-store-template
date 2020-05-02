@@ -1,10 +1,12 @@
 .catWraper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   font-size: 1rem;
-  margin-bottom: 4vh;
-  gap: 2rem;
-  width: 95%;
+  margin-bottom: 5rem;
+  margin-left: 2rem;
+  gap: 1rem;
+  width: 65vw;
+  float: left;
 
   article {
     display: flex;
@@ -15,8 +17,17 @@
     a {
       position: relative;
       text-decoration: none !important;
-      height: 85vh;
+      height: 40vh;
+      img {
+        height: 90%;
+      }
 
+      h4 {
+        height: 10%;
+      }
+      aside {
+        width: 100%;
+      }
       #best {
         font-size: 1rem;
         position: absolute;
@@ -40,26 +51,17 @@
         text-align: center;
       }
 
-      img {
-        height: 90%;
-      }
-
-      h4 {
-        height: 10%;
-      }
-      aside {
-        width: 100%;
-      }
+     
     }
   }
 }
 
 @media all and (max-width: 425px) {
   .catWraper {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
 
     article {
-      width: 90vw;
+      width: 30vw;
       margin: 0 auto;
 
       a {
