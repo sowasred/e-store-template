@@ -3,6 +3,20 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 
+export const query = graphql`
+  query BlogPostsQuery {
+    allContentfulBlog {
+      edges {
+        node {
+          title
+          slug
+          description
+        }
+      }
+    }
+  }
+`
+
 const Blog = ({ data }) => {
   return (
     <React.Fragment>
@@ -23,17 +37,4 @@ const Blog = ({ data }) => {
   )
 }
 
-export const query = graphql`
-  query BlogPostsQuery {
-    allContentfulBlog {
-      edges {
-        node {
-          title
-          slug
-          description
-        }
-      }
-    }
-  }
-`
 export default Blog

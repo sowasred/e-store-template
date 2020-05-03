@@ -13,6 +13,7 @@ export const client = new ApolloClient({
   fetch,
   uri: process.env.GATSBY_URI,
 })
+console.info(process.env.GATSBY_URI, "process.env.GATSBY_URI")
 
 // eslint-disable-next-line react/display-name,react/prop-types
 export default ({ element }) => {
