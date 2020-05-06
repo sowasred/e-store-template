@@ -200,8 +200,8 @@
     .productWrapper {
       display: flex;
       flex-direction: column;
-      margin: 1rem;
-      width: 25vw;
+      margin: .5rem;
+      width: 30vw;
 
       img {
         object-fit: cover;
@@ -209,7 +209,13 @@
         height: 35vh;
       }
       .productName {
-        text-align: center;
+        text-align: left;
+        font-size: 1.1rem;
+        line-height: 100%;
+      }
+      p {
+        font-size: 1rem;
+        color: #757575;
       }
     }
   }

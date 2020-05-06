@@ -23,17 +23,24 @@
       }
 
       h4 {
-        height: 10%;
+        text-align: left;
+        font-size: 1.1rem;
+        line-height: 100%;
       }
       aside {
-        width: 100%;
+        span{
+
+          font-size: 1rem;
+          color: #757575;
+        }
       }
       #best {
+        // left: 100%;
         font-size: 1rem;
         position: absolute;
-        background-color: rgba(248, 85, 85, 0.582);
-        color: black;
-        padding: .1rem 1rem;
+        background-color: #ff4438;
+        color: white;
+        padding: .3rem 1rem;
       }
 
       #sale {
@@ -61,11 +68,10 @@
     grid-template-columns: 1fr 1fr;
 
     article {
-      width: 30vw;
+      width: 45vw;
       margin: 0 auto;
 
       a {
-        width: 80%;
         margin: 0 auto;
       }
 
