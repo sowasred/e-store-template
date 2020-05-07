@@ -146,6 +146,7 @@ const CategoryPages = props => {
           .html,
     }
   }
+  const isMobile = window.innerWidth < 510;
   return (
     <Layout>
       <Header
@@ -162,10 +163,18 @@ const CategoryPages = props => {
         {props.data.contentfulCategory.title.title}
       </h1>
       {/* <p dangerouslySetInnerHTML={createMarkup()} /> */}
-      <div style={{ float: "left", display: "inline-block", width: "25vw" }}>
-        <MobileFilter catSlug={props.data.contentfulCategory.slug} />
-        <MobileSort catSlug={props.data.contentfulCategory.slug} />
-      </div>
+      {
+        isMobile ?
+          <div style={{ display: "flex" }}>
+            <MobileFilter catSlug={props.data.contentfulCategory.slug} />
+            <MobileSort catSlug={props.data.contentfulCategory.slug} />
+          </div>
+          : <div style={{ float: "left", display: "inline-block", width: "25vw" }}>
+            <MobileFilter catSlug={props.data.contentfulCategory.slug} />
+            <MobileSort catSlug={props.data.contentfulCategory.slug} />
+          </div>
+      }
+
       <CategoryProducts catSlug={props.data.contentfulCategory.slug} />
     </Layout>
   )

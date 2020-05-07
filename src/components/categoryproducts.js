@@ -456,7 +456,19 @@ const CategoryProducts = ({ catSlug }) => {
     checkedSeasonFiltersState,
     sortProductState,
   ])
+  // function Greeting(props) {
+  //   const isLoggedIn = props.isLoggedIn;
+  //   if (isLoggedIn) {
+  //     return <UserGreeting />;
+  //   }
+  //   return <GuestGreeting />;
+  // }
 
+  // ReactDOM.render(
+  //   // Try changing to isLoggedIn={true}:
+  //   <Greeting isLoggedIn={false} />,
+  //   document.getElementById('root')
+  // );
   return (
     <React.Fragment>
       <section className={catProductsStyle.catWraper}>
@@ -470,12 +482,11 @@ const CategoryProducts = ({ catSlug }) => {
                     src={item.image[0].fluid.src}
                     alt={item.productName.productName}
                   />
-                  <h4>{item.productName.productName}</h4>
                 </Link>
-                <aside>
-                  <span>CA${item.price.toFixed(2)}</span>
-                  {/* <span>CA${item.discountedPrice}</span> */}
-                </aside>
+                <div className={catProductsStyle.productInfo}>
+                  <h4>{item.productName.productName}</h4>
+                  <p>CA${item.price.toFixed(2)}</p>
+                </div>
               </article>
             )
           })

@@ -1,35 +1,37 @@
 .catWraper {
+  width: 65vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  font-size: 1rem;
-  margin-bottom: 5rem;
-  margin-left: 2rem;
   gap: 1rem;
-  width: 65vw;
   float: left;
+  margin-bottom: 5rem;
+  font-size: 1rem;
 
   article {
     display: flex;
     flex-direction: column;
     overflow: hidden;
     margin: .5rem 0;
+    padding: .5rem 0;
 
     a {
       position: relative;
       text-decoration: none !important;
       height: 40vh;
       img {
-        height: 90%;
+        height: 100%;
       }
-
-      h4 {
-        text-align: left;
-        font-size: 1.1rem;
-        line-height: 100%;
-      }
-      aside {
-        span{
-
+      .productInfo {
+        h4 {
+          text-align: left;
+          position: relative;
+          font-size: 1.1rem;
+          line-height: 100%;
+          bottom: 3rem;
+          background-color: white;
+          padding-bottom: 2rem;
+        }
+        p{
           font-size: 1rem;
           color: #757575;
         }
@@ -41,21 +43,6 @@
         background-color: #ff4438;
         color: white;
         padding: .3rem 1rem;
-      }
-
-      #sale {
-        display: block;
-        width: 25px;
-        height: 25px;
-        padding: .5rem;
-        font-size: 1rem;
-        position: absolute;
-        color: black;
-        background-color: rgba(248, 236, 236, 0.582);
-        border-radius: 50%;
-        top: .5rem;
-        right: 1.5rem;
-        text-align: center;
       }
 
      
@@ -79,5 +66,10 @@
         object-fit: contain;
       }
     }
+  }
+}
+@media all and (max-width: 510px) {
+  .catWraper{
+    width:100vw;
   }
 }

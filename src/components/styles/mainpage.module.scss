@@ -84,16 +84,23 @@
 
 .mainsignin {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   margin: 2rem 1rem;
   justify-content: center;
   align-self: center;
 
   .maindesc {
     max-width: 100%;
-    margin: 1rem;
+    padding: 0 1rem;
+    font-size: 3.5rem;
+    margin: 0 auto 1rem auto;
+    font-family: "Noto Serif";
   }
-
+  h4 {
+    padding: 0 1rem;
+    font-size: 1.3rem;
+    margin: 0 auto;
+  }
   .mainForm {
     display: flex;
     flex-direction: column-reverse;
@@ -101,10 +108,20 @@
     position: relative;
 
     input {
-      min-width: 60vw;
+      max-width: 90vw;
+    min-width: 40vw;
       margin: 0 auto;
       height: 1.6rem;
       border: 2px gray;
+    }
+    input::after{
+      content: 'Subscribe';
+      padding: 1rem;
+      border: 1px solid black;
+      width: 7vw;
+      background-color: black;
+      color: #fff;
+
     }
 
     input::placeholder {
@@ -125,12 +142,23 @@
 
     .options {
       display: flex;
+      width: 90vw;
       justify-content: space-around;
 
       .option {
-        padding: 1rem;
+        padding: .5rem;
         cursor: pointer;
         opacity: 0.7;
+        max-width: 45%;
+      }
+      .option::before{
+        content: '';
+        border: solid 1px red;
+        width: 1rem;
+        height: 1rem;
+        display: inline-block;
+        margin: 0 1rem;
+
       }
 
       .option:hover {
@@ -193,29 +221,31 @@
   .productsWrapper {
     display: flex;
     flex-wrap: nowrap;
-    width: 200%;
-    // height: 75vh;
-    justify-content: space-between;
+    width: fit-content;
+    overflow: auto;
+    justify-content: start;
+    padding: 0 2rem 1.5rem 0;
 
     .productWrapper {
       display: flex;
       flex-direction: column;
-      margin: .5rem;
-      width: 30vw;
+      margin: 0 0 0 1.5rem;
+      width: 18rem;
 
       img {
         object-fit: cover;
         // width: 25vw;
-        height: 35vh;
+        height: 25rem;
       }
       .productName {
         text-align: left;
         font-size: 1.1rem;
-        line-height: 100%;
+        padding: .5rem 0 .5rem .5rem;
       }
       p {
         font-size: 1rem;
         color: #757575;
+        padding: 0 0 0 .5rem;
       }
     }
   }

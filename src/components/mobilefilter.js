@@ -30,13 +30,31 @@ import filterStyle from "./styles/filter.module.scss"
 
 const customStyles = {
   content: {
-    top: "5vh",
-    right: "0",
+    // top: "10vh",
+    // margin: "0 auto",
     position: "absolute",
     margin: "0",
-    width: "80vw",
-    height: "100vh",
-    // transform: "translate(-50%, -50%)",
+    height: '500px', // <-- This sets the height
+    overlfow: 'scroll', // <-- This tells the modal to scrol
+    padding: "1.6rem",
+    // margin: ".5rem 0",
+    width: "25rem",
+    // height: "100vh",
+    // maxHeight: "calc(100vh - 210px)",
+    maxHeight: "85vh",
+    overflowY: "auto",
+    /* top: 10vh, */
+    // margin: 0 auto,
+    left: "0",
+    /* right: 50%, */
+    // bottom: 40px,
+    // border: 1px solid rgb(204, 204, 204),
+    // background: rgb(255, 255, 255),
+    // overflow: auto,
+    // border-radius: 4px,
+    // outline: none,
+    // padding: 1.6rem,
+    // /* margin: 0px,
   },
 }
 
@@ -197,7 +215,7 @@ const MobileFilter = ({ catSlug, products }) => {
   }
 
   // Creatinf Filters Dynamically
-  const renderFilters = () => {}
+  const renderFilters = () => { }
 
   useEffect(() => {
     dispatch(uncheckedPriceFilters())
@@ -218,7 +236,7 @@ const MobileFilter = ({ catSlug, products }) => {
         style={customStyles}
         contentLabel="Filter Modal"
         closeTimeoutMS={200}
-        // shouldCloseOnOverlayClick={true}
+      // shouldCloseOnOverlayClick={true}
       >
         <div
           onClick={() => {

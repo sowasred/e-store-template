@@ -150,8 +150,8 @@ const IndexPage = ({ data }) => {
         longDescription={longDescription}
       />
 
-      <MailSignup description={description} />
 
+      <MailSignup description={description} />
       {/* <h1>{data.allContentfulMainPage.nodes[0].mainTitle}</h1> */}
       {/* <img src={imageUrl} alt="Girl in a Leather Jacket" /> */}
     </Layout>

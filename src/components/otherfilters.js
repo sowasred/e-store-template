@@ -344,7 +344,7 @@ export const OtherFilters = () => {
   }
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       {renderFitFilters()}
       {renderStyleFilters()}
       {renderSeasonTypeFilters()}
